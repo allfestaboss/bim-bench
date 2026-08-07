@@ -69,6 +69,7 @@ class Spatial:
     global_id: str
     name: str
     parent: int | None = None  # 親空間の実体ID
+    parent_via: str = ""  # 'aggregate' / 'contained'。集約以外で置かれていれば経路を残す
     depth: int = 0  # プロジェクトからの深さ
 
 
@@ -153,6 +154,26 @@ def extract(model: Model) -> Extract:
                     f"#{child.id} ({child.type}) が複数の親から集約されている"
                 )
             by_id[child.id].parent = parent.id if parent.id in by_id else None
+            by_id[child.id].parent_via = "aggregate"
+
+    # 集約の親を持たない空間が、包含関係で空間の下に置かれていることがある。
+    # IFCSPATIALZONE は IfcSpatialStructureElement ではないので、
+    # IFCRELCONTAINEDINSPATIALSTRUCTURE の被参照側に出てよい（IFC4.3 で合法）。
+    # 集約だけ見ていると根に取り残され、プロジェクトと同列になってしまう。
+    # 腕2本がこれを指摘した。
+    for r in model.of("IFCRELCONTAINEDINSPATIALSTRUCTURE"):
+        if len(r.args) < 6:
+            continue
+        items = r.args[4]
+        space = model.get(r.args[5])
+        if space is None or space.id not in by_id or not isinstance(items, list):
+            continue
+        for i in items:
+            c = model.get(i)
+            if c is None or c.id not in by_id or by_id[c.id].parent is not None:
+                continue
+            by_id[c.id].parent = space.id
+            by_id[c.id].parent_via = "contained"
 
     # 深さを付ける。親をたどるだけ。循環していたら報告する。
     for s in by_id.values():

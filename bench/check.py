@@ -1,0 +1,244 @@
+#!/usr/bin/env python3
+"""IFC 読解の機械採点器。参照解だけを真として採点する。
+
+  Q0 形式（JSONとして読めるか・ファイルが揃っているか）  ※失格判定のみ、配点なし
+  Q1 空間の網羅（取りこぼしと捏造の両方）                15点
+  Q2 空間の親と深さ                                    20点
+  Q3 要素の網羅（取りこぼしと捏造の両方）                20点
+  Q4 要素の所属                                        25点
+  Q5 数量（値と単位）                                   20点
+
+**Q4 が最も重い。** 「どの要素がどの空間に載っているか」は、国交省の BIM/CIM 照査で
+人が Word のチェックシートを見ながら確認している当のものだからである。
+このベンチが測る意味の中心がそこにある。
+
+この採点器を書くまでに実際に踏んだ罠を、そのまま設計に入れてある。
+
+  * **0 は有効な値である。** 深さ 0 は IfcProject（階層の根）、
+    数量 0.0 もありうる。`x or -1` のような falsy 既定値を書くと化ける。
+    kikai-bench で最大実体公差方式のゼロ位置度を取り違えた。
+  * **所属が無いことと、答えていないことは違う。** container が None なのは
+    「空間に載っていない」という答えであって、欠測ではない。区別する。
+  * 手書きの答案は JSON として壊れる（kikai-bench の armB の実例）。壊れた提出は失格。
+  * 部分提出は実際に出る。未提出のファイルはその分を0点にし、提出済みは正しく採点する。
+  * 網羅は F1。20件しか読めない答案と、8件でっち上げて水増しした答案を同点にしない。
+
+使い方: check.py <task.json> <reference.json> <submission.json ...>
+"""
+from __future__ import annotations
+
+import json
+import math
+import sys
+from pathlib import Path
+
+REL_TOL = 1e-9
+ABS_FLOOR = 1e-12
+
+POINTS = {"Q1": 15.0, "Q2": 20.0, "Q3": 20.0, "Q4": 25.0, "Q5": 20.0}
+LEVEL_NAME = {
+    "Q1": "空間の網羅",
+    "Q2": "空間の親と深さ",
+    "Q3": "要素の網羅",
+    "Q4": "要素の所属",
+    "Q5": "数量（値と単位）",
+}
+
+MISSING = object()  # 「答えていない」を None（＝所属なし）と区別するための番兵
+
+
+def num(v) -> float | None:
+    """数値に正規化する。**0 を falsy で潰さない。**"""
+    if v is None or isinstance(v, bool):
+        return None
+    try:
+        f = float(v)
+    except (TypeError, ValueError):
+        return None
+    return f if math.isfinite(f) else None
+
+
+def close(got, want) -> bool:
+    g, w = num(got), num(want)
+    if g is None or w is None:
+        return g is None and w is None
+    return abs(g - w) <= max(abs(w) * REL_TOL, ABS_FLOOR)
+
+
+def _ref_or_none(v):
+    """実体参照。None は「所属なし」という答えで、欠測ではない。"""
+    if v is None:
+        return None
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return MISSING
+
+
+def _f1(hit: int, want: int, extra: int) -> float:
+    recall = hit / want if want else 0.0
+    precision = hit / (hit + extra) if (hit + extra) else 0.0
+    return (2 * recall * precision / (recall + precision)) if (recall + precision) else 0.0
+
+
+def _files(doc: dict) -> dict[str, dict]:
+    out: dict[str, dict] = {}
+    for r in doc.get("results") or []:
+        name = Path(str(r.get("file", ""))).name
+        if name:
+            out[name] = r
+    return out
+
+
+def _index(rec: dict | None, key: str) -> dict[int, dict]:
+    out: dict[int, dict] = {}
+    for t in ((rec or {}).get(key) or []):
+        try:
+            out[int(t["id"])] = t
+        except (KeyError, TypeError, ValueError):
+            continue
+    return out
+
+
+def grade(ref_doc: dict, sub_doc: dict, levels: list[str] | None = None) -> dict:
+    active = [l for l in POINTS if levels is None or l in levels]
+    ref_files = _files(ref_doc)
+    sub_files = _files(sub_doc)
+
+    checks: list[dict] = []
+    fatal = None if sub_files else "results が無いか、file 名が付いていない"
+
+    missing_files = [f for f in ref_files if f not in sub_files]
+    checks.append({
+        "level": "Q0", "name": "対象ファイルが揃っている",
+        "ok": not missing_files, "points": 0.0, "max": 0.0,
+        "detail": "OK" if not missing_files else f"未提出 {len(missing_files)}件: {missing_files}",
+    })
+
+    tally = {k: [0.0, 0.0] for k in active}
+    details: dict[str, list[str]] = {k: [] for k in active}
+
+    for fname, ref_rec in ref_files.items():
+        sub_rec = sub_files.get(fname)
+        rs, ss = _index(ref_rec, "spatials"), _index(sub_rec, "spatials")
+        re_, se = _index(ref_rec, "elements"), _index(sub_rec, "elements")
+        rq, sq = _index(ref_rec, "quantities"), _index(sub_rec, "quantities")
+
+        # ---- Q1 / Q3 網羅 ----
+        for level, r_idx, s_idx, what in (("Q1", rs, ss, "空間"), ("Q3", re_, se, "要素")):
+            if level not in active or not r_idx:
+                continue
+            hit = len(set(r_idx) & set(s_idx))
+            extra = len(set(s_idx) - set(r_idx))
+            f1 = _f1(hit, len(r_idx), extra)
+            tally[level][0] += f1
+            tally[level][1] += 1
+            if f1 < 1.0:
+                details[level].append(
+                    f"{fname}: {what} 一致{hit}/{len(r_idx)}"
+                    + (f" 捏造{extra}件" if extra else "")
+                    + (" 未提出" if sub_rec is None else ""))
+
+        # ---- Q2 空間の親と深さ ----
+        if "Q2" in active and rs:
+            good, bad = 0, []
+            for i, r in rs.items():
+                s = ss.get(i)
+                if s is None:
+                    bad.append(f"#{i}(未提出)")
+                    continue
+                p_ok = _ref_or_none(s.get("parent")) == _ref_or_none(r.get("parent"))
+                d_ok = num(s.get("depth")) is not None and num(s.get("depth")) == num(r.get("depth"))
+                if p_ok and d_ok:
+                    good += 1
+                else:
+                    bad.append(f"#{i}" + ("(親)" if not p_ok else "") + ("(深さ)" if not d_ok else ""))
+            tally["Q2"][0] += good
+            tally["Q2"][1] += len(rs)
+            if bad:
+                details["Q2"].append(f"{fname}: {good}/{len(rs)}  誤り {', '.join(bad[:6])}"
+                                     + (" …" if len(bad) > 6 else ""))
+
+        # ---- Q4 要素の所属 ----
+        if "Q4" in active and re_:
+            good, bad = 0, []
+            for i, r in re_.items():
+                s = se.get(i)
+                if s is None:
+                    bad.append(f"#{i}(未提出)")
+                    continue
+                # container が無い（None）のと、キー自体が無いのは別。
+                got = _ref_or_none(s.get("container")) if "container" in s else MISSING
+                if got is not MISSING and got == _ref_or_none(r.get("container")):
+                    good += 1
+                else:
+                    bad.append(f"#{i}")
+            tally["Q4"][0] += good
+            tally["Q4"][1] += len(re_)
+            if bad:
+                details["Q4"].append(f"{fname}: {good}/{len(re_)}  誤り {', '.join(bad[:6])}"
+                                     + (" …" if len(bad) > 6 else ""))
+
+        # ---- Q5 数量 ----
+        if "Q5" in active and rq:
+            good, bad = 0, []
+            for i, r in rq.items():
+                s = sq.get(i)
+                if s is None:
+                    bad.append(f"#{i}(未提出)")
+                    continue
+                v_ok = close(s.get("value"), r.get("value"))
+                # 単位は答案が出していれば見る。出していなければ値だけで判定しない。
+                u_want = str(r.get("unit") or "")
+                u_got = str(s.get("unit") or "")
+                u_ok = (not u_want) or (u_got.strip(".").upper() == u_want.strip(".").upper())
+                e_ok = _ref_or_none(s.get("element")) == _ref_or_none(r.get("element"))
+                if v_ok and u_ok and e_ok:
+                    good += 1
+                else:
+                    bad.append(f"#{i}" + ("(値)" if not v_ok else "")
+                               + ("(単位)" if not u_ok else "") + ("(要素)" if not e_ok else ""))
+            tally["Q5"][0] += good
+            tally["Q5"][1] += len(rq)
+            if bad:
+                details["Q5"].append(f"{fname}: {good}/{len(rq)}  誤り {', '.join(bad[:6])}"
+                                     + (" …" if len(bad) > 6 else ""))
+
+    for level, (got, mx) in tally.items():
+        checks.append({
+            "level": level, "name": LEVEL_NAME[level],
+            "ok": mx > 0 and abs(got - mx) < 1e-9,
+            "points": POINTS[level] * (got / mx) if mx else 0.0,
+            "max": POINTS[level],
+            "detail": " / ".join(details[level]) if details[level] else "OK",
+        })
+
+    score = 0.0 if fatal else sum(c["points"] for c in checks)
+    total_max = sum(POINTS[l] for l in active)
+    if total_max and abs(total_max - 100.0) > 1e-9:
+        score = score * 100.0 / total_max
+    return {"file": sub_doc.get("_file", "?"), "score": score, "max": 100.0,
+            "fatal": fatal, "checks": checks}
+
+
+def main() -> int:
+    task_path, ref_path, *subs = sys.argv[1:]
+    task = json.loads(Path(task_path).read_text(encoding="utf-8"))
+    levels = task.get("grade_levels")
+    ref = json.loads(Path(ref_path).read_text(encoding="utf-8"))
+    out = []
+    for s in subs:
+        try:
+            sub = json.loads(Path(s).read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, UnicodeDecodeError) as e:
+            out.append({"file": s, "score": 0.0, "max": 100.0,
+                        "fatal": f"JSONとして読めない: {e}", "checks": []})
+            continue
+        sub["_file"] = s
+        out.append(grade(ref, sub, levels))
+    print(json.dumps(out, ensure_ascii=False))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

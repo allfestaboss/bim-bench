@@ -1,0 +1,18 @@
+=== 較正 ===
+
+[Building-Architecture.ifc] 空間8 要素15 数量25
+  要素.type          手=IFCSLAB                    抽出=IFCSLAB                    
+  要素.global_id     手=3zR0BOEcLADRKln4HYporH     抽出=3zR0BOEcLADRKln4HYporH     
+  要素.name          手=floor                      抽出=floor                      
+  要素.container     手=40                         抽出=40                         
+  数量.kind          手=IFCQUANTITYAREA            抽出=IFCQUANTITYAREA            
+  数量.name          手=NetArea                    抽出=NetArea                    
+  数量.value         手=25.749999999991743         抽出=25.749999999991743         
+  数量.element       手=49                         抽出=49                         
+
+[Infra-Bridge.ifc] 空間28 要素50 数量27
+  空間の内訳            手={'IFCPROJECT': 1, 'IFCSITE': 6, 'IFCBRIDGE': 3, 'IFCBRIDGEPART': 18}
+                   抽出={'IFCBRIDGE': 3, 'IFCBRIDGEPART': 18, 'IFCPROJECT': 1, 'IFCSITE': 6} 
+  最大の深さ            手=5                          抽出=5                          
+
+較正: OK（手読みと一致）

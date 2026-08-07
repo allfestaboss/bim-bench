@@ -90,9 +90,20 @@ def check_file(path: Path) -> list[str]:
         bad.append(f"空間: こちらだけにある {sorted(only_mine)[:6]}")
     if only_theirs:
         bad.append(f"空間: ifcopenshell だけにある {sorted(only_theirs)[:6]}")
+    contained_placed = 0
     for i in set(my_sp) & set(th_sp):
-        if my_sp[i].parent != th_sp[i]:
-            bad.append(f"空間 #{i} の親: こちら={my_sp[i].parent} ifcopenshell={th_sp[i]}")
+        if my_sp[i].parent == th_sp[i]:
+            continue
+        # 集約の親を持たず包含関係で置かれている空間（IFCSPATIALZONE など）は、
+        # ifcopenshell の get_aggregate() が None を返す。こちらは置かれ先を
+        # 親にしている。**定義の差**なので比較から外す。腕2本が指摘した箇所。
+        if my_sp[i].parent_via == "contained" and th_sp[i] is None:
+            contained_placed += 1
+            continue
+        bad.append(f"空間 #{i} の親: こちら={my_sp[i].parent} ifcopenshell={th_sp[i]}")
+    if contained_placed:
+        bad.append(f"（参考）包含で置かれた空間 {contained_placed}件は比較対象外。"
+                   "ifcopenshell の get_aggregate() は集約しか見ない")
 
     # ---- 要素の所属 ----
     # IFCRELADHERESTOELEMENT で母体に貼り付いている要素（路面標示など）は、

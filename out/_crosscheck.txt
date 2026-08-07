@@ -1,0 +1,15 @@
+=== ifcopenshell との突き合わせ ===
+こちらは生の実体から、向こうは util.element の API から取っている。
+
+  Building-Architecture.ifc      （参考）包含で置かれた空間 1件は比較対象外。ifcopenshell の get_aggregate() は集約しか見ない
+  Building-Architecture.ifc      OK
+  Building-Hvac.ifc              OK
+  Building-Landscaping.ifc       OK
+  Building-Structural.ifc        OK
+  Infra-Bridge.ifc               OK
+  Infra-Plumbing.ifc             OK
+  Infra-Rail.ifc                 OK
+  Infra-Road.ifc                 （参考）付着による所属 20件は比較対象外。ifcopenshell は解決しない
+  Infra-Road.ifc                 OK
+
+突き合わせ: 全ファイル一致

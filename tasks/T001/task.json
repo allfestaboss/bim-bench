@@ -1,7 +1,7 @@
 {
  "id": "T001",
  "title": "IFC の空間構造・要素の所属・数量を読む — 8ファイル横断",
- "note": "buildingSMART の PCERT 認証サンプル。建築系4・インフラ系4。IFC4.3 でインフラが入り IFCBRIDGE/IFCROAD/IFCRAILWAY と各 PART 型が加わっている。 腕(armC)が IFCRELADHERESTOELEMENT を見つけたため規則に追加した。ifcopenshell の get_container() もこれを解決しない。",
+ "note": "buildingSMART の PCERT 認証サンプル。建築系4・インフラ系4。IFC4.3 でインフラが入り IFCBRIDGE/IFCROAD/IFCRAILWAY と各 PART 型が加わっている。 腕(armC)が IFCRELADHERESTOELEMENT を見つけたため規則に追加した。ifcopenshell の get_container() もこれを解決しない。 腕2本が IFCSPATIALZONE の置かれ方も指摘したため規則に追加した。",
  "files": [
   {
    "path": "corpus/buildingsmart/Building-Architecture.ifc"
@@ -37,6 +37,7 @@
  "rules": [
   "IfcRoot の共通引数は (GlobalId, OwnerHistory, Name, Description)。第1引数が GlobalId、第3引数が Name",
   "空間の親子は IFCRELAGGREGATES の第5引数が親、第6引数が子のリスト",
+  "集約(IFCRELAGGREGATES)の親を持たない空間が、包含関係(IFCRELCONTAINEDINSPATIALSTRUCTURE)で他の空間の下に置かれていることがある（IFCSPATIALZONE など。IFC4.3 で合法）。その場合はその空間を親とする。経路を parent_via に 'aggregate'/'contained' で残すこと",
   "要素の所属は IFCRELCONTAINEDINSPATIALSTRUCTURE の第5引数が要素リスト、第6引数が空間",
   "深さはプロジェクトを0として親をたどった段数",
   "**同じ型が入れ子になる**。IFCSITE の中に IFCSITE、IFCBRIDGEPART の中に IFCBRIDGEPART が入る。「建物→階」の2段で決め打ちしない",
@@ -50,7 +51,8 @@
   "Q1",
   "Q2",
   "Q3",
-  "Q4"
+  "Q4",
+  "Q5"
  ],
  "answer_format": {
   "task": "T001",
@@ -65,7 +67,8 @@
       "global_id": "1Ln2$YEIz2xxvw2$Q8dGpV",
       "name": "00 groundfloor",
       "parent": 30,
-      "depth": 4
+      "depth": 4,
+      "parent_via": "aggregate"
      }
     ],
     "elements": [

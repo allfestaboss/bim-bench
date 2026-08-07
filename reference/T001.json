@@ -12,14 +12,7 @@
      "global_id": "2Ndyd$OSX7s9A04nc4lyye",
      "name": "ifc silly sample scene - project",
      "parent": null,
-     "depth": 0
-    },
-    {
-     "id": 385,
-     "type": "IFCSPATIALZONE",
-     "global_id": "1yP7NInQz5uQzbiOpVFFJr",
-     "name": "house - gross volume",
-     "parent": null,
+     "parent_via": "",
      "depth": 0
     },
     {
@@ -28,6 +21,7 @@
      "global_id": "23sFQGRy90RxVbRHD9iSE2",
      "name": "environment - site",
      "parent": 13,
+     "parent_via": "aggregate",
      "depth": 1
     },
     {
@@ -36,6 +30,7 @@
      "global_id": "1Pbuu0tu59NfhrTsztVBK1",
      "name": "house - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -44,6 +39,7 @@
      "global_id": "0c$N1CTon2BB2Sp89385G8",
      "name": "Single-family house",
      "parent": 23,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -52,6 +48,16 @@
      "global_id": "1Ano2ZUxnEIvVQ_beukl8b",
      "name": "00 groundfloor",
      "parent": 30,
+     "parent_via": "aggregate",
+     "depth": 4
+    },
+    {
+     "id": 385,
+     "type": "IFCSPATIALZONE",
+     "global_id": "1yP7NInQz5uQzbiOpVFFJr",
+     "name": "house - gross volume",
+     "parent": 30,
+     "parent_via": "contained",
      "depth": 4
     },
     {
@@ -60,6 +66,7 @@
      "global_id": "0xY$LvXaDEswJDk_VU74C_",
      "name": "living room",
      "parent": 40,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -68,6 +75,7 @@
      "global_id": "18QhMtUIXBvQktPHXXxs7H",
      "name": "entry hall",
      "parent": 40,
+     "parent_via": "aggregate",
      "depth": 5
     }
    ],
@@ -474,6 +482,7 @@
      "global_id": "2Ndyd$OSX7s9A04nc4lyye",
      "name": "ifc silly sample scene - project",
      "parent": null,
+     "parent_via": "",
      "depth": 0
     },
     {
@@ -482,6 +491,7 @@
      "global_id": "23sFQGRy90RxVbRHD9iSE2",
      "name": "environment - site",
      "parent": 13,
+     "parent_via": "aggregate",
      "depth": 1
     },
     {
@@ -490,6 +500,7 @@
      "global_id": "1Pbuu0tu59NfhrTsztVBK1",
      "name": "house - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -498,6 +509,7 @@
      "global_id": "0c$N1CTon2BB2Sp89385G8",
      "name": "Single-family house",
      "parent": 23,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -506,6 +518,7 @@
      "global_id": "1Ano2ZUxnEIvVQ_beukl8b",
      "name": "00 groundfloor",
      "parent": 30,
+     "parent_via": "aggregate",
      "depth": 4
     }
    ],
@@ -584,6 +597,7 @@
      "global_id": "2Ndyd$OSX7s9A04nc4lyye",
      "name": "ifc silly sample scene - project",
      "parent": null,
+     "parent_via": "",
      "depth": 0
     },
     {
@@ -592,6 +606,7 @@
      "global_id": "23sFQGRy90RxVbRHD9iSE2",
      "name": "environment - site",
      "parent": 13,
+     "parent_via": "aggregate",
      "depth": 1
     },
     {
@@ -600,6 +615,7 @@
      "global_id": "1Pbuu0tu59NfhrTsztVBK1",
      "name": "house - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     }
    ],
@@ -682,6 +698,7 @@
      "global_id": "2Ndyd$OSX7s9A04nc4lyye",
      "name": "ifc silly sample scene - project",
      "parent": null,
+     "parent_via": "",
      "depth": 0
     },
     {
@@ -690,6 +707,7 @@
      "global_id": "23sFQGRy90RxVbRHD9iSE2",
      "name": "environment - site",
      "parent": 13,
+     "parent_via": "aggregate",
      "depth": 1
     },
     {
@@ -698,6 +716,7 @@
      "global_id": "1Pbuu0tu59NfhrTsztVBK1",
      "name": "house - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -706,6 +725,7 @@
      "global_id": "0c$N1CTon2BB2Sp89385G8",
      "name": "Single-family house",
      "parent": 23,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -714,6 +734,7 @@
      "global_id": "1Ano2ZUxnEIvVQ_beukl8b",
      "name": "00 groundfloor",
      "parent": 30,
+     "parent_via": "aggregate",
      "depth": 4
     }
    ],
@@ -1232,6 +1253,7 @@
      "global_id": "2Ndyd$OSX7s9A04nc4lyye",
      "name": "ifc silly sample scene - project",
      "parent": null,
+     "parent_via": "",
      "depth": 0
     },
     {
@@ -1240,6 +1262,7 @@
      "global_id": "23sFQGRy90RxVbRHD9iSE2",
      "name": "environment - site",
      "parent": 13,
+     "parent_via": "aggregate",
      "depth": 1
     },
     {
@@ -1248,6 +1271,7 @@
      "global_id": "1$CApj9YLCeu0YyH5TXRVh",
      "name": "road rail bridge - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -1256,6 +1280,7 @@
      "global_id": "1adp27B_9CUfup2ojuKOng",
      "name": "road parking - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -1264,6 +1289,7 @@
      "global_id": "2Wad9UE39Fl81buLr2dp_x",
      "name": "rail river bridge - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -1272,6 +1298,7 @@
      "global_id": "2syxA9_lr7Ew2uZai3VhhS",
      "name": "road - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -1280,6 +1307,7 @@
      "global_id": "3pnaj3EgL1cOScZHtoQhHO",
      "name": "road river bridge - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -1288,6 +1316,7 @@
      "global_id": "2kjWGt90HF_gBQxs$Lsfkw",
      "name": "rail bridge",
      "parent": 472,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -1296,6 +1325,7 @@
      "global_id": "3JNhAW3zLAmRKwMCykb3V5",
      "name": "rail bridge",
      "parent": 679,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -1304,6 +1334,7 @@
      "global_id": "3vzNAxKB5AJA_Ehx4miINx",
      "name": "road river bridge",
      "parent": 30,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -1312,6 +1343,7 @@
      "global_id": "04kO$szQnDTAhzkZMdfItT",
      "name": "road rail bridge - approach",
      "parent": 36,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -1320,6 +1352,7 @@
      "global_id": "0NGju11I55eP2T$y1Bu15n",
      "name": "railbridge - superstructure",
      "parent": 478,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -1328,6 +1361,7 @@
      "global_id": "16qYo484fEuvo5B_xQN5wZ",
      "name": "rail bridge - substructure",
      "parent": 685,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -1336,6 +1370,7 @@
      "global_id": "1KPYb5dSn3C9_LNpDoIOdf",
      "name": "road river bridge - substructure",
      "parent": 36,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -1344,6 +1379,7 @@
      "global_id": "1NcWEJCZP2QhD3Z7Ptly6p",
      "name": "rail bridge - substructure",
      "parent": 478,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -1352,6 +1388,7 @@
      "global_id": "1hMPjN1XP3D8IpowtvIj0R",
      "name": "railbridge - superstructure",
      "parent": 685,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -1360,6 +1397,7 @@
      "global_id": "2F86AY9Dn33gptJs5BIFJi",
      "name": "road rail bridge - superstructure",
      "parent": 36,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -1368,6 +1406,7 @@
      "global_id": "2LBqtx8tXFcR8Qzu5tSZdh",
      "name": "road rail bridge - approach",
      "parent": 36,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -1376,6 +1415,7 @@
      "global_id": "2r51NsY5P0QvEz_Kok7DQt",
      "name": "road rail bridge - deck",
      "parent": 36,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -1384,6 +1424,7 @@
      "global_id": "0ZqHhx84T54vsUjUWpHX1r",
      "name": "rail bridge - pier",
      "parent": 692,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -1392,6 +1433,7 @@
      "global_id": "0kTVfaOTj2pAN_WvUgOEdD",
      "name": "road river bridge - pier",
      "parent": 319,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -1400,6 +1442,7 @@
      "global_id": "0qDQIJzHH719PVQZWdQqW2",
      "name": "road river bridge - pier",
      "parent": 319,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -1408,6 +1451,7 @@
      "global_id": "0vFQAzqYzD2P8vJwFIDXrV",
      "name": "road river bridge - pier",
      "parent": 319,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -1416,6 +1460,7 @@
      "global_id": "2cU43jXGXEuv4mx7hSZu3S",
      "name": "bridge road - abutment",
      "parent": 103,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -1424,6 +1469,7 @@
      "global_id": "2hJMDFMXH0q8k_DMRtOb0x",
      "name": "rail bridge - pier",
      "parent": 485,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -1432,6 +1478,7 @@
      "global_id": "2qHgQrSEbBmAN2Nh3C6_X0",
      "name": "rail bridge - pier",
      "parent": 485,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -1440,6 +1487,7 @@
      "global_id": "2x$zQFzGD8YBtZ$7H7nm4c",
      "name": "bridge road - abutment",
      "parent": 43,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -1448,6 +1496,7 @@
      "global_id": "3UNm72MkH81wf0YgrOuk7D",
      "name": "rail bridge - pier",
      "parent": 692,
+     "parent_via": "aggregate",
      "depth": 5
     }
    ],
@@ -2156,6 +2205,7 @@
      "global_id": "2Ndyd$OSX7s9A04nc4lyye",
      "name": "ifc silly sample scene - project",
      "parent": null,
+     "parent_via": "",
      "depth": 0
     },
     {
@@ -2164,6 +2214,7 @@
      "global_id": "23sFQGRy90RxVbRHD9iSE2",
      "name": "environment - site",
      "parent": 13,
+     "parent_via": "aggregate",
      "depth": 1
     },
     {
@@ -2172,6 +2223,7 @@
      "global_id": "1$CApj9YLCeu0YyH5TXRVh",
      "name": "road rail bridge - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -2180,6 +2232,7 @@
      "global_id": "1adp27B_9CUfup2ojuKOng",
      "name": "road parking - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -2188,6 +2241,7 @@
      "global_id": "2Wad9UE39Fl81buLr2dp_x",
      "name": "rail river bridge - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -2196,6 +2250,7 @@
      "global_id": "2syxA9_lr7Ew2uZai3VhhS",
      "name": "road - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -2204,6 +2259,7 @@
      "global_id": "3pnaj3EgL1cOScZHtoQhHO",
      "name": "road river bridge - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -2212,6 +2268,7 @@
      "global_id": "2kjWGt90HF_gBQxs$Lsfkw",
      "name": "rail bridge",
      "parent": 208,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -2220,6 +2277,7 @@
      "global_id": "3JNhAW3zLAmRKwMCykb3V5",
      "name": "rail bridge",
      "parent": 221,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -2228,6 +2286,7 @@
      "global_id": "3vzNAxKB5AJA_Ehx4miINx",
      "name": "road river bridge",
      "parent": 131,
+     "parent_via": "aggregate",
      "depth": 3
     }
    ],
@@ -2488,6 +2547,7 @@
      "global_id": "2Ndyd$OSX7s9A04nc4lyye",
      "name": "ifc silly sample scene - project",
      "parent": null,
+     "parent_via": "",
      "depth": 0
     },
     {
@@ -2496,6 +2556,7 @@
      "global_id": "23sFQGRy90RxVbRHD9iSE2",
      "name": "environment - site",
      "parent": 13,
+     "parent_via": "aggregate",
      "depth": 1
     },
     {
@@ -2504,6 +2565,7 @@
      "global_id": "1$CApj9YLCeu0YyH5TXRVh",
      "name": "road rail bridge - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -2512,6 +2574,7 @@
      "global_id": "1adp27B_9CUfup2ojuKOng",
      "name": "road parking - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -2520,6 +2583,7 @@
      "global_id": "2Wad9UE39Fl81buLr2dp_x",
      "name": "rail river bridge - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -2528,6 +2592,7 @@
      "global_id": "2syxA9_lr7Ew2uZai3VhhS",
      "name": "road - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -2536,6 +2601,7 @@
      "global_id": "3pnaj3EgL1cOScZHtoQhHO",
      "name": "road river bridge - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -2544,6 +2610,7 @@
      "global_id": "144_CJ8b1C7xe6fkDXe2iD",
      "name": "Rail track",
      "parent": 36,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -2552,6 +2619,7 @@
      "global_id": "1OAsMV9659sQQS2f3ETl_F",
      "name": "Rail track",
      "parent": 381,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -2560,6 +2628,7 @@
      "global_id": "0vMmNglnHCxwAXN15KG$Y3",
      "name": "Rail track",
      "parent": 42,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -2568,6 +2637,7 @@
      "global_id": "1Y4VQW3SD4UO4o4Dn6KDad",
      "name": "Rail track",
      "parent": 387,
+     "parent_via": "aggregate",
      "depth": 4
     }
    ],
@@ -3199,6 +3269,7 @@
      "global_id": "2Ndyd$OSX7s9A04nc4lyye",
      "name": "ifc silly sample scene - project",
      "parent": null,
+     "parent_via": "",
      "depth": 0
     },
     {
@@ -3207,6 +3278,7 @@
      "global_id": "23sFQGRy90RxVbRHD9iSE2",
      "name": "environment - site",
      "parent": 13,
+     "parent_via": "aggregate",
      "depth": 1
     },
     {
@@ -3215,6 +3287,7 @@
      "global_id": "1$CApj9YLCeu0YyH5TXRVh",
      "name": "road rail bridge - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -3223,6 +3296,7 @@
      "global_id": "1adp27B_9CUfup2ojuKOng",
      "name": "road parking - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -3231,6 +3305,7 @@
      "global_id": "2Wad9UE39Fl81buLr2dp_x",
      "name": "rail river bridge - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -3239,6 +3314,7 @@
      "global_id": "2syxA9_lr7Ew2uZai3VhhS",
      "name": "road - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -3247,6 +3323,7 @@
      "global_id": "3pnaj3EgL1cOScZHtoQhHO",
      "name": "road river bridge - site",
      "parent": 20,
+     "parent_via": "aggregate",
      "depth": 2
     },
     {
@@ -3255,6 +3332,7 @@
      "global_id": "1AfgOmh7nDOedEyHKWgbIw",
      "name": "road",
      "parent": 750,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -3263,6 +3341,7 @@
      "global_id": "1Engm$GMHEoAv0uoo9qvMb",
      "name": "bridge road connection",
      "parent": 391,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -3271,6 +3350,7 @@
      "global_id": "1Gy5o1F_T6VxmwxJ5$xsRE",
      "name": "road",
      "parent": 582,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -3279,6 +3359,7 @@
      "global_id": "1ycqplGh55EAGDAsiDHPxX",
      "name": "bridge road connection",
      "parent": 391,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -3287,6 +3368,7 @@
      "global_id": "2MBfH6RyP3luv6spdwrCIJ",
      "name": "road parking - road",
      "parent": 23,
+     "parent_via": "aggregate",
      "depth": 3
     },
     {
@@ -3295,6 +3377,7 @@
      "global_id": "13nXdzaiLCcBMI_327t3$B",
      "name": "road parking - road segment",
      "parent": 30,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -3303,6 +3386,7 @@
      "global_id": "1gawLKQN1FlOdzrZDos6Gg",
      "name": "bridge - road segment",
      "parent": 489,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -3311,6 +3395,7 @@
      "global_id": "1qeMYKRz11NfwG9VheT8FH",
      "name": "road segment",
      "parent": 603,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -3319,6 +3404,7 @@
      "global_id": "2pS6pdNUf5JhK0$Ap6Vb7C",
      "name": "road segment",
      "parent": 756,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -3327,6 +3413,7 @@
      "global_id": "3UW01eWGf3R9Qahji8i4XE",
      "name": "road parking - road segment",
      "parent": 30,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -3335,6 +3422,7 @@
      "global_id": "3gVUlQBybBTR_jtpA_c89f",
      "name": "bridge - road segment",
      "parent": 397,
+     "parent_via": "aggregate",
      "depth": 4
     },
     {
@@ -3343,6 +3431,7 @@
      "global_id": "0UKHUh06v69wKcoKjB04ik",
      "name": "road carriageway - bridge road",
      "parent": 495,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3351,6 +3440,7 @@
      "global_id": "0YqCWlEOfFLOP9cWpIfWnw",
      "name": "road - shoulder",
      "parent": 763,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3359,6 +3449,7 @@
      "global_id": "0_Qwe45Iz4axmHTXYPvOsp",
      "name": "road  - carriageway",
      "parent": 40,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3367,6 +3458,7 @@
      "global_id": "15Sq9FrzT9FBv27nCk5mh_",
      "name": "road parking - shoulder",
      "parent": 249,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3375,6 +3467,7 @@
      "global_id": "17coQp2iL5FhBqt0CY_3TM",
      "name": "road - shoulder",
      "parent": 610,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3383,6 +3476,7 @@
      "global_id": "1LsZ9dUZn5397IxXcrlrIe",
      "name": "road - shoulder",
      "parent": 404,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3391,6 +3485,7 @@
      "global_id": "1rSMOsFHPCxBpVA$FlasQt",
      "name": "road parking - shoulder",
      "parent": 40,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3399,6 +3494,7 @@
      "global_id": "2$CI2UZ2nC6udOwWqZWr6C",
      "name": "road - shoulder",
      "parent": 495,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3407,6 +3503,7 @@
      "global_id": "2271FKNO1DdwPAfaVP8xJd",
      "name": "road - shoulder",
      "parent": 249,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3415,6 +3512,7 @@
      "global_id": "2FFDMtF_bFt9Cn7VXimDUu",
      "name": "road  - carriageway",
      "parent": 249,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3423,6 +3521,7 @@
      "global_id": "2Jmv7aVW59tgvJy3nmB5rm",
      "name": "road - shoulder",
      "parent": 763,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3431,6 +3530,7 @@
      "global_id": "2PKdE1kbL8ke7QxRRzxN_q",
      "name": "road - shoulder",
      "parent": 495,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3439,6 +3539,7 @@
      "global_id": "2X7Dlo9gX5dgM3FX0gYZXP",
      "name": "road - parking",
      "parent": 40,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3447,6 +3548,7 @@
      "global_id": "2bgbuMDuj3hg9k0pkgUphW",
      "name": "road - shoulder",
      "parent": 610,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3455,6 +3557,7 @@
      "global_id": "2osHTl91z1WeqT0dDvg3WD",
      "name": "road - shoulder",
      "parent": 404,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3463,6 +3566,7 @@
      "global_id": "2v_vgJ52rCdOoY4xv9BEGs",
      "name": "road carriageway",
      "parent": 763,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3471,6 +3575,7 @@
      "global_id": "3JCNkEnxX2HAIohFE8d0li",
      "name": "road carriageway - bridge road",
      "parent": 404,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3479,6 +3584,7 @@
      "global_id": "3Rtyfer6f14gfdIYhSAJfS",
      "name": "road - parking",
      "parent": 249,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3487,6 +3593,7 @@
      "global_id": "3hvQKS_3f35hrc93TD89Cw",
      "name": "road - shoulder",
      "parent": 40,
+     "parent_via": "aggregate",
      "depth": 5
     },
     {
@@ -3495,6 +3602,7 @@
      "global_id": "3oc$qAY_95VA0MUuoAYGxh",
      "name": "road carriageway",
      "parent": 610,
+     "parent_via": "aggregate",
      "depth": 5
     }
    ],

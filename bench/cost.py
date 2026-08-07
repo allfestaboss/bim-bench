@@ -70,8 +70,9 @@ def workload(task_id: str) -> dict[str, int]:
     s = ref.get("summary", {})
     return {
         "files": s.get("n_file", len(ref.get("results", []))),
-        "tolerances": s.get("n_tolerance", 0),
-        "datums": s.get("n_datum", 0),
+        "tolerances": s.get("n_element", 0),   # 単価の分母は要素数
+        "spatials": s.get("n_spatial", 0),
+        "quantities": s.get("n_quantity", 0),
     }
 
 

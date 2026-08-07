@@ -1,0 +1,15 @@
+[OK] 較正: 参照解 100.0/100
+[OK] benign_rounded: 100.0/100  ← 丸めは通るべき
+[OK] evil_malformed: 0.0/100  失格
+[OK] evil_drop_file: 83.2/100  失点=['Q1', 'Q2', 'Q3', 'Q4']  期待=Q1
+[OK] evil_invent_elements: 99.4/100  失点=['Q3']  期待=Q3
+[OK] evil_depth_naive: 81.5/100  失点=['Q2']  期待=Q2
+[OK] evil_zero_depth: 98.5/100  失点=['Q2']  期待=Q2
+[OK] evil_parent_flip: 83.0/100  失点=['Q2']  期待=Q2
+[OK] evil_drop_adheres: 97.5/100  失点=['Q3', 'Q4']  期待=Q3
+[OK] evil_container_null: 75.0/100  失点=['Q4']  期待=Q4
+[OK] evil_container_root: 75.0/100  失点=['Q4']  期待=Q4
+[OK] evil_quantity_scale: 80.0/100  失点=['Q5']  期待=Q5
+[OK] evil_drop_unit: 80.0/100  失点=['Q5']  期待=Q5
+
+敵対テスト: 13/13 通過
