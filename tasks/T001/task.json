@@ -1,0 +1,91 @@
+{
+ "id": "T001",
+ "title": "IFC の空間構造・要素の所属・数量を読む — 8ファイル横断",
+ "note": "buildingSMART の PCERT 認証サンプル。建築系4・インフラ系4。IFC4.3 でインフラが入り IFCBRIDGE/IFCROAD/IFCRAILWAY と各 PART 型が加わっている。",
+ "files": [
+  {
+   "path": "corpus/buildingsmart/Building-Architecture.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/Building-Hvac.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/Building-Landscaping.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/Building-Structural.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/Infra-Bridge.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/Infra-Plumbing.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/Infra-Rail.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/Infra-Road.ifc"
+  }
+ ],
+ "asked": [
+  "各ファイルの空間構造を再構成し、各空間の型・GlobalId・名前・親・深さを報告せよ",
+  "各物理要素について、型・GlobalId・名前と、載っている空間を報告せよ",
+  "各数量（IfcQuantity*）について、種別・名前・値と、付いている要素を報告せよ",
+  "ファイルの内部矛盾（要素が複数の空間に載る、階層の循環、存在しない実体への参照など）に気づいたら報告せよ"
+ ],
+ "rules": [
+  "IfcRoot の共通引数は (GlobalId, OwnerHistory, Name, Description)。第1引数が GlobalId、第3引数が Name",
+  "空間の親子は IFCRELAGGREGATES の第5引数が親、第6引数が子のリスト",
+  "要素の所属は IFCRELCONTAINEDINSPATIALSTRUCTURE の第5引数が要素リスト、第6引数が空間",
+  "深さはプロジェクトを0として親をたどった段数",
+  "**同じ型が入れ子になる**。IFCSITE の中に IFCSITE、IFCBRIDGEPART の中に IFCBRIDGEPART が入る。「建物→階」の2段で決め打ちしない",
+  "数量は IFCELEMENTQUANTITY の第6引数にぶら下がり、IFCRELDEFINESBYPROPERTIES で要素に結ばれる",
+  "IFCQUANTITYAREA/LENGTH/VOLUME の第4引数が値",
+  "推測で埋めない。読めなかったものは欠損として報告する"
+ ],
+ "grade_levels": [
+  "Q1",
+  "Q2",
+  "Q3",
+  "Q4"
+ ],
+ "answer_format": {
+  "task": "T001",
+  "results": [
+   {
+    "file": "Building-Architecture.ifc",
+    "schema": "IFC4X3_ADD2",
+    "spatials": [
+     {
+      "id": 40,
+      "type": "IFCBUILDINGSTOREY",
+      "global_id": "...",
+      "name": "00 groundfloor",
+      "parent": 30,
+      "depth": 3
+     }
+    ],
+    "elements": [
+     {
+      "id": 49,
+      "type": "IFCSLAB",
+      "global_id": "...",
+      "name": "floor",
+      "container": 40
+     }
+    ],
+    "quantities": [
+     {
+      "id": 56,
+      "kind": "IFCQUANTITYAREA",
+      "name": "NetArea",
+      "value": 25.75,
+      "element": 49
+     }
+    ],
+    "anomalies": []
+   }
+  ]
+ }
+}

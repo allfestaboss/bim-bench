@@ -1,0 +1,122 @@
+# bim-bench — AIは BIM モデルの空間構造をどこまで読めるか
+
+IFC に入っている**空間構造・要素の所属・数量**を読み取る能力を、機械採点で測るベンチマーク。
+AI実務到達度インデックスの7本目で、**CAD横断シリーズの4業界目**
+（建築2D DXF → 土木 SXF → 機械 STEP AP242 → 建築BIM IFC）。
+
+## 4行目で分かったこと — 形式は違っていなかった
+
+このシリーズは「業界ごとに形式が違う。**形式が違うこと自体が測る対象**」という
+見立てで始めた。4行目に来て、それが半分しか当たっていなかったと分かった。
+
+```
+doboku-bench  SXF    ->  ISO 10303-21 の器に SXF フィーチャを詰めたもの
+kikai-bench   AP242  ->  ISO 10303-21
+bim-bench     IFC    ->  ISO 10303-21
+```
+
+**IFC ファイルの1行目は `ISO-10303-21;` である。** 3業界とも器は同じで、違うのはスキーマだった。
+実際、kikai-bench の `bench/step.py` を1行も変えずに IFC が読める。
+
+違うのは語彙のほう。AP242 は `GEOMETRIC_TOLERANCE`、IFC は `IFCWALL`。
+測る対象は器ではなく**スキーマの読解**になる。この訂正自体が横断の成果である。
+
+## 制度的な空席
+
+国交省の BIM/CIM 関連基準は無償公開されており、照査の仕組みも用意されている。
+ただしそれは **`3次元モデル照査時チェックシート`（Word形式）** である。
+
+**モデルの中身を機械検査する仕組みは無く、人が目で見る前提になっている。**
+そして人が見ているのは「要素が正しい空間に載っているか」「必要な属性があるか」——
+すなわち本ベンチが測る対象そのものである。
+
+土木では「検査する仕組みはあるが中身を見ない」、機械では「データは機械可読なのに
+検査方法が決まっていない」だった。建築BIMは**「検査はしているが、Wordのチェックシートで人がやる」**。
+
+## 参照解は buildingSMART が持っている
+
+| | 出どころ | 誰が確定させたか |
+|---|---|---|
+| 入力 | buildingSMART PCERT 認証サンプル | buildingSMART International |
+| 形式 | ISO 16739 (IFC 4.3.2.0 / IFC4X3_ADD2) | ISO |
+| 参照解 | ファイルに実際に入っている空間構造・所属・数量 | **こちらは何も決めていない** |
+
+**ライセンスは CC BY 4.0。** 出典表示だけで再配布できるので corpus を同梱できる。
+
+> (C) buildingSMART International Ltd.
+> This work is licensed under the Creative Commons Attribution 4.0 International License.
+
+機械（JAMA）では日本の業界団体が再配布を禁じていて NIST に回った。
+建築BIMでは buildingSMART が最初から CC BY で出している。
+
+## corpus — 8ファイル、空間108・要素226・数量86
+
+```
+ファイル                        空間  要素  数量
+Building-Architecture.ifc        8   14   25
+Building-Hvac.ifc                5    6    0
+Building-Landscaping.ifc         3    7    0
+Building-Structural.ifc          5   10   34
+Infra-Bridge.ifc                28   50   27
+Infra-Plumbing.ifc              10   29    0
+Infra-Rail.ifc                  11   75    0
+Infra-Road.ifc                  38   35    0
+```
+
+建築系4・インフラ系4。IFC4.3 でインフラが入り、`IFCBRIDGE` / `IFCROAD` /
+`IFCRAILWAY` と各 `PART` 型が加わっている。
+
+## 較正 — 手読みが浅くて落ちた
+
+`bench/selfcheck.py` は step.py も ifc.py も呼ばず、ファイルから直接読んだ行を
+リテラルに書き下して突き合わせる。**建築系とインフラ系の両方で取る**
+（kikai-bench で「1ファイルでは足りない」を踏んだため）。
+
+最初、橋の空間階層の最大の深さを **4** と書いて較正が落ちた。実際は **5** だった。
+
+```
+#13  IFCPROJECT     'ifc silly sample scene - project'    深さ0
+#20  IFCSITE        'environment - site'                  深さ1
+#679 IFCSITE        'road rail bridge - site'             深さ2
+#685 IFCBRIDGE      'rail bridge'                         深さ3
+#692 IFCBRIDGEPART  'rail bridge - substructure'          深さ4
+#726 IFCBRIDGEPART  'rail bridge - pier'                  深さ5
+```
+
+**`IFCBRIDGEPART` が `IFCBRIDGEPART` の中に入れ子になる**（下部構造 → 橋脚）。
+敷地も敷地の中に入る。**「建物 → 階」という2段の型で考えると読み違える。**
+
+同型の入れ子は corpus 全体に散っている。
+
+| ファイル | 最大深さ | 同型の入れ子 |
+|---|---|---|
+| Infra-Road | 5 | **25件** |
+| Infra-Bridge | 5 | **14件** |
+| Infra-Rail / Infra-Plumbing | 4 / 3 | 5件 / 5件 |
+| Building-* | 2〜5 | 各1件 |
+
+抽出器が正しく、手読みが浅かった。**較正はこういうときのためにある。**
+
+## 構成
+
+```
+bench/step.py        STEP Part21 パーサ（kikai-bench から1行も変えずに流用）
+bench/ifc.py         空間構造・要素の所属・数量の抽出
+bench/build_ref.py   参照解の生成
+bench/selfcheck.py   生テキストの手読みとの較正（建築系＋インフラ系）
+tasks/T001/          8ファイル横断の読解課題
+corpus/buildingsmart/ buildingSMART PCERT サンプル（CC BY 4.0、再配布可）
+```
+
+## これから
+
+- 採点器と敵対テスト。**先に腕を走らせて分離を確認してから**
+  （jiban-bench で採点器を作り込んでから飽和が判明した順序の誤りを繰り返さない）
+- 外部検算の材料探し。IFC には検証プロパティのような自己申告が無いか要確認
+- コスト計測（`bench/cost.py` は移植済み）
+
+## 出典
+
+corpus は [buildingSMART/Sample-Test-Files](https://github.com/buildingSMART/Sample-Test-Files)
+の PCERT-Sample-Scene（IFC 4.3.2.0 / IFC4X3_ADD2）である。
+(C) buildingSMART International Ltd. / CC BY 4.0。
