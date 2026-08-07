@@ -1,0 +1,16 @@
+{
+ "_meta": {
+  "round": 1,
+  "note": "8ファイル・4,046行/5.0MB。1行が最長271,816文字の幾何データを含む。"
+ },
+ "armB": {
+  "tokens": 371572,
+  "duration_ms": 2198453,
+  "tool_uses": 321
+ },
+ "armC": {
+  "tokens": 98901,
+  "duration_ms": 534805,
+  "tool_uses": 27
+ }
+}

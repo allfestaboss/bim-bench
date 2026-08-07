@@ -1,0 +1,3705 @@
+{
+ "task": "T001",
+ "results": [
+  {
+   "file": "Building-Architecture.ifc",
+   "schema": "IFC4X3_ADD2",
+   "spatials": [
+    {
+     "id": 13,
+     "type": "IFCPROJECT",
+     "global_id": "2Ndyd$OSX7s9A04nc4lyye",
+     "name": "ifc silly sample scene - project",
+     "parent": null,
+     "depth": 0
+    },
+    {
+     "id": 20,
+     "type": "IFCSITE",
+     "global_id": "23sFQGRy90RxVbRHD9iSE2",
+     "name": "environment - site",
+     "parent": 13,
+     "depth": 1
+    },
+    {
+     "id": 23,
+     "type": "IFCSITE",
+     "global_id": "1Pbuu0tu59NfhrTsztVBK1",
+     "name": "house - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 30,
+     "type": "IFCBUILDING",
+     "global_id": "0c$N1CTon2BB2Sp89385G8",
+     "name": "Single-family house",
+     "parent": 23,
+     "depth": 3
+    },
+    {
+     "id": 40,
+     "type": "IFCBUILDINGSTOREY",
+     "global_id": "1Ano2ZUxnEIvVQ_beukl8b",
+     "name": "00 groundfloor",
+     "parent": 30,
+     "depth": 4
+    },
+    {
+     "id": 75,
+     "type": "IFCSPACE",
+     "global_id": "0xY$LvXaDEswJDk_VU74C_",
+     "name": "living room",
+     "parent": 40,
+     "depth": 5
+    },
+    {
+     "id": 182,
+     "type": "IFCSPACE",
+     "global_id": "18QhMtUIXBvQktPHXXxs7H",
+     "name": "entry hall",
+     "parent": 40,
+     "depth": 5
+    },
+    {
+     "id": 385,
+     "type": "IFCSPATIALZONE",
+     "global_id": "1yP7NInQz5uQzbiOpVFFJr",
+     "name": "house - gross volume",
+     "parent": 30,
+     "depth": 4,
+     "parent_via": "IFCRELCONTAINEDINSPATIALSTRUCTURE#335"
+    }
+   ],
+   "elements": [
+    {
+     "id": 49,
+     "type": "IFCSLAB",
+     "global_id": "3zR0BOEcLADRKln4HYporH",
+     "name": "floor",
+     "container": 40
+    },
+    {
+     "id": 155,
+     "type": "IFCFURNITURE",
+     "global_id": "2e9pghUJbBqR4jTInsONQT",
+     "name": "kitchen",
+     "container": 75
+    },
+    {
+     "id": 172,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "1wADrO19H3w980h1wUyXLk",
+     "name": "Group#18",
+     "container": 75
+    },
+    {
+     "id": 234,
+     "type": "IFCWALL",
+     "global_id": "1AQAupaRP1txwK1AGiN61V",
+     "name": "house - outer wall - house right front",
+     "container": 40
+    },
+    {
+     "id": 258,
+     "type": "IFCWALL",
+     "global_id": "3wdauVJT5Fx9drrREiDqA$",
+     "name": "house - outer wall - house right back",
+     "container": 40
+    },
+    {
+     "id": 277,
+     "type": "IFCWALL",
+     "global_id": "0OfZwWc8j9QP5uX8xPTxDH",
+     "name": "house - outer wall - house left",
+     "container": 40
+    },
+    {
+     "id": 296,
+     "type": "IFCCHIMNEY",
+     "global_id": "3dkFAzOGrAIuOzY_RdrdVv",
+     "name": "house - chimney",
+     "container": 40
+    },
+    {
+     "id": 302,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "0bo7_K6az7AA$4RxkSNVNM",
+     "name": "Group#19",
+     "container": 40
+    },
+    {
+     "id": 310,
+     "type": "IFCWALL",
+     "global_id": "1uS5vfZPn9R8PlAaVd73on",
+     "name": "plumbing wall",
+     "container": 40
+    },
+    {
+     "id": 334,
+     "type": "IFCROOF",
+     "global_id": "2iPwJwpPDCSgMheXwk9cBT",
+     "name": "house - roof",
+     "container": 30
+    },
+    {
+     "id": 343,
+     "type": "IFCSLAB",
+     "global_id": "0ZTBBPo6f6bxqV2K7Oelrq",
+     "name": "house - roof - slab left",
+     "container": 30,
+     "container_via": "nested_in:#334"
+    },
+    {
+     "id": 367,
+     "type": "IFCSLAB",
+     "global_id": "12UVOn4wvAJPMUExKdZLb8",
+     "name": "house - roof - slab right",
+     "container": 30,
+     "container_via": "nested_in:#334"
+    },
+    {
+     "id": 399,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "3_4VN63S96DfWiJjgG8j1C",
+     "name": "sand bedding",
+     "container": 30
+    },
+    {
+     "id": 417,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "2F44QMqSH3TOkM$SZoqCBe",
+     "name": "origin",
+     "container": 23
+    },
+    {
+     "id": 436,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "3Fit2Fad92zf2f6aWdJtF5",
+     "name": "geo-reference",
+     "container": 20
+    }
+   ],
+   "quantities": [
+    {
+     "id": 54,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 6.437500000000378,
+     "element": 49,
+     "quantity_set": 57,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 55,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Depth",
+     "value": 250.00000000009484,
+     "element": 49,
+     "quantity_set": 57,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 56,
+     "kind": "IFCQUANTITYAREA",
+     "name": "NetArea",
+     "value": 25.749999999991743,
+     "element": 49,
+     "quantity_set": 57,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 239,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 1.26926493526358,
+     "element": 234,
+     "quantity_set": 243,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 240,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Width",
+     "value": 200.0000000000007,
+     "element": 234,
+     "quantity_set": 243,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 241,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 1799.9999999999711,
+     "element": 234,
+     "quantity_set": 243,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 242,
+     "kind": "IFCQUANTITYAREA",
+     "name": "NetSideArea",
+     "value": 6.346324676317877,
+     "element": 234,
+     "quantity_set": 243,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 259,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 1.7856181822821586,
+     "element": 258,
+     "quantity_set": 263,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 260,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Width",
+     "value": 200.00000000017903,
+     "element": 258,
+     "quantity_set": 263,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 261,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 4200.000000000067,
+     "element": 258,
+     "quantity_set": 263,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 262,
+     "kind": "IFCQUANTITYAREA",
+     "name": "NetSideArea",
+     "value": 8.928090911402801,
+     "element": 258,
+     "quantity_set": 263,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 278,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 4.230883117545889,
+     "element": 277,
+     "quantity_set": 282,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 279,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Width",
+     "value": 200.00000000000975,
+     "element": 277,
+     "quantity_set": 282,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 280,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 6000.000000000036,
+     "element": 277,
+     "quantity_set": 282,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 281,
+     "kind": "IFCQUANTITYAREA",
+     "name": "NetSideArea",
+     "value": 21.154415587728412,
+     "element": 277,
+     "quantity_set": 282,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 315,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 0.16470195328802126,
+     "element": 310,
+     "quantity_set": 319,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 316,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Width",
+     "value": 24.000000000082615,
+     "element": 310,
+     "quantity_set": 319,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 317,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 3800.000000000086,
+     "element": 310,
+     "quantity_set": 319,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 318,
+     "kind": "IFCQUANTITYAREA",
+     "name": "NetSideArea",
+     "value": 6.862581386977263,
+     "element": 310,
+     "quantity_set": 319,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 348,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 6.7203428483966,
+     "element": 343,
+     "quantity_set": 351,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 349,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Depth",
+     "value": 300.0000000001534,
+     "element": 343,
+     "quantity_set": 351,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 350,
+     "kind": "IFCQUANTITYAREA",
+     "name": "NetArea",
+     "value": 22.40114282797721,
+     "element": 343,
+     "quantity_set": 351,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 368,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 9.36350799647189,
+     "element": 367,
+     "quantity_set": 371,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 369,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Depth",
+     "value": 300.0000000000386,
+     "element": 367,
+     "quantity_set": 371,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 370,
+     "kind": "IFCQUANTITYAREA",
+     "name": "NetArea",
+     "value": 31.211693321568944,
+     "element": 367,
+     "quantity_set": 371,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    }
+   ],
+   "anomalies": [
+    {
+     "kind": "spatial_placed_by_containment",
+     "severity": "warning",
+     "detail": "#385 IFCSPATIALZONE 'house - gross volume' is absent from the IFCRELAGGREGATES tree; its only link to the hierarchy is IFCRELCONTAINEDINSPATIALSTRUCTURE#335, where it appears as a RelatedElement of #30 IFCBUILDING. A walker that follows IFCRELAGGREGATES alone loses this spatial element.",
+     "entity": 385
+    },
+    {
+     "kind": "element_placed_indirectly",
+     "severity": "info",
+     "detail": "2 element(s) ['#343', '#367'] are nested inside #334 IFCROOF by IFCRELAGGREGATES; only the aggregate is listed in IFCRELCONTAINEDINSPATIALSTRUCTURE -> resolved container #30",
+     "entities": [
+      343,
+      367
+     ],
+     "container": 30
+    },
+    {
+     "kind": "empty_spatial_container",
+     "severity": "info",
+     "detail": "2 spatial element(s) [\"#182 IFCSPACE 'entry hall'\", \"#385 IFCSPATIALZONE 'house - gross volume'\"] neither aggregate a child space nor hold any element. Expected in this federated sample set (each discipline file repeats the shared site/facility skeleton), not a defect.",
+     "entities": [
+      182,
+      385
+     ]
+    },
+    {
+     "kind": "unit_scale_mismatch",
+     "severity": "info",
+     "detail": "IFCUNITASSIGNMENT declares LENGTHUNIT=MILLI-METRE but AREAUNIT=SQUARE_METRE and VOLUMEUNIT=CUBIC_METRE, so IFCQUANTITYLENGTH values are millimetres while IFCQUANTITYAREA/VOLUME values are square/cubic metres. Volume = Area x Length/1000 holds throughout; the mixed scale is declared, not an error, but the raw numbers must not be compared directly."
+    }
+   ]
+  },
+  {
+   "file": "Building-Hvac.ifc",
+   "schema": "IFC4X3_ADD2",
+   "spatials": [
+    {
+     "id": 13,
+     "type": "IFCPROJECT",
+     "global_id": "2Ndyd$OSX7s9A04nc4lyye",
+     "name": "ifc silly sample scene - project",
+     "parent": null,
+     "depth": 0
+    },
+    {
+     "id": 20,
+     "type": "IFCSITE",
+     "global_id": "23sFQGRy90RxVbRHD9iSE2",
+     "name": "environment - site",
+     "parent": 13,
+     "depth": 1
+    },
+    {
+     "id": 23,
+     "type": "IFCSITE",
+     "global_id": "1Pbuu0tu59NfhrTsztVBK1",
+     "name": "house - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 30,
+     "type": "IFCBUILDING",
+     "global_id": "0c$N1CTon2BB2Sp89385G8",
+     "name": "Single-family house",
+     "parent": 23,
+     "depth": 3
+    },
+    {
+     "id": 40,
+     "type": "IFCBUILDINGSTOREY",
+     "global_id": "1Ano2ZUxnEIvVQ_beukl8b",
+     "name": "00 groundfloor",
+     "parent": 30,
+     "depth": 4
+    }
+   ],
+   "elements": [
+    {
+     "id": 49,
+     "type": "IFCCHIMNEY",
+     "global_id": "3dkFAzOGrAIuOzY_RdrdVv",
+     "name": "house - chimney",
+     "container": 40
+    },
+    {
+     "id": 64,
+     "type": "IFCAIRTERMINAL",
+     "global_id": "23uPJWDfXEcwHH3kdFgV9c",
+     "name": "chimney cover",
+     "container": 40
+    },
+    {
+     "id": 82,
+     "type": "IFCDUCTSEGMENT",
+     "global_id": "38WbwIGD90nB_3T2BTU5Ed",
+     "name": "building element",
+     "container": 40
+    },
+    {
+     "id": 100,
+     "type": "IFCAIRTERMINAL",
+     "global_id": "34Y6EIt3nDCAS1k$kPGOKm",
+     "name": "house fireplace cap",
+     "container": 40
+    },
+    {
+     "id": 118,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "2F44QMqSH3TOkM$SZoqCBe",
+     "name": "origin",
+     "container": 23
+    },
+    {
+     "id": 137,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "3Fit2Fad92zf2f6aWdJtF5",
+     "name": "geo-reference",
+     "container": 20
+    }
+   ],
+   "quantities": [],
+   "anomalies": []
+  },
+  {
+   "file": "Building-Landscaping.ifc",
+   "schema": "IFC4X3_ADD2",
+   "spatials": [
+    {
+     "id": 13,
+     "type": "IFCPROJECT",
+     "global_id": "2Ndyd$OSX7s9A04nc4lyye",
+     "name": "ifc silly sample scene - project",
+     "parent": null,
+     "depth": 0
+    },
+    {
+     "id": 20,
+     "type": "IFCSITE",
+     "global_id": "23sFQGRy90RxVbRHD9iSE2",
+     "name": "environment - site",
+     "parent": 13,
+     "depth": 1
+    },
+    {
+     "id": 23,
+     "type": "IFCSITE",
+     "global_id": "1Pbuu0tu59NfhrTsztVBK1",
+     "name": "house - site",
+     "parent": 20,
+     "depth": 2
+    }
+   ],
+   "elements": [
+    {
+     "id": 32,
+     "type": "IFCGEOGRAPHICELEMENT",
+     "global_id": "3rjfgVlxX47xval0xizSlT",
+     "name": "house - site - grass",
+     "container": 23
+    },
+    {
+     "id": 51,
+     "type": "IFCGEOGRAPHICELEMENT",
+     "global_id": "1tnCBP2MXBYgVII_I4SNlD",
+     "name": "house - site - soil",
+     "container": 23
+    },
+    {
+     "id": 69,
+     "type": "IFCGEOGRAPHICELEMENT",
+     "global_id": "2pVtmJZNb8zwPoLLLgilXw",
+     "name": "house - site - underground",
+     "container": 23
+    },
+    {
+     "id": 87,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "2F44QMqSH3TOkM$SZoqCBe",
+     "name": "origin",
+     "container": 23
+    },
+    {
+     "id": 103,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "2n2Nw9YVPDWRM5Ya5dKpj4",
+     "name": "Group#17",
+     "container": 23
+    },
+    {
+     "id": 113,
+     "type": "IFCGEOGRAPHICELEMENT",
+     "global_id": "2zxheXkSbCUgmJF8PPqK6F",
+     "name": "tree",
+     "container": 23
+    },
+    {
+     "id": 142,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "3Fit2Fad92zf2f6aWdJtF5",
+     "name": "geo-reference",
+     "container": 20
+    }
+   ],
+   "quantities": [],
+   "anomalies": []
+  },
+  {
+   "file": "Building-Structural.ifc",
+   "schema": "IFC4X3_ADD2",
+   "spatials": [
+    {
+     "id": 13,
+     "type": "IFCPROJECT",
+     "global_id": "2Ndyd$OSX7s9A04nc4lyye",
+     "name": "ifc silly sample scene - project",
+     "parent": null,
+     "depth": 0
+    },
+    {
+     "id": 20,
+     "type": "IFCSITE",
+     "global_id": "23sFQGRy90RxVbRHD9iSE2",
+     "name": "environment - site",
+     "parent": 13,
+     "depth": 1
+    },
+    {
+     "id": 23,
+     "type": "IFCSITE",
+     "global_id": "1Pbuu0tu59NfhrTsztVBK1",
+     "name": "house - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 30,
+     "type": "IFCBUILDING",
+     "global_id": "0c$N1CTon2BB2Sp89385G8",
+     "name": "Single-family house",
+     "parent": 23,
+     "depth": 3
+    },
+    {
+     "id": 40,
+     "type": "IFCBUILDINGSTOREY",
+     "global_id": "1Ano2ZUxnEIvVQ_beukl8b",
+     "name": "00 groundfloor",
+     "parent": 30,
+     "depth": 4
+    }
+   ],
+   "elements": [
+    {
+     "id": 49,
+     "type": "IFCFOOTING",
+     "global_id": "0pFmhV8oD1dB40_b4pscr8",
+     "name": "house - foundation",
+     "container": 40
+    },
+    {
+     "id": 68,
+     "type": "IFCWALL",
+     "global_id": "0DyViLJJ175RvWQi1rE7a6",
+     "name": "house - outer wall - house back",
+     "container": 40
+    },
+    {
+     "id": 92,
+     "type": "IFCWALL",
+     "global_id": "3SGBcf7Lv0r80vKtUCgOpf",
+     "name": "house - outer wall - house front",
+     "container": 40
+    },
+    {
+     "id": 111,
+     "type": "IFCWALL",
+     "global_id": "3oNJ9yHi5FJuFnK8yg68Yt",
+     "name": "house - outer wall - house front right",
+     "container": 40
+    },
+    {
+     "id": 130,
+     "type": "IFCCHIMNEY",
+     "global_id": "3dkFAzOGrAIuOzY_RdrdVv",
+     "name": "house - chimney",
+     "container": 40
+    },
+    {
+     "id": 144,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "1CjP_CWub368bZVuVHeHs3",
+     "name": "Group#21",
+     "container": 40
+    },
+    {
+     "id": 154,
+     "type": "IFCWALL",
+     "global_id": "2gTJhghMT81QThk15l2VwR",
+     "name": "house - inner wall",
+     "container": 40
+    },
+    {
+     "id": 173,
+     "type": "IFCROOF",
+     "global_id": "2iPwJwpPDCSgMheXwk9cBT",
+     "name": "house - roof",
+     "container": 30
+    },
+    {
+     "id": 182,
+     "type": "IFCBEAM",
+     "global_id": "0fqX614OH1YO1Njdxms2$Q",
+     "name": "girder",
+     "container": 30,
+     "container_via": "nested_in:#173"
+    },
+    {
+     "id": 204,
+     "type": "IFCBEAM",
+     "global_id": "0rh7bRO0L9fg1NzgGKU$Ut",
+     "name": "girder",
+     "container": 30,
+     "container_via": "nested_in:#173"
+    },
+    {
+     "id": 220,
+     "type": "IFCBEAM",
+     "global_id": "3roxUKbVv98xiUcl22_T07",
+     "name": "girder",
+     "container": 30,
+     "container_via": "nested_in:#173"
+    },
+    {
+     "id": 236,
+     "type": "IFCBEAM",
+     "global_id": "0Lvk$Qa81D5et3l3a4S9Vk",
+     "name": "girder",
+     "container": 30,
+     "container_via": "nested_in:#173"
+    },
+    {
+     "id": 252,
+     "type": "IFCBEAM",
+     "global_id": "2ddLgAnQf4mBfh5IpUp54U",
+     "name": "girder",
+     "container": 30,
+     "container_via": "nested_in:#173"
+    },
+    {
+     "id": 268,
+     "type": "IFCBEAM",
+     "global_id": "2fjJuPht9EIQaZQYZfC1Op",
+     "name": "girder",
+     "container": 30,
+     "container_via": "nested_in:#173"
+    },
+    {
+     "id": 286,
+     "type": "IFCDISCRETEACCESSORY",
+     "global_id": "2r_8UEywH9_RLHe8z$Xa8J",
+     "name": "beam shoe",
+     "container": 30,
+     "container_via": "nested_in:#173"
+    },
+    {
+     "id": 302,
+     "type": "IFCDISCRETEACCESSORY",
+     "global_id": "2cc4uJUVv5BevbidUpn1H3",
+     "name": "beam shoe",
+     "container": 30,
+     "container_via": "nested_in:#173"
+    },
+    {
+     "id": 315,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "2F44QMqSH3TOkM$SZoqCBe",
+     "name": "origin",
+     "container": 23
+    },
+    {
+     "id": 334,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "3Fit2Fad92zf2f6aWdJtF5",
+     "name": "geo-reference",
+     "container": 20
+    }
+   ],
+   "quantities": [
+    {
+     "id": 73,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 4.28651536853961,
+     "element": 68,
+     "quantity_set": 77,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 74,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Width",
+     "value": 200.0000000000794,
+     "element": 68,
+     "quantity_set": 77,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 75,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 5200.000000000204,
+     "element": 68,
+     "quantity_set": 77,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 76,
+     "kind": "IFCQUANTITYAREA",
+     "name": "NetSideArea",
+     "value": 21.43257684268954,
+     "element": 68,
+     "quantity_set": 77,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 93,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 2.9313093077792742,
+     "element": 92,
+     "quantity_set": 97,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 94,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Width",
+     "value": 200.00000000009933,
+     "element": 92,
+     "quantity_set": 97,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 95,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 3800.0000000000714,
+     "element": 92,
+     "quantity_set": 97,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 96,
+     "kind": "IFCQUANTITYAREA",
+     "name": "NetSideArea",
+     "value": 14.65654653888909,
+     "element": 92,
+     "quantity_set": 97,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 112,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 0.7456913421348146,
+     "element": 111,
+     "quantity_set": 116,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 113,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Width",
+     "value": 200.0000000000498,
+     "element": 111,
+     "quantity_set": 116,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 114,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 1299.9999999999152,
+     "element": 111,
+     "quantity_set": 116,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 115,
+     "kind": "IFCQUANTITYAREA",
+     "name": "NetSideArea",
+     "value": 3.7284567106731448,
+     "element": 111,
+     "quantity_set": 116,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 155,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 3.044574026405024,
+     "element": 154,
+     "quantity_set": 159,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 156,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Width",
+     "value": 200.00000000007506,
+     "element": 154,
+     "quantity_set": 159,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 157,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 3900.000000000167,
+     "element": 154,
+     "quantity_set": 159,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 158,
+     "kind": "IFCQUANTITYAREA",
+     "name": "NetSideArea",
+     "value": 15.222870132019404,
+     "element": 154,
+     "quantity_set": 159,
+     "quantity_set_name": "Qto_WallBaseQuantities"
+    },
+    {
+     "id": 187,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 0.05400000000000011,
+     "element": 182,
+     "quantity_set": 190,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 188,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 2699.9999999999427,
+     "element": 182,
+     "quantity_set": 190,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 189,
+     "kind": "IFCQUANTITYAREA",
+     "name": "CrossSectionArea",
+     "value": 0.020000000000000465,
+     "element": 182,
+     "quantity_set": 190,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 205,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 0.1160000000000022,
+     "element": 204,
+     "quantity_set": 208,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 206,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 5799.999999999974,
+     "element": 204,
+     "quantity_set": 208,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 207,
+     "kind": "IFCQUANTITYAREA",
+     "name": "CrossSectionArea",
+     "value": 0.02000000000000047,
+     "element": 204,
+     "quantity_set": 208,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 221,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 0.011999999999998965,
+     "element": 220,
+     "quantity_set": 224,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 222,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 599.9999999999343,
+     "element": 220,
+     "quantity_set": 224,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 223,
+     "kind": "IFCQUANTITYAREA",
+     "name": "CrossSectionArea",
+     "value": 0.020000000000000465,
+     "element": 220,
+     "quantity_set": 224,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 237,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 0.08000000000000046,
+     "element": 236,
+     "quantity_set": 240,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 238,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 3999.9999999999313,
+     "element": 236,
+     "quantity_set": 240,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 239,
+     "kind": "IFCQUANTITYAREA",
+     "name": "CrossSectionArea",
+     "value": 0.02000000000000046,
+     "element": 236,
+     "quantity_set": 240,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 253,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 0.11600000000000217,
+     "element": 252,
+     "quantity_set": 256,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 254,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 5799.999999999974,
+     "element": 252,
+     "quantity_set": 256,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 255,
+     "kind": "IFCQUANTITYAREA",
+     "name": "CrossSectionArea",
+     "value": 0.020000000000000465,
+     "element": 252,
+     "quantity_set": 256,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 269,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 0.11600000000000223,
+     "element": 268,
+     "quantity_set": 272,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 270,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 5799.999999999974,
+     "element": 268,
+     "quantity_set": 272,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 271,
+     "kind": "IFCQUANTITYAREA",
+     "name": "CrossSectionArea",
+     "value": 0.020000000000000472,
+     "element": 268,
+     "quantity_set": 272,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    }
+   ],
+   "anomalies": [
+    {
+     "kind": "element_placed_indirectly",
+     "severity": "info",
+     "detail": "8 element(s) ['#182', '#204', '#220', '#236', '#252', '#268', '#286', '#302'] are nested inside #173 IFCROOF by IFCRELAGGREGATES; only the aggregate is listed in IFCRELCONTAINEDINSPATIALSTRUCTURE -> resolved container #30",
+     "entities": [
+      182,
+      204,
+      220,
+      236,
+      252,
+      268,
+      286,
+      302
+     ],
+     "container": 30
+    },
+    {
+     "kind": "unit_scale_mismatch",
+     "severity": "info",
+     "detail": "IFCUNITASSIGNMENT declares LENGTHUNIT=MILLI-METRE but AREAUNIT=SQUARE_METRE and VOLUMEUNIT=CUBIC_METRE, so IFCQUANTITYLENGTH values are millimetres while IFCQUANTITYAREA/VOLUME values are square/cubic metres. Volume = Area x Length/1000 holds throughout; the mixed scale is declared, not an error, but the raw numbers must not be compared directly."
+    }
+   ]
+  },
+  {
+   "file": "Infra-Bridge.ifc",
+   "schema": "IFC4X3_ADD2",
+   "spatials": [
+    {
+     "id": 13,
+     "type": "IFCPROJECT",
+     "global_id": "2Ndyd$OSX7s9A04nc4lyye",
+     "name": "ifc silly sample scene - project",
+     "parent": null,
+     "depth": 0
+    },
+    {
+     "id": 20,
+     "type": "IFCSITE",
+     "global_id": "23sFQGRy90RxVbRHD9iSE2",
+     "name": "environment - site",
+     "parent": 13,
+     "depth": 1
+    },
+    {
+     "id": 23,
+     "type": "IFCSITE",
+     "global_id": "1adp27B_9CUfup2ojuKOng",
+     "name": "road parking - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 30,
+     "type": "IFCSITE",
+     "global_id": "3pnaj3EgL1cOScZHtoQhHO",
+     "name": "road river bridge - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 36,
+     "type": "IFCBRIDGE",
+     "global_id": "3vzNAxKB5AJA_Ehx4miINx",
+     "name": "road river bridge",
+     "parent": 30,
+     "depth": 3
+    },
+    {
+     "id": 43,
+     "type": "IFCBRIDGEPART",
+     "global_id": "04kO$szQnDTAhzkZMdfItT",
+     "name": "road rail bridge - approach",
+     "parent": 36,
+     "depth": 4
+    },
+    {
+     "id": 50,
+     "type": "IFCBRIDGEPART",
+     "global_id": "2x$zQFzGD8YBtZ$7H7nm4c",
+     "name": "bridge road - abutment",
+     "parent": 43,
+     "depth": 5
+    },
+    {
+     "id": 103,
+     "type": "IFCBRIDGEPART",
+     "global_id": "2LBqtx8tXFcR8Qzu5tSZdh",
+     "name": "road rail bridge - approach",
+     "parent": 36,
+     "depth": 4
+    },
+    {
+     "id": 109,
+     "type": "IFCBRIDGEPART",
+     "global_id": "2cU43jXGXEuv4mx7hSZu3S",
+     "name": "bridge road - abutment",
+     "parent": 103,
+     "depth": 5
+    },
+    {
+     "id": 148,
+     "type": "IFCBRIDGEPART",
+     "global_id": "2r51NsY5P0QvEz_Kok7DQt",
+     "name": "road rail bridge - deck",
+     "parent": 36,
+     "depth": 4
+    },
+    {
+     "id": 280,
+     "type": "IFCBRIDGEPART",
+     "global_id": "2F86AY9Dn33gptJs5BIFJi",
+     "name": "road rail bridge - superstructure",
+     "parent": 36,
+     "depth": 4
+    },
+    {
+     "id": 319,
+     "type": "IFCBRIDGEPART",
+     "global_id": "1KPYb5dSn3C9_LNpDoIOdf",
+     "name": "road river bridge - substructure",
+     "parent": 36,
+     "depth": 4
+    },
+    {
+     "id": 325,
+     "type": "IFCBRIDGEPART",
+     "global_id": "0kTVfaOTj2pAN_WvUgOEdD",
+     "name": "road river bridge - pier",
+     "parent": 319,
+     "depth": 5
+    },
+    {
+     "id": 385,
+     "type": "IFCBRIDGEPART",
+     "global_id": "0qDQIJzHH719PVQZWdQqW2",
+     "name": "road river bridge - pier",
+     "parent": 319,
+     "depth": 5
+    },
+    {
+     "id": 433,
+     "type": "IFCBRIDGEPART",
+     "global_id": "0vFQAzqYzD2P8vJwFIDXrV",
+     "name": "road river bridge - pier",
+     "parent": 319,
+     "depth": 5
+    },
+    {
+     "id": 472,
+     "type": "IFCSITE",
+     "global_id": "2Wad9UE39Fl81buLr2dp_x",
+     "name": "rail river bridge - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 478,
+     "type": "IFCBRIDGE",
+     "global_id": "2kjWGt90HF_gBQxs$Lsfkw",
+     "name": "rail bridge",
+     "parent": 472,
+     "depth": 3
+    },
+    {
+     "id": 485,
+     "type": "IFCBRIDGEPART",
+     "global_id": "1NcWEJCZP2QhD3Z7Ptly6p",
+     "name": "rail bridge - substructure",
+     "parent": 478,
+     "depth": 4
+    },
+    {
+     "id": 492,
+     "type": "IFCBRIDGEPART",
+     "global_id": "2qHgQrSEbBmAN2Nh3C6_X0",
+     "name": "rail bridge - pier",
+     "parent": 485,
+     "depth": 5
+    },
+    {
+     "id": 529,
+     "type": "IFCBRIDGEPART",
+     "global_id": "2hJMDFMXH0q8k_DMRtOb0x",
+     "name": "rail bridge - pier",
+     "parent": 485,
+     "depth": 5
+    },
+    {
+     "id": 555,
+     "type": "IFCBRIDGEPART",
+     "global_id": "0NGju11I55eP2T$y1Bu15n",
+     "name": "railbridge - superstructure",
+     "parent": 478,
+     "depth": 4
+    },
+    {
+     "id": 679,
+     "type": "IFCSITE",
+     "global_id": "1$CApj9YLCeu0YyH5TXRVh",
+     "name": "road rail bridge - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 685,
+     "type": "IFCBRIDGE",
+     "global_id": "3JNhAW3zLAmRKwMCykb3V5",
+     "name": "rail bridge",
+     "parent": 679,
+     "depth": 3
+    },
+    {
+     "id": 692,
+     "type": "IFCBRIDGEPART",
+     "global_id": "16qYo484fEuvo5B_xQN5wZ",
+     "name": "rail bridge - substructure",
+     "parent": 685,
+     "depth": 4
+    },
+    {
+     "id": 699,
+     "type": "IFCBRIDGEPART",
+     "global_id": "3UNm72MkH81wf0YgrOuk7D",
+     "name": "rail bridge - pier",
+     "parent": 692,
+     "depth": 5
+    },
+    {
+     "id": 726,
+     "type": "IFCBRIDGEPART",
+     "global_id": "0ZqHhx84T54vsUjUWpHX1r",
+     "name": "rail bridge - pier",
+     "parent": 692,
+     "depth": 5
+    },
+    {
+     "id": 752,
+     "type": "IFCBRIDGEPART",
+     "global_id": "1hMPjN1XP3D8IpowtvIj0R",
+     "name": "railbridge - superstructure",
+     "parent": 685,
+     "depth": 4
+    },
+    {
+     "id": 878,
+     "type": "IFCSITE",
+     "global_id": "2syxA9_lr7Ew2uZai3VhhS",
+     "name": "road - site",
+     "parent": 20,
+     "depth": 2
+    }
+   ],
+   "elements": [
+    {
+     "id": 59,
+     "type": "IFCBEAM",
+     "global_id": "322tROdCvE68UcU2Qe02GA",
+     "name": "road river bridge - abutment support beam",
+     "container": 50
+    },
+    {
+     "id": 81,
+     "type": "IFCSLAB",
+     "global_id": "0W_tPyzHXFtwl0O2DZZAe3",
+     "name": "bridge road - approach slab",
+     "container": 43
+    },
+    {
+     "id": 116,
+     "type": "IFCBEAM",
+     "global_id": "1Rd3zGyxjCSBQhmMuxTFJ7",
+     "name": "road river bridge - abutment support beam",
+     "container": 109
+    },
+    {
+     "id": 131,
+     "type": "IFCSLAB",
+     "global_id": "01itnAmhP3LAz9aL2vu3YJ",
+     "name": "bridge road - approach slab",
+     "container": 103
+    },
+    {
+     "id": 156,
+     "type": "IFCRAILING",
+     "global_id": "1PXj3pcJX7RgxexBEm0se9",
+     "name": "bridge road railing",
+     "container": 148
+    },
+    {
+     "id": 212,
+     "type": "IFCRAILING",
+     "global_id": "1lX0aCXHj46eYgtlXl_65e",
+     "name": "bridge road railing",
+     "container": 148
+    },
+    {
+     "id": 264,
+     "type": "IFCSLAB",
+     "global_id": "3ObOfBTNz2dhgWxUzdmDpl",
+     "name": "road river bridge - bridge deck",
+     "container": 148
+    },
+    {
+     "id": 288,
+     "type": "IFCBEAM",
+     "global_id": "1dmYPmycr2LPQju29cHK45",
+     "name": "road river bridge - main girder",
+     "container": 280
+    },
+    {
+     "id": 300,
+     "type": "IFCBEAM",
+     "global_id": "0fDVrF0456nhTwgIrF5CPd",
+     "name": "road river bridge - main girder",
+     "container": 280
+    },
+    {
+     "id": 308,
+     "type": "IFCBEAM",
+     "global_id": "2kSK2Jw$z3JQs2YiiWmHXV",
+     "name": "road river bridge - main girder",
+     "container": 280
+    },
+    {
+     "id": 334,
+     "type": "IFCCOLUMN",
+     "global_id": "0Gl168Rv1ErxU_Zx$i1I5m",
+     "name": "road river bridge pierstem",
+     "container": 325
+    },
+    {
+     "id": 356,
+     "type": "IFCFOOTING",
+     "global_id": "1iUk9ABeL9eBJ7Sv9b$q0d",
+     "name": "foundation - bridge road",
+     "container": 325
+    },
+    {
+     "id": 369,
+     "type": "IFCBEAM",
+     "global_id": "3hqwHdFaf66Oki_1cxKAnF",
+     "name": "bridge road - cross girder",
+     "container": 325
+    },
+    {
+     "id": 391,
+     "type": "IFCCOLUMN",
+     "global_id": "3ul67tVf5Dl82Y_LatCAFo",
+     "name": "road river bridge pierstem",
+     "container": 385
+    },
+    {
+     "id": 406,
+     "type": "IFCFOOTING",
+     "global_id": "3kDaIrka18GwgJ2ayJZMBO",
+     "name": "foundation - bridge road",
+     "container": 385
+    },
+    {
+     "id": 417,
+     "type": "IFCBEAM",
+     "global_id": "1glXn_b3PFhflp9CKhrvzD",
+     "name": "bridge road - cross girder",
+     "container": 385
+    },
+    {
+     "id": 439,
+     "type": "IFCCOLUMN",
+     "global_id": "1BTWAuNPH8_BiqEs5C5kK5",
+     "name": "road river bridge pierstem",
+     "container": 433
+    },
+    {
+     "id": 451,
+     "type": "IFCFOOTING",
+     "global_id": "0NMvtFx717oPAWTAMXwXAy",
+     "name": "foundation - bridge road",
+     "container": 433
+    },
+    {
+     "id": 459,
+     "type": "IFCBEAM",
+     "global_id": "0sH1yiI49B6w$h$tWL2i3T",
+     "name": "bridge road - cross girder",
+     "container": 433
+    },
+    {
+     "id": 501,
+     "type": "IFCCOLUMN",
+     "global_id": "13HNHx2iHDah6c_2Ir0QFv",
+     "name": "rail bridge - pierstem",
+     "container": 492
+    },
+    {
+     "id": 518,
+     "type": "IFCFOOTING",
+     "global_id": "3QqyCHEVDF$gkEh307F1yY",
+     "name": "foundation - bridge rail",
+     "container": 492
+    },
+    {
+     "id": 535,
+     "type": "IFCCOLUMN",
+     "global_id": "1Ov2FEORP589f6FJ7Vsjbf",
+     "name": "rail bridge - pierstem",
+     "container": 529
+    },
+    {
+     "id": 547,
+     "type": "IFCFOOTING",
+     "global_id": "3N1IPEdwr8ovT_ZOobkqBX",
+     "name": "foundation - bridge rail",
+     "container": 529
+    },
+    {
+     "id": 563,
+     "type": "IFCWALL",
+     "global_id": "064CKbgdv2$uFEsgE5j3ba",
+     "name": "rail bridge - spandrel wall",
+     "container": 555
+    },
+    {
+     "id": 577,
+     "type": "IFCSIGN",
+     "global_id": "02Q1JJaeXCofF8bu9IDYbN",
+     "name": "road rail bridge - name sign",
+     "container": 555
+    },
+    {
+     "id": 596,
+     "type": "IFCWALL",
+     "global_id": "3LTGJZ50P17x4My$lMjBSo",
+     "name": "rail bridge - spandrel wall",
+     "container": 555
+    },
+    {
+     "id": 604,
+     "type": "IFCSIGN",
+     "global_id": "38UHNG19HAuOHKeHr7iIlo",
+     "name": "road rail bridge - name sign",
+     "container": 555
+    },
+    {
+     "id": 620,
+     "type": "IFCMEMBER",
+     "global_id": "2YYLlceAvCKB$5luCgsyAd",
+     "name": "rail bridge - arch segment",
+     "container": 555
+    },
+    {
+     "id": 631,
+     "type": "IFCMEMBER",
+     "global_id": "3kuqbEQ55DwQX5rk3QQW6b",
+     "name": "rail bridge - arch segment",
+     "container": 555
+    },
+    {
+     "id": 639,
+     "type": "IFCMEMBER",
+     "global_id": "0mUNenrM54pwFfq2oXhCct",
+     "name": "rail bridge - arch segment",
+     "container": 555
+    },
+    {
+     "id": 647,
+     "type": "IFCMEMBER",
+     "global_id": "3dxS5_Bpz7vB8wbZiDy6FO",
+     "name": "rail bridge - arch segment",
+     "container": 555
+    },
+    {
+     "id": 655,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "1Ni63N3g9CwwsFbbNgF65B",
+     "name": "rail bridge - filler",
+     "container": 555
+    },
+    {
+     "id": 671,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "1ngF1j04v49eiBUKkKO16p",
+     "name": "rail bridge - filler",
+     "container": 555
+    },
+    {
+     "id": 706,
+     "type": "IFCCOLUMN",
+     "global_id": "0XPURiAkzB3g2LT4CHIL$P",
+     "name": "rail bridge - pierstem",
+     "container": 699
+    },
+    {
+     "id": 718,
+     "type": "IFCFOOTING",
+     "global_id": "1TNwPNu5vAJ8rWCr2_eafm",
+     "name": "foundation - bridge rail",
+     "container": 699
+    },
+    {
+     "id": 732,
+     "type": "IFCCOLUMN",
+     "global_id": "0IBSrNevj23wueInn68pOs",
+     "name": "rail bridge - pierstem",
+     "container": 726
+    },
+    {
+     "id": 744,
+     "type": "IFCFOOTING",
+     "global_id": "2Q4p8yWJzFIvhoX9T$V40D",
+     "name": "foundation - bridge rail",
+     "container": 726
+    },
+    {
+     "id": 758,
+     "type": "IFCWALL",
+     "global_id": "2tKslGZJz0Nu12g9XAhM2h",
+     "name": "rail bridge - spandrel wall",
+     "container": 752
+    },
+    {
+     "id": 767,
+     "type": "IFCSIGN",
+     "global_id": "0GcdwGAXbEP8fxME368hA4",
+     "name": "road rail bridge - name sign",
+     "container": 752
+    },
+    {
+     "id": 781,
+     "type": "IFCWALL",
+     "global_id": "06ymNwhgjC9vHrcokNIGHx",
+     "name": "rail bridge - spandrel wall",
+     "container": 752
+    },
+    {
+     "id": 789,
+     "type": "IFCSIGN",
+     "global_id": "0gB41TAsXCeg1sVvBm2u9j",
+     "name": "road rail bridge - name sign",
+     "container": 752
+    },
+    {
+     "id": 800,
+     "type": "IFCMEMBER",
+     "global_id": "3Py7bxE7n5JOxOxHlYh2N3",
+     "name": "rail bridge - arch segment",
+     "container": 752
+    },
+    {
+     "id": 808,
+     "type": "IFCMEMBER",
+     "global_id": "1hByR6f1zEWg0gFVCzqiAV",
+     "name": "rail bridge - arch segment",
+     "container": 752
+    },
+    {
+     "id": 816,
+     "type": "IFCMEMBER",
+     "global_id": "0LwIg3tPb1axicmL$uibFc",
+     "name": "rail bridge - arch segment",
+     "container": 752
+    },
+    {
+     "id": 824,
+     "type": "IFCMEMBER",
+     "global_id": "14s9MtA2T3DOZ3vc6xj1mL",
+     "name": "rail bridge - arch segment",
+     "container": 752
+    },
+    {
+     "id": 832,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "2vnqnmqXH4Q9vBMUebOywv",
+     "name": "rail bridge - filler",
+     "container": 752
+    },
+    {
+     "id": 840,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "2ZYxBDA4bC$vk_U2Y8GUqS",
+     "name": "rail bridge - filler",
+     "container": 752
+    },
+    {
+     "id": 850,
+     "type": "IFCELEMENTASSEMBLY",
+     "global_id": "00ZvlN19v73wE8JOyDmPjG",
+     "name": "highway location marker",
+     "container": 679
+    },
+    {
+     "id": 857,
+     "type": "IFCELEMENTASSEMBLY",
+     "global_id": "3E8poO$Er6gPhLg44LF$bc",
+     "name": "highway location marker",
+     "container": 679
+    },
+    {
+     "id": 865,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "3Fit2Fad92zf2f6aWdJtF5",
+     "name": "geo-reference",
+     "container": 20
+    }
+   ],
+   "quantities": [
+    {
+     "id": 64,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 0.3461128140335334,
+     "element": 59,
+     "quantity_set": 65,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 86,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 1.7534133355664374,
+     "element": 81,
+     "quantity_set": 89,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 87,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Depth",
+     "value": 200.00000000000003,
+     "element": 81,
+     "quantity_set": 89,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 88,
+     "kind": "IFCQUANTITYAREA",
+     "name": "NetArea",
+     "value": 8.767066677832185,
+     "element": 81,
+     "quantity_set": 89,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 117,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 0.34611281403353333,
+     "element": 116,
+     "quantity_set": 118,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 132,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 1.7534133355664372,
+     "element": 131,
+     "quantity_set": 135,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 133,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Depth",
+     "value": 200.00000000000003,
+     "element": 131,
+     "quantity_set": 135,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 134,
+     "kind": "IFCQUANTITYAREA",
+     "name": "NetArea",
+     "value": 8.767066677832183,
+     "element": 131,
+     "quantity_set": 135,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 265,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 1.8689166720000028,
+     "element": 264,
+     "quantity_set": 268,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 266,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Depth",
+     "value": 55.999999999999986,
+     "element": 264,
+     "quantity_set": 268,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 267,
+     "kind": "IFCQUANTITYAREA",
+     "name": "NetArea",
+     "value": 33.373512000000055,
+     "element": 264,
+     "quantity_set": 268,
+     "quantity_set_name": "Qto_SlabBaseQuantities"
+    },
+    {
+     "id": 339,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 4.526915656682752,
+     "element": 334,
+     "quantity_set": 340,
+     "quantity_set_name": "Qto_ColumnBaseQuantities"
+    },
+    {
+     "id": 370,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 0.4800000000000016,
+     "element": 369,
+     "quantity_set": 373,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 371,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 4000.0000000000005,
+     "element": 369,
+     "quantity_set": 373,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 372,
+     "kind": "IFCQUANTITYAREA",
+     "name": "CrossSectionArea",
+     "value": 0.12000000000000037,
+     "element": 369,
+     "quantity_set": 373,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 392,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 4.526915656682752,
+     "element": 391,
+     "quantity_set": 393,
+     "quantity_set_name": "Qto_ColumnBaseQuantities"
+    },
+    {
+     "id": 418,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 0.4800000000000016,
+     "element": 417,
+     "quantity_set": 421,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 419,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 4000.0000000000005,
+     "element": 417,
+     "quantity_set": 421,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 420,
+     "kind": "IFCQUANTITYAREA",
+     "name": "CrossSectionArea",
+     "value": 0.12000000000000037,
+     "element": 417,
+     "quantity_set": 421,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 440,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 4.526915656682752,
+     "element": 439,
+     "quantity_set": 441,
+     "quantity_set_name": "Qto_ColumnBaseQuantities"
+    },
+    {
+     "id": 460,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 0.4800000000000016,
+     "element": 459,
+     "quantity_set": 463,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 461,
+     "kind": "IFCQUANTITYLENGTH",
+     "name": "Length",
+     "value": 4000.0000000000005,
+     "element": 459,
+     "quantity_set": 463,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 462,
+     "kind": "IFCQUANTITYAREA",
+     "name": "CrossSectionArea",
+     "value": 0.12000000000000037,
+     "element": 459,
+     "quantity_set": 463,
+     "quantity_set_name": "Qto_BeamBaseQuantities"
+    },
+    {
+     "id": 502,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 24.950281166526725,
+     "element": 501,
+     "quantity_set": 503,
+     "quantity_set_name": "Qto_ColumnBaseQuantities"
+    },
+    {
+     "id": 536,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 24.950281166526725,
+     "element": 535,
+     "quantity_set": 537,
+     "quantity_set_name": "Qto_ColumnBaseQuantities"
+    },
+    {
+     "id": 707,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 24.950281166526725,
+     "element": 706,
+     "quantity_set": 708,
+     "quantity_set_name": "Qto_ColumnBaseQuantities"
+    },
+    {
+     "id": 733,
+     "kind": "IFCQUANTITYVOLUME",
+     "name": "NetVolume",
+     "value": 24.950281166526725,
+     "element": 732,
+     "quantity_set": 734,
+     "quantity_set_name": "Qto_ColumnBaseQuantities"
+    }
+   ],
+   "anomalies": [
+    {
+     "kind": "empty_spatial_container",
+     "severity": "info",
+     "detail": "2 spatial element(s) [\"#23 IFCSITE 'road parking - site'\", \"#878 IFCSITE 'road - site'\"] neither aggregate a child space nor hold any element. Expected in this federated sample set (each discipline file repeats the shared site/facility skeleton), not a defect.",
+     "entities": [
+      23,
+      878
+     ]
+    },
+    {
+     "kind": "unit_scale_mismatch",
+     "severity": "info",
+     "detail": "IFCUNITASSIGNMENT declares LENGTHUNIT=MILLI-METRE but AREAUNIT=SQUARE_METRE and VOLUMEUNIT=CUBIC_METRE, so IFCQUANTITYLENGTH values are millimetres while IFCQUANTITYAREA/VOLUME values are square/cubic metres. Volume = Area x Length/1000 holds throughout; the mixed scale is declared, not an error, but the raw numbers must not be compared directly."
+    }
+   ]
+  },
+  {
+   "file": "Infra-Plumbing.ifc",
+   "schema": "IFC4X3_ADD2",
+   "spatials": [
+    {
+     "id": 13,
+     "type": "IFCPROJECT",
+     "global_id": "2Ndyd$OSX7s9A04nc4lyye",
+     "name": "ifc silly sample scene - project",
+     "parent": null,
+     "depth": 0
+    },
+    {
+     "id": 20,
+     "type": "IFCSITE",
+     "global_id": "23sFQGRy90RxVbRHD9iSE2",
+     "name": "environment - site",
+     "parent": 13,
+     "depth": 1
+    },
+    {
+     "id": 23,
+     "type": "IFCSITE",
+     "global_id": "1adp27B_9CUfup2ojuKOng",
+     "name": "road parking - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 131,
+     "type": "IFCSITE",
+     "global_id": "3pnaj3EgL1cOScZHtoQhHO",
+     "name": "road river bridge - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 137,
+     "type": "IFCBRIDGE",
+     "global_id": "3vzNAxKB5AJA_Ehx4miINx",
+     "name": "road river bridge",
+     "parent": 131,
+     "depth": 3
+    },
+    {
+     "id": 208,
+     "type": "IFCSITE",
+     "global_id": "2Wad9UE39Fl81buLr2dp_x",
+     "name": "rail river bridge - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 214,
+     "type": "IFCBRIDGE",
+     "global_id": "2kjWGt90HF_gBQxs$Lsfkw",
+     "name": "rail bridge",
+     "parent": 208,
+     "depth": 3
+    },
+    {
+     "id": 221,
+     "type": "IFCSITE",
+     "global_id": "1$CApj9YLCeu0YyH5TXRVh",
+     "name": "road rail bridge - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 227,
+     "type": "IFCBRIDGE",
+     "global_id": "3JNhAW3zLAmRKwMCykb3V5",
+     "name": "rail bridge",
+     "parent": 221,
+     "depth": 3
+    },
+    {
+     "id": 349,
+     "type": "IFCSITE",
+     "global_id": "2syxA9_lr7Ew2uZai3VhhS",
+     "name": "road - site",
+     "parent": 20,
+     "depth": 2
+    }
+   ],
+   "elements": [
+    {
+     "id": 34,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "1F4KLUGJf1aAa0YXxTvOR5",
+     "name": "sewer pipe",
+     "container": 23
+    },
+    {
+     "id": 57,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "0uGYOC9Nz33PfGM5uuVHhW",
+     "name": "sewer pipe",
+     "container": 23
+    },
+    {
+     "id": 68,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "259jK4QKD3OPEdfCl4GH_l",
+     "name": "sewer pipe",
+     "container": 23
+    },
+    {
+     "id": 79,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "0_AaoqH0fA_wWg2hQ6QoLY",
+     "name": "sewer pipe",
+     "container": 23
+    },
+    {
+     "id": 90,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "0X_fsZ0Kj9a8olHcZQNbJM",
+     "name": "sewer pipe",
+     "container": 23
+    },
+    {
+     "id": 101,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "3Awuj1sjH8ERw7F1J6oBZs",
+     "name": "sewer pipe",
+     "container": 23
+    },
+    {
+     "id": 109,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "3D4ahkhjP7dujyPNisZ2F$",
+     "name": "sewer pipe",
+     "container": 23
+    },
+    {
+     "id": 120,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "0FQ6pMwzXBJucYaRTqfuw2",
+     "name": "sewer pipe",
+     "container": 23
+    },
+    {
+     "id": 146,
+     "type": "IFCELEMENTASSEMBLY",
+     "global_id": "0dEBwmfnvBq9OyNfYNowGR",
+     "name": "sewer manhole",
+     "container": 131
+    },
+    {
+     "id": 182,
+     "type": "IFCELEMENTASSEMBLY",
+     "global_id": "0xp5S6qvHAWPQZNi_oyNRF",
+     "name": "sewer manhole",
+     "container": 131
+    },
+    {
+     "id": 236,
+     "type": "IFCELEMENTASSEMBLY",
+     "global_id": "00ZvlN19v73wE8JOyDmPjG",
+     "name": "highway location marker",
+     "container": 221
+    },
+    {
+     "id": 243,
+     "type": "IFCELEMENTASSEMBLY",
+     "global_id": "3E8poO$Er6gPhLg44LF$bc",
+     "name": "highway location marker",
+     "container": 221
+    },
+    {
+     "id": 249,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "0yh8Z9_qzCIgcsXg7r4Ix6",
+     "name": "sewer pipe",
+     "container": 221
+    },
+    {
+     "id": 263,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "1PI8m4Ts17Z8hvG889Pb1i",
+     "name": "sewer pipe",
+     "container": 221
+    },
+    {
+     "id": 274,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "398dvTdH9FKwML6pMEemhK",
+     "name": "sewer pipe",
+     "container": 221
+    },
+    {
+     "id": 285,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "0tZgj2n4j7neNsQ08k3WsT",
+     "name": "sewer pipe",
+     "container": 221
+    },
+    {
+     "id": 296,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "22Xr2mF15CbQCVR$W_$VLh",
+     "name": "sewer pipe",
+     "container": 221
+    },
+    {
+     "id": 304,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "1wwTT4jtX3C9e82mYC6YGT",
+     "name": "sewer pipe",
+     "container": 221
+    },
+    {
+     "id": 315,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "1GXiy3xWf0fOQdC$gO8JfW",
+     "name": "sewer pipe",
+     "container": 221
+    },
+    {
+     "id": 326,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "0URFt4JXXD6OjZF8OrkR8N",
+     "name": "sewer pipe",
+     "container": 221
+    },
+    {
+     "id": 336,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "3Fit2Fad92zf2f6aWdJtF5",
+     "name": "geo-reference",
+     "container": 20
+    },
+    {
+     "id": 355,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "1kpVA_DFf3PRJR$l8yqtLr",
+     "name": "sewer pipe",
+     "container": 349
+    },
+    {
+     "id": 370,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "3ctB5z6nHCoQBWFJYnFhI5",
+     "name": "sewer pipe",
+     "container": 349
+    },
+    {
+     "id": 381,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "11LWvWX7HAOghcDUC_Fsn5",
+     "name": "sewer pipe",
+     "container": 349
+    },
+    {
+     "id": 392,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "2L8jfzclb09OjhbeQoBDvs",
+     "name": "sewer pipe",
+     "container": 349
+    },
+    {
+     "id": 403,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "0SESIjUgvFsOoEqvCaV5Br",
+     "name": "sewer pipe",
+     "container": 349
+    },
+    {
+     "id": 411,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "1FDcvNA_L4dfRDGP$UNpz1",
+     "name": "sewer pipe",
+     "container": 349
+    },
+    {
+     "id": 422,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "0RPLlDbKvCJwFzsj8RPg4X",
+     "name": "sewer pipe",
+     "container": 349
+    },
+    {
+     "id": 430,
+     "type": "IFCPIPESEGMENT",
+     "global_id": "1PYbWto7LA0hTpEdNPg6Df",
+     "name": "sewer pipe",
+     "container": 349
+    }
+   ],
+   "quantities": [],
+   "anomalies": [
+    {
+     "kind": "empty_spatial_container",
+     "severity": "info",
+     "detail": "3 spatial element(s) [\"#137 IFCBRIDGE 'road river bridge'\", \"#214 IFCBRIDGE 'rail bridge'\", \"#227 IFCBRIDGE 'rail bridge'\"] neither aggregate a child space nor hold any element. Expected in this federated sample set (each discipline file repeats the shared site/facility skeleton), not a defect.",
+     "entities": [
+      137,
+      214,
+      227
+     ]
+    }
+   ]
+  },
+  {
+   "file": "Infra-Rail.ifc",
+   "schema": "IFC4X3_ADD2",
+   "spatials": [
+    {
+     "id": 13,
+     "type": "IFCPROJECT",
+     "global_id": "2Ndyd$OSX7s9A04nc4lyye",
+     "name": "ifc silly sample scene - project",
+     "parent": null,
+     "depth": 0
+    },
+    {
+     "id": 20,
+     "type": "IFCSITE",
+     "global_id": "23sFQGRy90RxVbRHD9iSE2",
+     "name": "environment - site",
+     "parent": 13,
+     "depth": 1
+    },
+    {
+     "id": 23,
+     "type": "IFCSITE",
+     "global_id": "1adp27B_9CUfup2ojuKOng",
+     "name": "road parking - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 30,
+     "type": "IFCSITE",
+     "global_id": "3pnaj3EgL1cOScZHtoQhHO",
+     "name": "road river bridge - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 36,
+     "type": "IFCSITE",
+     "global_id": "2Wad9UE39Fl81buLr2dp_x",
+     "name": "rail river bridge - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 42,
+     "type": "IFCRAILWAY",
+     "global_id": "144_CJ8b1C7xe6fkDXe2iD",
+     "name": "Rail track",
+     "parent": 36,
+     "depth": 3
+    },
+    {
+     "id": 49,
+     "type": "IFCRAILWAYPART",
+     "global_id": "0vMmNglnHCxwAXN15KG$Y3",
+     "name": "Rail track",
+     "parent": 42,
+     "depth": 4
+    },
+    {
+     "id": 381,
+     "type": "IFCSITE",
+     "global_id": "1$CApj9YLCeu0YyH5TXRVh",
+     "name": "road rail bridge - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 387,
+     "type": "IFCRAILWAY",
+     "global_id": "1OAsMV9659sQQS2f3ETl_F",
+     "name": "Rail track",
+     "parent": 381,
+     "depth": 3
+    },
+    {
+     "id": 394,
+     "type": "IFCRAILWAYPART",
+     "global_id": "1Y4VQW3SD4UO4o4Dn6KDad",
+     "name": "Rail track",
+     "parent": 387,
+     "depth": 4
+    },
+    {
+     "id": 723,
+     "type": "IFCSITE",
+     "global_id": "2syxA9_lr7Ew2uZai3VhhS",
+     "name": "road - site",
+     "parent": 20,
+     "depth": 2
+    }
+   ],
+   "elements": [
+    {
+     "id": 61,
+     "type": "IFCRAIL",
+     "global_id": "3Ixq0AlaX2PR0EdMfWL49i",
+     "name": "rail",
+     "container": 49
+    },
+    {
+     "id": 78,
+     "type": "IFCRAIL",
+     "global_id": "0gOEB3nvP8w8b2x7dkCurB",
+     "name": "rail",
+     "container": 49
+    },
+    {
+     "id": 91,
+     "type": "IFCCOURSE",
+     "global_id": "2VSzSEJibEmQCf1lSBr3vL",
+     "name": "ballastbed",
+     "container": 49
+    },
+    {
+     "id": 109,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0mApyqgbP3kwWGcMHpBgdC",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 125,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1gG3H$M4nC18HrcjbZfxcQ",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 133,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "2pFyoP4czDyPD7YSYV0g1I",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 141,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0LmYrpL31BLxBAY291UUPV",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 149,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3CF5zUVrXC$xgrsKXU$XAx",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 157,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1jPuNq3399wwsfi63CaYtQ",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 165,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "2hC6KuMWz8T8p3DKcB74Nr",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 173,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3ooxVTKoDDyAfZgN27B0Xt",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 181,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3QRjVXoH17pvJxTHfLfGTz",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 189,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1A14NvUhv2_wMj4mxmA7o0",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 197,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0rTKpqwfH8ZvpESUY9mK0D",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 205,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0bjxY5edf3ORsHsGFLUXnG",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 213,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1p7IOkE9j9cwFyx4_vQUH$",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 221,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0X2A_iiNzCc9sTeIrZyf9i",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 229,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "240DDX4Zv7ZRBebISw7amg",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 237,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0SNcQbysLA08i6DTmPfdl$",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 245,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1KgKJls3H9_u5Xd8c_HS7x",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 253,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3b4O_fC9b728g3ldIvq6l2",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 261,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "20FBV5Tcj4yeFIkA119U20",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 269,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1J8_j1nRDDfQQXFNU6jh1C",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 277,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3jf03qOPH8oftXrH9IVkSa",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 285,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "2SCufMLTX7xQpijUrlgbDl",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 293,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3BWkltsLT1kg_mUdP5q1Mv",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 301,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0NjD4eL$13aPRyMEU8_Pur",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 309,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0y55PkXXrAfxfuCFlVHxdf",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 317,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1DlyW6vE1AFxD298O5l6sU",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 325,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3yQtEGRLLAuwH0EvMJUSpX",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 333,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "2mQystxXrBl9nXWHqw58UW",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 341,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "2aNIR9HKD6lPzpHEoqth$b",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 349,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "2dSJ10Gxv9AR$_DmiMCtSq",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 357,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "225m02QHv3mhkTXinDpbnC",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 365,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "2HKuqlX7D0UQ6Ws7xU2Tpj",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 373,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3615LYIInAVAKMJ7MpZ30R",
+     "name": "sleeper wood",
+     "container": 49
+    },
+    {
+     "id": 401,
+     "type": "IFCRAIL",
+     "global_id": "14O93KCH5CcwgIvHrgZEXj",
+     "name": "rail",
+     "container": 394
+    },
+    {
+     "id": 413,
+     "type": "IFCRAIL",
+     "global_id": "2$czTi6GrAHxd14aD6Qmmc",
+     "name": "rail",
+     "container": 394
+    },
+    {
+     "id": 421,
+     "type": "IFCCOURSE",
+     "global_id": "29NeQDl9r0RPTH7F43W1He",
+     "name": "ballastbed",
+     "container": 394
+    },
+    {
+     "id": 429,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "2G0mFQhK929u_6An0lBNTZ",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 437,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1Hb6PCblD2ZuvhFdwzUotD",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 445,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "15Q88nz595tP5ei3_pAQgO",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 453,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0JskQH3CjFQwvVhALUzox1",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 461,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1dc6DrbT90UA9pg9Z3rs4Z",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 469,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3eijguL1P9Nfvjs$Xpqdpu",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 477,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "2xpMIc_0H2iuAG4BcTIFAT",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 485,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3qB7jvnzzCdhkb6SWzwgkc",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 493,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "2vvVUDLqjBxRXxfI3C2q$r",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 501,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0v0w97H9D0vhXlZ8fsd1v_",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 509,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1j_ofp0_jDkQibnMsl$T_a",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 517,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3a7SkZ5Ar1xxhiVrdbOBRI",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 525,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1VhaT3K8H2lPdXb8NqCPZs",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 533,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0W$6qwCif1ePgGk6Sh$apd",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 541,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0BRh6j4b90nA0leMHsST_R",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 549,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0xoA7NQgD7lRlwTspYVfko",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 557,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0l0npIYpb0jwRcuQumw8GS",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 565,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "28xYqtZ4vF0RoQVLMjR04U",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 573,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1qU3xMaZz2Av3pVOxzfZKW",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 581,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "30nYk7ZUj7BeZTiiCyQzG3",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 589,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "2fLDxlSJ5658K2aKlEUuO$",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 597,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3A9NNgob1BBODyEmbQaSNY",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 605,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0KPcs1y3j3YezA6xslC0pO",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 613,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3qFv979eH6S8MEUxE$yKtu",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 621,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "2ea9NtvwjBGfaygNYjxAxe",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 629,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1TPGJrtGD5GuYtVCcv8tWE",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 637,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3PcU1ZuFj2Aev0J8hzhHvy",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 645,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "0dRF_swOj9Z89ywNzIYxlz",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 653,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1XcDIiNyv9uuTZP4jDMfO$",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 661,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "2UXPKrUxb1NPLYxy3$uCcp",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 669,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1o4sQbZYD7EfuX2weAoHYD",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 677,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "1_XScBOSD3h8oErFHWZl76",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 685,
+     "type": "IFCTRACKELEMENT",
+     "global_id": "3_fqSk$jXDlgUncZWfXZMS",
+     "name": "sleeper wood",
+     "container": 394
+    },
+    {
+     "id": 695,
+     "type": "IFCELEMENTASSEMBLY",
+     "global_id": "00ZvlN19v73wE8JOyDmPjG",
+     "name": "highway location marker",
+     "container": 381
+    },
+    {
+     "id": 702,
+     "type": "IFCELEMENTASSEMBLY",
+     "global_id": "3E8poO$Er6gPhLg44LF$bc",
+     "name": "highway location marker",
+     "container": 381
+    },
+    {
+     "id": 710,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "3Fit2Fad92zf2f6aWdJtF5",
+     "name": "geo-reference",
+     "container": 20
+    }
+   ],
+   "quantities": [],
+   "anomalies": [
+    {
+     "kind": "empty_spatial_container",
+     "severity": "info",
+     "detail": "3 spatial element(s) [\"#23 IFCSITE 'road parking - site'\", \"#30 IFCSITE 'road river bridge - site'\", \"#723 IFCSITE 'road - site'\"] neither aggregate a child space nor hold any element. Expected in this federated sample set (each discipline file repeats the shared site/facility skeleton), not a defect.",
+     "entities": [
+      23,
+      30,
+      723
+     ]
+    }
+   ]
+  },
+  {
+   "file": "Infra-Road.ifc",
+   "schema": "IFC4X3_ADD2",
+   "spatials": [
+    {
+     "id": 13,
+     "type": "IFCPROJECT",
+     "global_id": "2Ndyd$OSX7s9A04nc4lyye",
+     "name": "ifc silly sample scene - project",
+     "parent": null,
+     "depth": 0
+    },
+    {
+     "id": 20,
+     "type": "IFCSITE",
+     "global_id": "23sFQGRy90RxVbRHD9iSE2",
+     "name": "environment - site",
+     "parent": 13,
+     "depth": 1
+    },
+    {
+     "id": 23,
+     "type": "IFCSITE",
+     "global_id": "1adp27B_9CUfup2ojuKOng",
+     "name": "road parking - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 30,
+     "type": "IFCROAD",
+     "global_id": "2MBfH6RyP3luv6spdwrCIJ",
+     "name": "road parking - road",
+     "parent": 23,
+     "depth": 3
+    },
+    {
+     "id": 40,
+     "type": "IFCROADPART",
+     "global_id": "13nXdzaiLCcBMI_327t3$B",
+     "name": "road parking - road segment",
+     "parent": 30,
+     "depth": 4
+    },
+    {
+     "id": 47,
+     "type": "IFCROADPART",
+     "global_id": "2X7Dlo9gX5dgM3FX0gYZXP",
+     "name": "road - parking",
+     "parent": 40,
+     "depth": 5
+    },
+    {
+     "id": 123,
+     "type": "IFCROADPART",
+     "global_id": "1rSMOsFHPCxBpVA$FlasQt",
+     "name": "road parking - shoulder",
+     "parent": 40,
+     "depth": 5
+    },
+    {
+     "id": 134,
+     "type": "IFCROADPART",
+     "global_id": "3hvQKS_3f35hrc93TD89Cw",
+     "name": "road - shoulder",
+     "parent": 40,
+     "depth": 5
+    },
+    {
+     "id": 145,
+     "type": "IFCROADPART",
+     "global_id": "0_Qwe45Iz4axmHTXYPvOsp",
+     "name": "road  - carriageway",
+     "parent": 40,
+     "depth": 5
+    },
+    {
+     "id": 249,
+     "type": "IFCROADPART",
+     "global_id": "3UW01eWGf3R9Qahji8i4XE",
+     "name": "road parking - road segment",
+     "parent": 30,
+     "depth": 4
+    },
+    {
+     "id": 255,
+     "type": "IFCROADPART",
+     "global_id": "3Rtyfer6f14gfdIYhSAJfS",
+     "name": "road - parking",
+     "parent": 249,
+     "depth": 5
+    },
+    {
+     "id": 295,
+     "type": "IFCROADPART",
+     "global_id": "15Sq9FrzT9FBv27nCk5mh_",
+     "name": "road parking - shoulder",
+     "parent": 249,
+     "depth": 5
+    },
+    {
+     "id": 303,
+     "type": "IFCROADPART",
+     "global_id": "2271FKNO1DdwPAfaVP8xJd",
+     "name": "road - shoulder",
+     "parent": 249,
+     "depth": 5
+    },
+    {
+     "id": 311,
+     "type": "IFCROADPART",
+     "global_id": "2FFDMtF_bFt9Cn7VXimDUu",
+     "name": "road  - carriageway",
+     "parent": 249,
+     "depth": 5
+    },
+    {
+     "id": 391,
+     "type": "IFCSITE",
+     "global_id": "3pnaj3EgL1cOScZHtoQhHO",
+     "name": "road river bridge - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 397,
+     "type": "IFCROAD",
+     "global_id": "1ycqplGh55EAGDAsiDHPxX",
+     "name": "bridge road connection",
+     "parent": 391,
+     "depth": 3
+    },
+    {
+     "id": 404,
+     "type": "IFCROADPART",
+     "global_id": "3gVUlQBybBTR_jtpA_c89f",
+     "name": "bridge - road segment",
+     "parent": 397,
+     "depth": 4
+    },
+    {
+     "id": 411,
+     "type": "IFCROADPART",
+     "global_id": "2osHTl91z1WeqT0dDvg3WD",
+     "name": "road - shoulder",
+     "parent": 404,
+     "depth": 5
+    },
+    {
+     "id": 423,
+     "type": "IFCROADPART",
+     "global_id": "1LsZ9dUZn5397IxXcrlrIe",
+     "name": "road - shoulder",
+     "parent": 404,
+     "depth": 5
+    },
+    {
+     "id": 434,
+     "type": "IFCROADPART",
+     "global_id": "3JCNkEnxX2HAIohFE8d0li",
+     "name": "road carriageway - bridge road",
+     "parent": 404,
+     "depth": 5
+    },
+    {
+     "id": 489,
+     "type": "IFCROAD",
+     "global_id": "1Engm$GMHEoAv0uoo9qvMb",
+     "name": "bridge road connection",
+     "parent": 391,
+     "depth": 3
+    },
+    {
+     "id": 495,
+     "type": "IFCROADPART",
+     "global_id": "1gawLKQN1FlOdzrZDos6Gg",
+     "name": "bridge - road segment",
+     "parent": 489,
+     "depth": 4
+    },
+    {
+     "id": 502,
+     "type": "IFCROADPART",
+     "global_id": "2$CI2UZ2nC6udOwWqZWr6C",
+     "name": "road - shoulder",
+     "parent": 495,
+     "depth": 5
+    },
+    {
+     "id": 514,
+     "type": "IFCROADPART",
+     "global_id": "2PKdE1kbL8ke7QxRRzxN_q",
+     "name": "road - shoulder",
+     "parent": 495,
+     "depth": 5
+    },
+    {
+     "id": 525,
+     "type": "IFCROADPART",
+     "global_id": "0UKHUh06v69wKcoKjB04ik",
+     "name": "road carriageway - bridge road",
+     "parent": 495,
+     "depth": 5
+    },
+    {
+     "id": 576,
+     "type": "IFCSITE",
+     "global_id": "2Wad9UE39Fl81buLr2dp_x",
+     "name": "rail river bridge - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 582,
+     "type": "IFCSITE",
+     "global_id": "1$CApj9YLCeu0YyH5TXRVh",
+     "name": "road rail bridge - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 603,
+     "type": "IFCROAD",
+     "global_id": "1Gy5o1F_T6VxmwxJ5$xsRE",
+     "name": "road",
+     "parent": 582,
+     "depth": 3
+    },
+    {
+     "id": 610,
+     "type": "IFCROADPART",
+     "global_id": "1qeMYKRz11NfwG9VheT8FH",
+     "name": "road segment",
+     "parent": 603,
+     "depth": 4
+    },
+    {
+     "id": 617,
+     "type": "IFCROADPART",
+     "global_id": "3oc$qAY_95VA0MUuoAYGxh",
+     "name": "road carriageway",
+     "parent": 610,
+     "depth": 5
+    },
+    {
+     "id": 713,
+     "type": "IFCROADPART",
+     "global_id": "2bgbuMDuj3hg9k0pkgUphW",
+     "name": "road - shoulder",
+     "parent": 610,
+     "depth": 5
+    },
+    {
+     "id": 724,
+     "type": "IFCROADPART",
+     "global_id": "17coQp2iL5FhBqt0CY_3TM",
+     "name": "road - shoulder",
+     "parent": 610,
+     "depth": 5
+    },
+    {
+     "id": 750,
+     "type": "IFCSITE",
+     "global_id": "2syxA9_lr7Ew2uZai3VhhS",
+     "name": "road - site",
+     "parent": 20,
+     "depth": 2
+    },
+    {
+     "id": 756,
+     "type": "IFCROAD",
+     "global_id": "1AfgOmh7nDOedEyHKWgbIw",
+     "name": "road",
+     "parent": 750,
+     "depth": 3
+    },
+    {
+     "id": 763,
+     "type": "IFCROADPART",
+     "global_id": "2pS6pdNUf5JhK0$Ap6Vb7C",
+     "name": "road segment",
+     "parent": 756,
+     "depth": 4
+    },
+    {
+     "id": 770,
+     "type": "IFCROADPART",
+     "global_id": "2v_vgJ52rCdOoY4xv9BEGs",
+     "name": "road carriageway",
+     "parent": 763,
+     "depth": 5
+    },
+    {
+     "id": 866,
+     "type": "IFCROADPART",
+     "global_id": "0YqCWlEOfFLOP9cWpIfWnw",
+     "name": "road - shoulder",
+     "parent": 763,
+     "depth": 5
+    },
+    {
+     "id": 877,
+     "type": "IFCROADPART",
+     "global_id": "2Jmv7aVW59tgvJy3nmB5rm",
+     "name": "road - shoulder",
+     "parent": 763,
+     "depth": 5
+    }
+   ],
+   "elements": [
+    {
+     "id": 56,
+     "type": "IFCCOURSE",
+     "global_id": "37h0T9Qob7Mw1PFsR1kVP7",
+     "name": "asphalt binder course - road - parking",
+     "container": 47
+    },
+    {
+     "id": 75,
+     "type": "IFCCOURSE",
+     "global_id": "2Z1Tk3YUj4bfBY5kB$H6XD",
+     "name": "road - parking - asphalt surface course",
+     "container": 47
+    },
+    {
+     "id": 91,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "0v1ddg6Y12hvvQhtW6MY3h",
+     "name": "road - parking - subgrade",
+     "container": 47
+    },
+    {
+     "id": 107,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "21looXrNb6n9dVVqZ0afH3",
+     "name": "road parking - base course",
+     "container": 47
+    },
+    {
+     "id": 153,
+     "type": "IFCCOURSE",
+     "global_id": "1UiPSFcDjErxwCT65xLh1S",
+     "name": "road - asphalt binder course",
+     "container": 145
+    },
+    {
+     "id": 167,
+     "type": "IFCCOURSE",
+     "global_id": "0bOiufAU17JvMAqTkdbCGK",
+     "name": "road - asphalt surface course",
+     "container": 145
+    },
+    {
+     "id": 178,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "2E09k8p5j8Ie2cdShEa6y3",
+     "name": "road - line marking",
+     "container": 145,
+     "container_via": "adheres_to:#167"
+    },
+    {
+     "id": 195,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "3oFdaVamzCehZnvL2DVyTv",
+     "name": "road - line marking",
+     "container": 145,
+     "container_via": "adheres_to:#167"
+    },
+    {
+     "id": 203,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "22Oy65k6H6RQzyRYDT5O81",
+     "name": "road - line marking",
+     "container": 145,
+     "container_via": "adheres_to:#167"
+    },
+    {
+     "id": 211,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "3nP$zLBVH1Yxs64yX$MtCU",
+     "name": "road - line marking",
+     "container": 145,
+     "container_via": "adheres_to:#167"
+    },
+    {
+     "id": 219,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "3iK_B7RQX1A90d2SZn3haF",
+     "name": "road - line marking",
+     "container": 145,
+     "container_via": "adheres_to:#167"
+    },
+    {
+     "id": 227,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "25_RTYQg9CWPpSeXsVQXRz",
+     "name": "road - subgrade",
+     "container": 145
+    },
+    {
+     "id": 238,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "1zA0UQopr71wWPFRVqk8vb",
+     "name": "road - base course",
+     "container": 145
+    },
+    {
+     "id": 262,
+     "type": "IFCCOURSE",
+     "global_id": "3n9r1K2N1DBRveA6CMqp_q",
+     "name": "asphalt binder course - road - parking",
+     "container": 255
+    },
+    {
+     "id": 271,
+     "type": "IFCCOURSE",
+     "global_id": "122iIwdi92Nu19w41eQ8OO",
+     "name": "road - parking - asphalt surface course",
+     "container": 255
+    },
+    {
+     "id": 279,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "3IUYm3Tt58BvzwcxEk6ARA",
+     "name": "road - parking - subgrade",
+     "container": 255
+    },
+    {
+     "id": 287,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "3XzlKA5bz0efC2no0GJY02",
+     "name": "road parking - base course",
+     "container": 255
+    },
+    {
+     "id": 317,
+     "type": "IFCCOURSE",
+     "global_id": "1EBv$nhkP16QpDbPgakj0R",
+     "name": "road - asphalt binder course",
+     "container": 311
+    },
+    {
+     "id": 326,
+     "type": "IFCCOURSE",
+     "global_id": "29INDGxC98WgiF2$uaWE$G",
+     "name": "road - asphalt surface course",
+     "container": 311
+    },
+    {
+     "id": 334,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "2k035JfqPANO_5sd1VjpMr",
+     "name": "road - line marking",
+     "container": 311,
+     "container_via": "adheres_to:#326"
+    },
+    {
+     "id": 343,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "2xFNEEiVXAoQ17T8KWBbr6",
+     "name": "road - line marking",
+     "container": 311,
+     "container_via": "adheres_to:#326"
+    },
+    {
+     "id": 351,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "3PBVDB_Gv65fD5rAR8Y2j0",
+     "name": "road - line marking",
+     "container": 311,
+     "container_via": "adheres_to:#326"
+    },
+    {
+     "id": 359,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "2ayNnO1Fn0kRTcnBmZ4Sgd",
+     "name": "road - line marking",
+     "container": 311,
+     "container_via": "adheres_to:#326"
+    },
+    {
+     "id": 367,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "1PLaDnWNP2WPtJ6K0kxgur",
+     "name": "road - line marking",
+     "container": 311,
+     "container_via": "adheres_to:#326"
+    },
+    {
+     "id": 375,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "3l2i$KGMz4I87INjjdXvqG",
+     "name": "road - subgrade",
+     "container": 311
+    },
+    {
+     "id": 383,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "23fuLywRn2yQjhdXt_DTEx",
+     "name": "road - base course",
+     "container": 311
+    },
+    {
+     "id": 440,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "3nUgJwuKjBSgKNVqnDReQ_",
+     "name": "road base course - bridge road",
+     "container": 434
+    },
+    {
+     "id": 454,
+     "type": "IFCCOURSE",
+     "global_id": "2B7GjowjDAyvkWvj3mcysp",
+     "name": "bridge road - road asphalt binder course",
+     "container": 434
+    },
+    {
+     "id": 465,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "24yB027vXAnwvB5wEFTdUW",
+     "name": "road subgrade - bridge road",
+     "container": 434
+    },
+    {
+     "id": 478,
+     "type": "IFCCOURSE",
+     "global_id": "0GfyK6YKbBBOLGVolBxAx4",
+     "name": "road asphalt surface course - bridge road",
+     "container": 434
+    },
+    {
+     "id": 531,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "2gurTQSkD1_htHRFmtcbL_",
+     "name": "road base course - bridge road",
+     "container": 525
+    },
+    {
+     "id": 543,
+     "type": "IFCCOURSE",
+     "global_id": "2CFlp691nEVAN$xmwmq4NQ",
+     "name": "bridge road - road asphalt binder course",
+     "container": 525
+    },
+    {
+     "id": 554,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "2Lcv7v7Y9CDgeVSxtOixa_",
+     "name": "road subgrade - bridge road",
+     "container": 525
+    },
+    {
+     "id": 565,
+     "type": "IFCCOURSE",
+     "global_id": "3PGg5TW8D94u9cNHoKU9ai",
+     "name": "road asphalt surface course - bridge road",
+     "container": 525
+    },
+    {
+     "id": 590,
+     "type": "IFCELEMENTASSEMBLY",
+     "global_id": "00ZvlN19v73wE8JOyDmPjG",
+     "name": "highway location marker",
+     "container": 582
+    },
+    {
+     "id": 597,
+     "type": "IFCELEMENTASSEMBLY",
+     "global_id": "3E8poO$Er6gPhLg44LF$bc",
+     "name": "highway location marker",
+     "container": 582
+    },
+    {
+     "id": 624,
+     "type": "IFCCOURSE",
+     "global_id": "0WFaAjgxT8whuM_s0GDVop",
+     "name": "road - asphalt binder course",
+     "container": 617
+    },
+    {
+     "id": 636,
+     "type": "IFCCOURSE",
+     "global_id": "2perTo5I50_QVZloPyhq8F",
+     "name": "road - asphalt surface course",
+     "container": 617
+    },
+    {
+     "id": 647,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "2XfFRWwzD9qfMHjBFXzIXm",
+     "name": "road - line marking",
+     "container": 617,
+     "container_via": "adheres_to:#636"
+    },
+    {
+     "id": 659,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "3kgqjUM35B4wJgRMa9qRTs",
+     "name": "road - line marking",
+     "container": 617,
+     "container_via": "adheres_to:#636"
+    },
+    {
+     "id": 667,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "3YeZLOBOrEnv261fug3ZyX",
+     "name": "road - line marking",
+     "container": 617,
+     "container_via": "adheres_to:#636"
+    },
+    {
+     "id": 675,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "1iXLtViPXCCwrYVlnB19Ks",
+     "name": "road - line marking",
+     "container": 617,
+     "container_via": "adheres_to:#636"
+    },
+    {
+     "id": 683,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "2VDStrHxP5_9fajgO5lJMP",
+     "name": "road - line marking",
+     "container": 617,
+     "container_via": "adheres_to:#636"
+    },
+    {
+     "id": 691,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "1URig8FeLBeR9AdMrx_PFb",
+     "name": "road - subgrade",
+     "container": 617
+    },
+    {
+     "id": 702,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "34susoRVr6zwuxR_H7WjJP",
+     "name": "road - base course",
+     "container": 617
+    },
+    {
+     "id": 737,
+     "type": "IFCBUILDINGELEMENTPROXY",
+     "global_id": "3Fit2Fad92zf2f6aWdJtF5",
+     "name": "geo-reference",
+     "container": 20
+    },
+    {
+     "id": 777,
+     "type": "IFCCOURSE",
+     "global_id": "1hIucSGDb5YfQIf0E4zTy_",
+     "name": "road - asphalt binder course",
+     "container": 770
+    },
+    {
+     "id": 789,
+     "type": "IFCCOURSE",
+     "global_id": "2Hv0cNhjPCV8n4VnOiLlhy",
+     "name": "road - asphalt surface course",
+     "container": 770
+    },
+    {
+     "id": 800,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "3736_hvIzFCRBgB1NzaIAG",
+     "name": "road - line marking",
+     "container": 770,
+     "container_via": "adheres_to:#789"
+    },
+    {
+     "id": 812,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "1HY$KHGVb0Y9iLwHsRZfqX",
+     "name": "road - line marking",
+     "container": 770,
+     "container_via": "adheres_to:#789"
+    },
+    {
+     "id": 820,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "3SstlkwwP25gbEsTjECubM",
+     "name": "road - line marking",
+     "container": 770,
+     "container_via": "adheres_to:#789"
+    },
+    {
+     "id": 828,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "0foyckKPj2OwIIYCa8mzqS",
+     "name": "road - line marking",
+     "container": 770,
+     "container_via": "adheres_to:#789"
+    },
+    {
+     "id": 836,
+     "type": "IFCSURFACEFEATURE",
+     "global_id": "1Fxh8JXAj0VPU5VkvOYvkk",
+     "name": "road - line marking",
+     "container": 770,
+     "container_via": "adheres_to:#789"
+    },
+    {
+     "id": 844,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "1IhMwsHkj23Pk9puusHUBF",
+     "name": "road - subgrade",
+     "container": 770
+    },
+    {
+     "id": 855,
+     "type": "IFCEARTHWORKSFILL",
+     "global_id": "0JHBQuEiP0nvPYpJMf4bmS",
+     "name": "road - base course",
+     "container": 770
+    }
+   ],
+   "quantities": [],
+   "anomalies": [
+    {
+     "kind": "element_placed_indirectly",
+     "severity": "info",
+     "detail": "5 element(s) ['#178', '#195', '#203', '#211', '#219'] are attached to #167 IFCCOURSE by IFCRELADHERESTOELEMENT and never listed in any IFCRELCONTAINEDINSPATIALSTRUCTURE -> resolved container #145",
+     "entities": [
+      178,
+      195,
+      203,
+      211,
+      219
+     ],
+     "container": 145
+    },
+    {
+     "kind": "element_placed_indirectly",
+     "severity": "info",
+     "detail": "5 element(s) ['#334', '#343', '#351', '#359', '#367'] are attached to #326 IFCCOURSE by IFCRELADHERESTOELEMENT and never listed in any IFCRELCONTAINEDINSPATIALSTRUCTURE -> resolved container #311",
+     "entities": [
+      334,
+      343,
+      351,
+      359,
+      367
+     ],
+     "container": 311
+    },
+    {
+     "kind": "element_placed_indirectly",
+     "severity": "info",
+     "detail": "5 element(s) ['#647', '#659', '#667', '#675', '#683'] are attached to #636 IFCCOURSE by IFCRELADHERESTOELEMENT and never listed in any IFCRELCONTAINEDINSPATIALSTRUCTURE -> resolved container #617",
+     "entities": [
+      647,
+      659,
+      667,
+      675,
+      683
+     ],
+     "container": 617
+    },
+    {
+     "kind": "element_placed_indirectly",
+     "severity": "info",
+     "detail": "5 element(s) ['#800', '#812', '#820', '#828', '#836'] are attached to #789 IFCCOURSE by IFCRELADHERESTOELEMENT and never listed in any IFCRELCONTAINEDINSPATIALSTRUCTURE -> resolved container #770",
+     "entities": [
+      800,
+      812,
+      820,
+      828,
+      836
+     ],
+     "container": 770
+    },
+    {
+     "kind": "empty_spatial_container",
+     "severity": "info",
+     "detail": "13 spatial element(s) [\"#123 IFCROADPART 'road parking - shoulder'\", \"#134 IFCROADPART 'road - shoulder'\", \"#295 IFCROADPART 'road parking - shoulder'\", \"#303 IFCROADPART 'road - shoulder'\", \"#411 IFCROADPART 'road - shoulder'\", \"#423 IFCROADPART 'road - shoulder'\", \"#502 IFCROADPART 'road - shoulder'\", \"#514 IFCROADPART 'road - shoulder'\", \"#576 IFCSITE 'rail river bridge - site'\", \"#713 IFCROADPART 'road - shoulder'\", \"#724 IFCROADPART 'road - shoulder'\", \"#866 IFCROADPART 'road - shoulder'\", \"#877 IFCROADPART 'road - shoulder'\"] neither aggregate a child space nor hold any element. Expected in this federated sample set (each discipline file repeats the shared site/facility skeleton), not a defect.",
+     "entities": [
+      123,
+      134,
+      295,
+      303,
+      411,
+      423,
+      502,
+      514,
+      576,
+      713,
+      724,
+      866,
+      877
+     ]
+    }
+   ]
+  }
+ ]
+}
