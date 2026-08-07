@@ -17,8 +17,19 @@
             例: IfcRoof の中の IfcSlab は、屋根が建物に載っているので建物に属する。
             ifcopenshell との突き合わせで、これを落としていたことが分かった。
 
+  付着物    IFCRELADHERESTOELEMENT('id',$,$,$,#母体,(#表面形状,…))
+            路面標示のように「母体に貼り付いている」要素。母体が空間に載って
+            いるので、そこにあることになる。ただし IFC の厳密な包含関係
+            （IFCRELCONTAINEDINSPATIALSTRUCTURE）ではないので、
+            **ifcopenshell の get_container() も None を返す。**
+            腕（armC）がこれを見つけた。独立実装との一致だけでは届かなかった。
+            本ベンチは母体の所属を継承させ、container_via に経路を残す。
+
   数量      IFCELEMENTQUANTITY('id',$,名前,$,単位,(#数量,…))
             IFCQUANTITYLENGTH / AREA / VOLUME('名前',説明,単位,値,式)
+            **単位系が量ごとに違う。** 本 corpus は長さが MILLI.METRE、
+            面積が SQUARE_METRE、体積が CUBIC_METRE で宣言されている。
+            値だけ見ても意味が決まらないので、宣言された単位を併記する。
 """
 
 from __future__ import annotations
@@ -70,6 +81,7 @@ class Element:
     global_id: str
     name: str
     container: int | None = None  # 載っている空間の実体ID
+    container_via: str = ""  # 'direct' / 'aggregate' / 'adheres'。間接なら経路を残す
 
 
 @dataclass
@@ -81,6 +93,7 @@ class Quantity:
     label: str  # 体積 など
     name: str  # 'NetVolume' など
     value: float | None
+    unit: str = ""  # ファイルが宣言している単位（MILLI.METRE / SQUARE_METRE など）
     owner: int | None = None  # 属する IFCELEMENTQUANTITY
     element: int | None = None  # 数量が付く要素
 
@@ -194,7 +207,8 @@ def extract(model: Model) -> Extract:
                 out.anomalies.append(f"#{e.id} ({e.type}) が複数の空間に載っている")
             direct[e.id] = space.id if space else None
             elements[e.id] = Element(id=e.id, type=e.type, global_id=gid, name=name,
-                                     container=space.id if space else None)
+                                     container=space.id if space else None,
+                                     container_via="direct")
 
     # 集合体の中に入れ子になった要素。親をたどって所属を継承する。
     for child, parent in aggregate_parent.items():
@@ -209,9 +223,31 @@ def extract(model: Model) -> Extract:
             if cur in direct:
                 gid, name = _rooted(e)
                 elements[child] = Element(id=child, type=e.type, global_id=gid,
-                                          name=name, container=direct[cur])
+                                          name=name, container=direct[cur],
+                                          container_via="aggregate")
                 break
             cur = aggregate_parent.get(cur)
+
+    # 母体に貼り付いている要素（路面標示など）。母体の所属を継承する。
+    for r in model.of("IFCRELADHERESTOELEMENT"):
+        if len(r.args) < 6:
+            continue
+        host = model.get(r.args[4])
+        feats = r.args[5]
+        if host is None or not isinstance(feats, list):
+            continue
+        host_container = None
+        if host.id in elements:
+            host_container = elements[host.id].container
+        elif host.id in direct:
+            host_container = direct[host.id]
+        for i in feats:
+            e = model.get(i)
+            if e is None or e.id in by_id or e.id in elements:
+                continue
+            gid, name = _rooted(e)
+            elements[e.id] = Element(id=e.id, type=e.type, global_id=gid, name=name,
+                                     container=host_container, container_via="adheres")
 
     out.elements = sorted(elements.values(), key=lambda x: (x.type, x.global_id))
 
@@ -239,6 +275,20 @@ def extract(model: Model) -> Extract:
                 attached[pdef.id] = e.id
                 break
 
+    # ファイルが宣言している単位。量の種類ごとに違う（長さmm・面積m2 など）。
+    unit_of: dict[str, str] = {}
+    for u in model.of("IFCSIUNIT"):
+        args = u.args
+        if len(args) < 4:
+            continue
+        utype = _s(args[1])
+        prefix = _s(args[2])
+        uname = _s(args[3])
+        unit_of[utype] = f"{prefix + '.' if prefix else ''}{uname}"
+    KIND_UNIT = {"IFCQUANTITYLENGTH": "LENGTHUNIT", "IFCQUANTITYAREA": "AREAUNIT",
+                 "IFCQUANTITYVOLUME": "VOLUMEUNIT", "IFCQUANTITYWEIGHT": "MASSUNIT",
+                 "IFCQUANTITYTIME": "TIMEUNIT"}
+
     for kind, label in QUANTITY_TYPES.items():
         for e in model.of(kind):
             name = _s(e.args[0]) if e.args else ""
@@ -251,6 +301,7 @@ def extract(model: Model) -> Extract:
             owner = owner_of.get(e.id)
             out.quantities.append(
                 Quantity(id=e.id, kind=kind, label=label, name=name, value=val,
+                         unit=unit_of.get(KIND_UNIT.get(kind, ""), ""),
                          owner=owner, element=attached.get(owner) if owner else None)
             )
     out.quantities.sort(key=lambda q: (q.kind, q.name, q.id))

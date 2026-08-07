@@ -1,7 +1,7 @@
 {
  "id": "T001",
  "title": "IFC の空間構造・要素の所属・数量を読む — 8ファイル横断",
- "note": "buildingSMART の PCERT 認証サンプル。建築系4・インフラ系4。IFC4.3 でインフラが入り IFCBRIDGE/IFCROAD/IFCRAILWAY と各 PART 型が加わっている。",
+ "note": "buildingSMART の PCERT 認証サンプル。建築系4・インフラ系4。IFC4.3 でインフラが入り IFCBRIDGE/IFCROAD/IFCRAILWAY と各 PART 型が加わっている。 腕(armC)が IFCRELADHERESTOELEMENT を見つけたため規則に追加した。ifcopenshell の get_container() もこれを解決しない。",
  "files": [
   {
    "path": "corpus/buildingsmart/Building-Architecture.ifc"
@@ -40,9 +40,11 @@
   "要素の所属は IFCRELCONTAINEDINSPATIALSTRUCTURE の第5引数が要素リスト、第6引数が空間",
   "深さはプロジェクトを0として親をたどった段数",
   "**同じ型が入れ子になる**。IFCSITE の中に IFCSITE、IFCBRIDGEPART の中に IFCBRIDGEPART が入る。「建物→階」の2段で決め打ちしない",
+  "母体に貼り付いている要素（IFCRELADHERESTOELEMENT の第6引数、路面標示など）は、母体の所属を継承する。厳密な包含関係ではないが、母体が載っている空間に物理的に存在するため。経路を container_via に 'direct'/'aggregate'/'adheres' で残すこと",
   "数量は IFCELEMENTQUANTITY の第6引数にぶら下がり、IFCRELDEFINESBYPROPERTIES で要素に結ばれる",
   "IFCQUANTITYAREA/LENGTH/VOLUME の第4引数が値",
-  "推測で埋めない。読めなかったものは欠損として報告する"
+  "推測で埋めない。読めなかったものは欠損として報告する",
+  "数量の単位は量の種類ごとに違う。IFCSIUNIT の宣言を見ること（本 corpus は長さ MILLI.METRE、面積 SQUARE_METRE、体積 CUBIC_METRE）。値だけでは意味が決まらない"
  ],
  "grade_levels": [
   "Q1",
@@ -72,7 +74,8 @@
       "type": "IFCSLAB",
       "global_id": "...",
       "name": "floor",
-      "container": 40
+      "container": 40,
+      "container_via": "direct"
      }
     ],
     "quantities": [
@@ -81,7 +84,8 @@
       "kind": "IFCQUANTITYAREA",
       "name": "NetArea",
       "value": 25.75,
-      "element": 49
+      "element": 49,
+      "unit": "SQUARE_METRE"
      }
     ],
     "anomalies": []

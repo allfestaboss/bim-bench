@@ -151,6 +151,57 @@ Building-Structural では6件、Architecture では2件を落としていた。
 
 修正後、**8ファイル全て一致**。
 
+## 腕が、独立実装でも届かない範囲を見つけた
+
+外部検算が通ったあとに armC を走らせたら、**要素を255件**報告してきた。
+こちらの参照解は235件。差は Infra-Road のちょうど +20 だった。
+
+```
+#194=IFCRELADHERESTOELEMENT('0DycPE6L…',#1,$,$,#167,(#178,#195,#203,#211,#219));
+     → #167 IfcCourse（舗装層）に #178… IfcSurfaceFeature（路面標示）が貼り付いている
+```
+
+`IFCRELADHERESTOELEMENT` は Infra-Road に4件、各5件で計20件。
+**ifcopenshell の `get_container()` は20件すべて `None` を返す。**
+つまり独立実装との突き合わせでは絶対に出てこない差だった。
+
+armC はこれを黙って使わず、こう書いてきた。
+
+> This relation is not in the task's rule list; without it those 20 elements
+> have no container at all.
+
+**規則に無いことを明示したうえで採用している。** 課題側の不備を指摘する形になっている。
+
+路面標示は物理的に舗装層の上にあり、舗装層は空間に載っている。
+「そこにある」と答えるほうが実務的に正しい。規則に追加し、
+`container_via` に `direct` / `aggregate` / `adheres` の経路を残すようにした。
+検算器には**定義の差**として明記し、比較から外している。
+
+### 単位系が量ごとに違う（armC の指摘）
+
+```
+IFCSIUNIT(*,.LENGTHUNIT.,.MILLI.,.METRE.)     長さは mm
+IFCSIUNIT(*,.AREAUNIT.,$,.SQUARE_METRE.)      面積は m2
+IFCSIUNIT(*,.VOLUMEUNIT.,$,.CUBIC_METRE.)     体積は m3
+```
+
+`Depth=250.0` は mm、`NetArea=25.75` は m2。**値だけ見ても意味が決まらない。**
+こちらは単位を記録していなかった。宣言された単位を併記するようにした。
+
+armC は `Volume = Area × Length/1000` が全ての三つ組で成り立つことまで確認して、
+「宣言された単位系であって壊れているのではない」と結論している。
+
+### 検算の階層が1段増えた
+
+| 段 | 手段 | 見つけたもの |
+|---|---|---|
+| 1 | 手読みとの較正 | 空間階層の深さ（自分の読みが浅かった） |
+| 2 | ifcopenshell との突き合わせ | 集合体経由の所属、空間の二重計上 |
+| 3 | **腕** | **付着関係、単位系の不統一** |
+
+**独立実装と一致しても、まだ上がある。** ifcopenshell も `IFCRELADHERESTOELEMENT` を
+所属として扱っていない以上、そこで止めていたら20件を落としたままだった。
+
 ## これから
 
 - 腕を走らせて分離を確認。**採点器はその後**

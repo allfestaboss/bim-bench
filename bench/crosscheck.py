@@ -95,7 +95,12 @@ def check_file(path: Path) -> list[str]:
             bad.append(f"空間 #{i} の親: こちら={my_sp[i].parent} ifcopenshell={th_sp[i]}")
 
     # ---- 要素の所属 ----
-    my_el = {e.id: e.container for e in mine.elements}
+    # IFCRELADHERESTOELEMENT で母体に貼り付いている要素（路面標示など）は、
+    # ifcopenshell の get_container() が None を返す。こちらは母体の所属を
+    # 継承させている。**定義の差**なので比較から外す。
+    # この関係の存在は腕(armC)が見つけた。独立実装との一致だけでは届かなかった。
+    my_el = {e.id: e.container for e in mine.elements if e.container_via != "adheres"}
+    adheres = sum(1 for e in mine.elements if e.container_via == "adheres")
     th_el = theirs["container"]
     only_mine = set(my_el) - set(th_el)
     only_theirs = set(th_el) - set(my_el)
@@ -122,6 +127,8 @@ def check_file(path: Path) -> list[str]:
                 bad.append(f"数量 #{i}/{name}: こちら={va} ifcopenshell={vb}")
             elif abs(va - vb) > max(abs(vb) * 1e-9, 1e-12):
                 bad.append(f"数量 #{i}/{name}: こちら={va} ifcopenshell={vb}")
+    if adheres:
+        bad.append(f"（参考）付着による所属 {adheres}件は比較対象外。ifcopenshell は解決しない")
     return bad
 
 
@@ -138,7 +145,11 @@ def main() -> int:
     total = 0
     for f in sorted(CORPUS.glob("*.ifc")):
         bad = check_file(f)
+        notes = [b for b in bad if b.startswith("（参考）")]
+        bad = [b for b in bad if not b.startswith("（参考）")]
         total += len(bad)
+        for n in notes:
+            print(f"  {f.name:<30} {n}")
         mark = "OK" if not bad else f"不一致 {len(bad)}件"
         print(f"  {f.name:<30} {mark}")
         for b in bad[:8]:
