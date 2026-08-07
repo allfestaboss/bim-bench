@@ -19,7 +19,7 @@ from .ifc import extract
 from .step import load
 
 ROOT = Path(__file__).resolve().parent.parent
-CORPUS = ROOT / "corpus" / "buildingsmart"
+CORPUS = ROOT / "corpus" / "buildingsmart" / "ifc4x3"
 
 
 def hand_slab_quantity() -> dict:

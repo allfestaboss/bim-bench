@@ -1,7 +1,7 @@
 {
- "id": "T001",
- "title": "IFC の空間構造・要素の所属・数量を読む — 8ファイル横断",
- "note": "buildingSMART の PCERT 認証サンプル。建築系4・インフラ系4。IFC4.3 でインフラが入り IFCBRIDGE/IFCROAD/IFCRAILWAY と各 PART 型が加わっている。 腕(armC)が IFCRELADHERESTOELEMENT を見つけたため規則に追加した。ifcopenshell の get_container() もこれを解決しない。 腕2本が IFCSPATIALZONE の置かれ方も指摘したため規則に追加した。",
+ "id": "T002",
+ "title": "IFC の空間構造・要素の所属・数量を読む — 17ファイル横断（IFC4 と IFC4.3 の両版）",
+ "note": "T001（8ファイル）は両腕とも完走し、到達範囲の差が出なかった。ファイル数を倍にして再測する。**同じシーンの IFC 4.0 版と 4.3 版を両方入れてある。** 4.0 にはインフラ型が無いため、橋も道路も鉄道も IFCBUILDING / IFCBUILDINGSTOREY で表現されている。同じ物理対象がスキーマ版で全く違う語彙になる。4.0版にしか無いファイル(Infra-Landscaping)もある。",
  "files": [
   {
    "path": "corpus/buildingsmart/ifc4x3/Building-Architecture.ifc"
@@ -26,6 +26,33 @@
   },
   {
    "path": "corpus/buildingsmart/ifc4x3/Infra-Road.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Building-Architecture.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Building-Hvac.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Building-Landscaping.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Building-Structural.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Bridge.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Landscaping.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Plumbing.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Rail.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Road.ifc"
   }
  ],
  "asked": [
@@ -45,7 +72,9 @@
   "数量は IFCELEMENTQUANTITY の第6引数にぶら下がり、IFCRELDEFINESBYPROPERTIES で要素に結ばれる",
   "IFCQUANTITYAREA/LENGTH/VOLUME の第4引数が値",
   "推測で埋めない。読めなかったものは欠損として報告する",
-  "数量の単位は量の種類ごとに違う。IFCSIUNIT の宣言を見ること（本 corpus は長さ MILLI.METRE、面積 SQUARE_METRE、体積 CUBIC_METRE）。値だけでは意味が決まらない"
+  "数量の単位は量の種類ごとに違う。IFCSIUNIT の宣言を見ること（本 corpus は長さ MILLI.METRE、面積 SQUARE_METRE、体積 CUBIC_METRE）。値だけでは意味が決まらない",
+  "同じ基底名のファイルが2つのスキーマ版に存在する。答案の file はディレクトリを含む相対パス（例 'ifc4/Building-Architecture.ifc'）で書くこと",
+  "IFC 4.0 にはインフラ用の空間型（IFCBRIDGE / IFCROAD / IFCRAILWAY と各PART）が無い。4.0版では橋も道路も IFCBUILDING / IFCBUILDINGSTOREY で表現されている。スキーマ版ごとに実際に出てくる型を見ること"
  ],
  "grade_levels": [
   "Q1",

@@ -154,15 +154,15 @@ def main() -> int:
     print("こちらは生の実体から、向こうは util.element の API から取っている。")
     print()
     total = 0
-    for f in sorted(CORPUS.glob("*.ifc")):
+    for f in sorted(CORPUS.rglob("*.ifc")):
         bad = check_file(f)
         notes = [b for b in bad if b.startswith("（参考）")]
         bad = [b for b in bad if not b.startswith("（参考）")]
         total += len(bad)
         for n in notes:
-            print(f"  {f.name:<30} {n}")
+            print(f"  {str(f.relative_to(CORPUS)):<38} {n}")
         mark = "OK" if not bad else f"不一致 {len(bad)}件"
-        print(f"  {f.name:<30} {mark}")
+        print(f"  {str(f.relative_to(CORPUS)):<38} {mark}")
         for b in bad[:8]:
             print(f"      {b}")
         if len(bad) > 8:

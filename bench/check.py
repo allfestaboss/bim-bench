@@ -84,7 +84,9 @@ def _f1(hit: int, want: int, extra: int) -> float:
 def _files(doc: dict) -> dict[str, dict]:
     out: dict[str, dict] = {}
     for r in doc.get("results") or []:
-        name = Path(str(r.get("file", ""))).name
+        # 同じ基底名が複数のスキーマ版に存在する（ifc4/Building-Architecture.ifc と
+        # ifc4x3/Building-Architecture.ifc）。基底名で引くと衝突するので相対パスで持つ。
+        name = str(r.get("file", "")).strip().lstrip("./")
         if name:
             out[name] = r
     return out

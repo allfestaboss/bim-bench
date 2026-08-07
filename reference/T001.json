@@ -3,7 +3,7 @@
  "standard": "ISO 16739 (IFC) / ISO 10303-21",
  "results": [
   {
-   "file": "Building-Architecture.ifc",
+   "file": "ifc4x3/Building-Architecture.ifc",
    "schema": "IFC4X3_ADD2",
    "spatials": [
     {
@@ -473,7 +473,7 @@
    }
   },
   {
-   "file": "Building-Hvac.ifc",
+   "file": "ifc4x3/Building-Hvac.ifc",
    "schema": "IFC4X3_ADD2",
    "spatials": [
     {
@@ -588,7 +588,7 @@
    }
   },
   {
-   "file": "Building-Landscaping.ifc",
+   "file": "ifc4x3/Building-Landscaping.ifc",
    "schema": "IFC4X3_ADD2",
    "spatials": [
     {
@@ -689,7 +689,7 @@
    }
   },
   {
-   "file": "Building-Structural.ifc",
+   "file": "ifc4x3/Building-Structural.ifc",
    "schema": "IFC4X3_ADD2",
    "spatials": [
     {
@@ -1244,7 +1244,7 @@
    }
   },
   {
-   "file": "Infra-Bridge.ifc",
+   "file": "ifc4x3/Infra-Bridge.ifc",
    "schema": "IFC4X3_ADD2",
    "spatials": [
     {
@@ -2196,7 +2196,7 @@
    }
   },
   {
-   "file": "Infra-Plumbing.ifc",
+   "file": "ifc4x3/Infra-Plumbing.ifc",
    "schema": "IFC4X3_ADD2",
    "spatials": [
     {
@@ -2538,7 +2538,7 @@
    }
   },
   {
-   "file": "Infra-Rail.ifc",
+   "file": "ifc4x3/Infra-Rail.ifc",
    "schema": "IFC4X3_ADD2",
    "spatials": [
     {
@@ -3260,7 +3260,7 @@
    }
   },
   {
-   "file": "Infra-Road.ifc",
+   "file": "ifc4x3/Infra-Road.ifc",
    "schema": "IFC4X3_ADD2",
    "spatials": [
     {

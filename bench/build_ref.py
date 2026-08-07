@@ -22,7 +22,7 @@ def build(task_id: str) -> dict:
     for f in task["files"]:
         x = extract(load(ROOT / f["path"]))
         results.append({
-            "file": Path(f["path"]).name,
+            "file": str(Path(f["path"]).relative_to("corpus/buildingsmart")),
             "schema": x.schema,
             "spatials": [dataclasses.asdict(s) for s in x.spatials],
             "elements": [dataclasses.asdict(e) for e in x.elements],
