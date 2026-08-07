@@ -364,16 +364,29 @@ armB が挙げた唯一の矛盾。
 armB が挙げた唯一の矛盾を、こちらは検出できていなかった。抽出対象に加えた。
 
 ```
-#49 IFCSLAB（床スラブ）
-  型経由 #47 IFCSLABTYPE の HasPropertySets -> #963 Pset_SlabCommon  FireRating = 'REI60'
-  直接   IFCRELDEFINESBYPROPERTIES          -> #800 Pset_SlabCommon  FireRating = 'REI30'
+#52 IFCSLAB（床スラブ）
+  型経由 #50 IFCSLABTYPE の HasPropertySets -> #963 Pset_SlabCommon  FireRating = 'REI60'
+  直接   IFCRELDEFINESBYPROPERTIES          -> #57  Pset_SlabCommon  FireRating = 'REI30'
 ```
 
 **同じ要素に、同じ名前の性能仕様が両経路から付き、耐火等級が食い違う。**
-IFC4.0版・IFC4.3版の両方で同じ矛盾が入っている。
+IFC4.0版・IFC4.3版の両方に同じ矛盾が入っている（T002 で324属性中2件）。
 
-抽出は242属性。うち **174件が型経由、137件が直接**で、
-**型経由だけを見ても直接だけを見ても、この矛盾は見えない。**
+型経由は324件中わずか4件しかない。**その4件の中に矛盾が2件ある。**
+直接付いた320件だけを見れば全て整合して見える。稀な経路にこそ出る。
+
+### 標準ライブラリの既定では、この矛盾は見えない
+
+外部検算に使っている ifcopenshell で同じ床スラブを引くと、こうなる。
+
+```python
+ue.get_psets(slab)                      -> FireRating = 'REI30'   # 既定
+ue.get_psets(slab, should_inherit=False)-> FireRating = 'REI30'   # 直接のみ
+ue.get_psets(ue.get_type(slab))         -> FireRating = 'REI60'   # 型のみ
+```
+
+**既定の呼び方では REI60 が REI30 に上書きされて消える。** 仕様どおりの優先順位解決だが、
+照査で拾いたいのは当の消えたほうである。検算側は2経路を別々に取って比べるようにした。
 
 ### 配点を組み替えた
 
@@ -383,6 +396,19 @@ Q4 要素の所属 22 / Q5 数量 17 / Q6 性能仕様 17
 ```
 
 Q4 を最も重くしたのは変えていない。BIM 照査の中心が所属だからである。
+
+### 外部検算が抽出器の穴を2つ出した
+
+Q6 を採点対象にしてから、**採点する水準は必ず外から検算してから出す**を
+自分で破っていたことに気づいた。突き合わせを性能仕様まで広げたところ:
+
+| 出た穴 | 中身 |
+|---|---|
+| 列挙型の属性を丸ごと落としていた | `IFCPROPERTYSINGLEVALUE` だけを見ていた。`IFCPROPERTYENUMERATEDVALUE`（Status 等）が **82件**、コーパスの4分の1 |
+| 値がリストのとき畳めていなかった | 列挙型は第3引数がリスト。IFC では列挙は複数値を取りうる |
+
+242 → **324件**。この2つは較正（手読み）では出なかった。手読みでも
+`IFCPROPERTYSINGLEVALUE` を探していたので、同じ思い込みで一緒に間違えていた。
 
 ### 敵対テストを3件足した
 

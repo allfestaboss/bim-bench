@@ -4636,6 +4636,15 @@
      "via": "direct"
     },
     {
+     "id": 53,
+     "pset_id": 57,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 52,
+     "via": "direct"
+    },
+    {
      "id": 980,
      "pset_id": 963,
      "pset_name": "Pset_SlabCommon",
@@ -4780,6 +4789,15 @@
      "via": "direct"
     },
     {
+     "id": 263,
+     "pset_id": 266,
+     "pset_name": "Pset_WallCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 262,
+     "via": "direct"
+    },
+    {
      "id": 293,
      "pset_id": 295,
      "pset_name": "Pset_WallCommon",
@@ -4794,6 +4812,15 @@
      "pset_name": "Pset_WallCommon",
      "name": "LoadBearing",
      "value": ".F.",
+     "element": 291,
+     "via": "direct"
+    },
+    {
+     "id": 292,
+     "pset_id": 295,
+     "pset_name": "Pset_WallCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 291,
      "via": "direct"
     },
@@ -4816,6 +4843,15 @@
      "via": "direct"
     },
     {
+     "id": 316,
+     "pset_id": 319,
+     "pset_name": "Pset_WallCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 315,
+     "via": "direct"
+    },
+    {
      "id": 355,
      "pset_id": 357,
      "pset_name": "Pset_WallCommon",
@@ -4834,11 +4870,29 @@
      "via": "direct"
     },
     {
+     "id": 354,
+     "pset_id": 357,
+     "pset_name": "Pset_WallCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 353,
+     "via": "direct"
+    },
+    {
      "id": 384,
      "pset_id": 385,
      "pset_name": "Pset_RoofCommon",
      "name": "IsExternal",
      "value": ".T.",
+     "element": 382,
+     "via": "direct"
+    },
+    {
+     "id": 383,
+     "pset_id": 385,
+     "pset_name": "Pset_RoofCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 382,
      "via": "direct"
     },
@@ -4870,6 +4924,15 @@
      "via": "direct"
     },
     {
+     "id": 396,
+     "pset_id": 400,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 395,
+     "via": "direct"
+    },
+    {
      "id": 427,
      "pset_id": 429,
      "pset_name": "Pset_SlabCommon",
@@ -4884,6 +4947,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".F.",
+     "element": 425,
+     "via": "direct"
+    },
+    {
+     "id": 426,
+     "pset_id": 429,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 425,
      "via": "direct"
     }
@@ -5703,6 +5775,15 @@
      "via": "direct"
     },
     {
+     "id": 72,
+     "pset_id": 76,
+     "pset_name": "Pset_WallCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 71,
+     "via": "direct"
+    },
+    {
      "id": 103,
      "pset_id": 105,
      "pset_name": "Pset_WallCommon",
@@ -5721,11 +5802,29 @@
      "via": "direct"
     },
     {
+     "id": 102,
+     "pset_id": 105,
+     "pset_name": "Pset_WallCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 101,
+     "via": "direct"
+    },
+    {
      "id": 127,
      "pset_id": 128,
      "pset_name": "Pset_WallCommon",
      "name": "IsExternal",
      "value": ".T.",
+     "element": 125,
+     "via": "direct"
+    },
+    {
+     "id": 126,
+     "pset_id": 128,
+     "pset_name": "Pset_WallCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 125,
      "via": "direct"
     },
@@ -5748,11 +5847,29 @@
      "via": "direct"
     },
     {
+     "id": 173,
+     "pset_id": 176,
+     "pset_name": "Pset_WallCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 172,
+     "via": "direct"
+    },
+    {
      "id": 198,
      "pset_id": 199,
      "pset_name": "Pset_RoofCommon",
      "name": "IsExternal",
      "value": ".T.",
+     "element": 196,
+     "via": "direct"
+    },
+    {
+     "id": 197,
+     "pset_id": 199,
+     "pset_name": "Pset_RoofCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 196,
      "via": "direct"
     },
@@ -5775,6 +5892,15 @@
      "via": "direct"
     },
     {
+     "id": 210,
+     "pset_id": 213,
+     "pset_name": "Pset_BeamCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 209,
+     "via": "direct"
+    },
+    {
      "id": 238,
      "pset_id": 240,
      "pset_name": "Pset_BeamCommon",
@@ -5789,6 +5915,15 @@
      "pset_name": "Pset_BeamCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 236,
+     "via": "direct"
+    },
+    {
+     "id": 237,
+     "pset_id": 240,
+     "pset_name": "Pset_BeamCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 236,
      "via": "direct"
     },
@@ -5811,6 +5946,15 @@
      "via": "direct"
     },
     {
+     "id": 258,
+     "pset_id": 261,
+     "pset_name": "Pset_BeamCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 257,
+     "via": "direct"
+    },
+    {
      "id": 280,
      "pset_id": 282,
      "pset_name": "Pset_BeamCommon",
@@ -5825,6 +5969,15 @@
      "pset_name": "Pset_BeamCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 278,
+     "via": "direct"
+    },
+    {
+     "id": 279,
+     "pset_id": 282,
+     "pset_name": "Pset_BeamCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 278,
      "via": "direct"
     },
@@ -5847,6 +6000,15 @@
      "via": "direct"
     },
     {
+     "id": 300,
+     "pset_id": 303,
+     "pset_name": "Pset_BeamCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 299,
+     "via": "direct"
+    },
+    {
      "id": 322,
      "pset_id": 324,
      "pset_name": "Pset_BeamCommon",
@@ -5861,6 +6023,15 @@
      "pset_name": "Pset_BeamCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 320,
+     "via": "direct"
+    },
+    {
+     "id": 321,
+     "pset_id": 324,
+     "pset_name": "Pset_BeamCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 320,
      "via": "direct"
     }
@@ -6806,7 +6977,197 @@
      "element": 796
     }
    ],
-   "properties": [],
+   "properties": [
+    {
+     "id": 328,
+     "pset_id": 330,
+     "pset_name": "Pset_ElementAssemblyCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 327,
+     "via": "direct"
+    },
+    {
+     "id": 363,
+     "pset_id": 364,
+     "pset_name": "Pset_FootingCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 362,
+     "via": "direct"
+    },
+    {
+     "id": 379,
+     "pset_id": 380,
+     "pset_name": "Pset_BeamCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 378,
+     "via": "direct"
+    },
+    {
+     "id": 398,
+     "pset_id": 399,
+     "pset_name": "Pset_ElementAssemblyCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 397,
+     "via": "direct"
+    },
+    {
+     "id": 422,
+     "pset_id": 423,
+     "pset_name": "Pset_FootingCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 421,
+     "via": "direct"
+    },
+    {
+     "id": 436,
+     "pset_id": 437,
+     "pset_name": "Pset_BeamCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 435,
+     "via": "direct"
+    },
+    {
+     "id": 455,
+     "pset_id": 456,
+     "pset_name": "Pset_ElementAssemblyCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 454,
+     "via": "direct"
+    },
+    {
+     "id": 476,
+     "pset_id": 477,
+     "pset_name": "Pset_FootingCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 475,
+     "via": "direct"
+    },
+    {
+     "id": 487,
+     "pset_id": 488,
+     "pset_name": "Pset_BeamCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 486,
+     "via": "direct"
+    },
+    {
+     "id": 525,
+     "pset_id": 526,
+     "pset_name": "Pset_ElementAssemblyCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 524,
+     "via": "direct"
+    },
+    {
+     "id": 537,
+     "pset_id": 538,
+     "pset_name": "Pset_ColumnCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 536,
+     "via": "direct"
+    },
+    {
+     "id": 557,
+     "pset_id": 558,
+     "pset_name": "Pset_FootingCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 556,
+     "via": "direct"
+    },
+    {
+     "id": 571,
+     "pset_id": 572,
+     "pset_name": "Pset_ElementAssemblyCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 570,
+     "via": "direct"
+    },
+    {
+     "id": 580,
+     "pset_id": 581,
+     "pset_name": "Pset_ColumnCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 579,
+     "via": "direct"
+    },
+    {
+     "id": 595,
+     "pset_id": 596,
+     "pset_name": "Pset_FootingCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 594,
+     "via": "direct"
+    },
+    {
+     "id": 752,
+     "pset_id": 753,
+     "pset_name": "Pset_ElementAssemblyCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 751,
+     "via": "direct"
+    },
+    {
+     "id": 762,
+     "pset_id": 763,
+     "pset_name": "Pset_ColumnCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 761,
+     "via": "direct"
+    },
+    {
+     "id": 777,
+     "pset_id": 778,
+     "pset_name": "Pset_FootingCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 776,
+     "via": "direct"
+    },
+    {
+     "id": 788,
+     "pset_id": 789,
+     "pset_name": "Pset_ElementAssemblyCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 787,
+     "via": "direct"
+    },
+    {
+     "id": 797,
+     "pset_id": 798,
+     "pset_name": "Pset_ColumnCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 796,
+     "via": "direct"
+    },
+    {
+     "id": 812,
+     "pset_id": 813,
+     "pset_name": "Pset_FootingCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 811,
+     "via": "direct"
+    }
+   ],
    "anomalies": [],
    "counts": {
     "IFCBEAM": 8,
@@ -8785,6 +9146,15 @@
      "via": "direct"
     },
     {
+     "id": 798,
+     "pset_id": 802,
+     "pset_name": "Pset_MemberCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 797,
+     "via": "direct"
+    },
+    {
      "id": 846,
      "pset_id": 848,
      "pset_name": "Pset_MemberCommon",
@@ -8799,6 +9169,15 @@
      "pset_name": "Pset_MemberCommon",
      "name": "LoadBearing",
      "value": ".F.",
+     "element": 844,
+     "via": "direct"
+    },
+    {
+     "id": 845,
+     "pset_id": 848,
+     "pset_name": "Pset_MemberCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 844,
      "via": "direct"
     },
@@ -8821,6 +9200,15 @@
      "via": "direct"
     },
     {
+     "id": 873,
+     "pset_id": 876,
+     "pset_name": "Pset_MemberCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 872,
+     "via": "direct"
+    },
+    {
      "id": 902,
      "pset_id": 904,
      "pset_name": "Pset_MemberCommon",
@@ -8835,6 +9223,15 @@
      "pset_name": "Pset_MemberCommon",
      "name": "LoadBearing",
      "value": ".F.",
+     "element": 900,
+     "via": "direct"
+    },
+    {
+     "id": 901,
+     "pset_id": 904,
+     "pset_name": "Pset_MemberCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 900,
      "via": "direct"
     },
@@ -8857,6 +9254,15 @@
      "via": "direct"
     },
     {
+     "id": 1202,
+     "pset_id": 1205,
+     "pset_name": "Pset_MemberCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 1201,
+     "via": "direct"
+    },
+    {
      "id": 1237,
      "pset_id": 1239,
      "pset_name": "Pset_MemberCommon",
@@ -8871,6 +9277,15 @@
      "pset_name": "Pset_MemberCommon",
      "name": "LoadBearing",
      "value": ".F.",
+     "element": 1235,
+     "via": "direct"
+    },
+    {
+     "id": 1236,
+     "pset_id": 1239,
+     "pset_name": "Pset_MemberCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 1235,
      "via": "direct"
     },
@@ -8893,6 +9308,15 @@
      "via": "direct"
     },
     {
+     "id": 1378,
+     "pset_id": 1381,
+     "pset_name": "Pset_MemberCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 1377,
+     "via": "direct"
+    },
+    {
      "id": 1413,
      "pset_id": 1415,
      "pset_name": "Pset_MemberCommon",
@@ -8907,6 +9331,15 @@
      "pset_name": "Pset_MemberCommon",
      "name": "LoadBearing",
      "value": ".F.",
+     "element": 1411,
+     "via": "direct"
+    },
+    {
+     "id": 1412,
+     "pset_id": 1415,
+     "pset_name": "Pset_MemberCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 1411,
      "via": "direct"
     },
@@ -8929,6 +9362,15 @@
      "via": "direct"
     },
     {
+     "id": 1440,
+     "pset_id": 1443,
+     "pset_name": "Pset_MemberCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 1439,
+     "via": "direct"
+    },
+    {
      "id": 1469,
      "pset_id": 1471,
      "pset_name": "Pset_MemberCommon",
@@ -8943,6 +9385,15 @@
      "pset_name": "Pset_MemberCommon",
      "name": "LoadBearing",
      "value": ".F.",
+     "element": 1467,
+     "via": "direct"
+    },
+    {
+     "id": 1468,
+     "pset_id": 1471,
+     "pset_name": "Pset_MemberCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 1467,
      "via": "direct"
     }
@@ -11614,6 +12065,15 @@
      "via": "direct"
     },
     {
+     "id": 57,
+     "pset_id": 61,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 56,
+     "via": "direct"
+    },
+    {
      "id": 88,
      "pset_id": 90,
      "pset_name": "Pset_SlabCommon",
@@ -11628,6 +12088,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 86,
+     "via": "direct"
+    },
+    {
+     "id": 87,
+     "pset_id": 90,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 86,
      "via": "direct"
     },
@@ -11650,6 +12119,15 @@
      "via": "direct"
     },
     {
+     "id": 115,
+     "pset_id": 118,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 114,
+     "via": "direct"
+    },
+    {
      "id": 144,
      "pset_id": 146,
      "pset_name": "Pset_SlabCommon",
@@ -11664,6 +12142,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 142,
+     "via": "direct"
+    },
+    {
+     "id": 143,
+     "pset_id": 146,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 142,
      "via": "direct"
     },
@@ -11686,6 +12173,15 @@
      "via": "direct"
     },
     {
+     "id": 199,
+     "pset_id": 202,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 198,
+     "via": "direct"
+    },
+    {
      "id": 224,
      "pset_id": 226,
      "pset_name": "Pset_SlabCommon",
@@ -11700,6 +12196,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 222,
+     "via": "direct"
+    },
+    {
+     "id": 223,
+     "pset_id": 226,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 222,
      "via": "direct"
     },
@@ -11722,6 +12227,15 @@
      "via": "direct"
     },
     {
+     "id": 289,
+     "pset_id": 292,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 288,
+     "via": "direct"
+    },
+    {
      "id": 313,
      "pset_id": 315,
      "pset_name": "Pset_SlabCommon",
@@ -11736,6 +12250,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 311,
+     "via": "direct"
+    },
+    {
+     "id": 312,
+     "pset_id": 315,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 311,
      "via": "direct"
     },
@@ -11758,6 +12281,15 @@
      "via": "direct"
     },
     {
+     "id": 346,
+     "pset_id": 349,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 345,
+     "via": "direct"
+    },
+    {
      "id": 366,
      "pset_id": 368,
      "pset_name": "Pset_SlabCommon",
@@ -11772,6 +12304,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 364,
+     "via": "direct"
+    },
+    {
+     "id": 365,
+     "pset_id": 368,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 364,
      "via": "direct"
     },
@@ -11794,6 +12335,15 @@
      "via": "direct"
     },
     {
+     "id": 383,
+     "pset_id": 386,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 382,
+     "via": "direct"
+    },
+    {
      "id": 402,
      "pset_id": 404,
      "pset_name": "Pset_SlabCommon",
@@ -11808,6 +12358,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 400,
+     "via": "direct"
+    },
+    {
+     "id": 401,
+     "pset_id": 404,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 400,
      "via": "direct"
     },
@@ -11830,6 +12389,15 @@
      "via": "direct"
     },
     {
+     "id": 441,
+     "pset_id": 444,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 440,
+     "via": "direct"
+    },
+    {
      "id": 461,
      "pset_id": 463,
      "pset_name": "Pset_SlabCommon",
@@ -11844,6 +12412,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 459,
+     "via": "direct"
+    },
+    {
+     "id": 460,
+     "pset_id": 463,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 459,
      "via": "direct"
     },
@@ -11866,6 +12443,15 @@
      "via": "direct"
     },
     {
+     "id": 513,
+     "pset_id": 516,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 512,
+     "via": "direct"
+    },
+    {
      "id": 532,
      "pset_id": 534,
      "pset_name": "Pset_SlabCommon",
@@ -11880,6 +12466,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 530,
+     "via": "direct"
+    },
+    {
+     "id": 531,
+     "pset_id": 534,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 530,
      "via": "direct"
     },
@@ -11902,6 +12497,15 @@
      "via": "direct"
     },
     {
+     "id": 600,
+     "pset_id": 603,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 599,
+     "via": "direct"
+    },
+    {
      "id": 625,
      "pset_id": 627,
      "pset_name": "Pset_SlabCommon",
@@ -11916,6 +12520,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 623,
+     "via": "direct"
+    },
+    {
+     "id": 624,
+     "pset_id": 627,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 623,
      "via": "direct"
     },
@@ -11938,6 +12551,15 @@
      "via": "direct"
     },
     {
+     "id": 647,
+     "pset_id": 650,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 646,
+     "via": "direct"
+    },
+    {
      "id": 671,
      "pset_id": 673,
      "pset_name": "Pset_SlabCommon",
@@ -11952,6 +12574,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 669,
+     "via": "direct"
+    },
+    {
+     "id": 670,
+     "pset_id": 673,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 669,
      "via": "direct"
     },
@@ -11974,6 +12605,15 @@
      "via": "direct"
     },
     {
+     "id": 728,
+     "pset_id": 731,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 727,
+     "via": "direct"
+    },
+    {
      "id": 751,
      "pset_id": 753,
      "pset_name": "Pset_SlabCommon",
@@ -11988,6 +12628,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 749,
+     "via": "direct"
+    },
+    {
+     "id": 750,
+     "pset_id": 753,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 749,
      "via": "direct"
     },
@@ -12010,6 +12659,15 @@
      "via": "direct"
     },
     {
+     "id": 771,
+     "pset_id": 774,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 770,
+     "via": "direct"
+    },
+    {
      "id": 793,
      "pset_id": 795,
      "pset_name": "Pset_SlabCommon",
@@ -12024,6 +12682,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 791,
+     "via": "direct"
+    },
+    {
+     "id": 792,
+     "pset_id": 795,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 791,
      "via": "direct"
     },
@@ -12046,6 +12713,15 @@
      "via": "direct"
     },
     {
+     "id": 856,
+     "pset_id": 859,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 855,
+     "via": "direct"
+    },
+    {
      "id": 879,
      "pset_id": 881,
      "pset_name": "Pset_SlabCommon",
@@ -12060,6 +12736,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 877,
+     "via": "direct"
+    },
+    {
+     "id": 878,
+     "pset_id": 881,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 877,
      "via": "direct"
     },
@@ -12082,6 +12767,15 @@
      "via": "direct"
     },
     {
+     "id": 937,
+     "pset_id": 940,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 936,
+     "via": "direct"
+    },
+    {
      "id": 959,
      "pset_id": 961,
      "pset_name": "Pset_SlabCommon",
@@ -12096,6 +12790,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 957,
+     "via": "direct"
+    },
+    {
+     "id": 958,
+     "pset_id": 961,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 957,
      "via": "direct"
     },
@@ -12118,6 +12821,15 @@
      "via": "direct"
     },
     {
+     "id": 1043,
+     "pset_id": 1046,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 1042,
+     "via": "direct"
+    },
+    {
      "id": 1066,
      "pset_id": 1068,
      "pset_name": "Pset_SlabCommon",
@@ -12132,6 +12844,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 1064,
+     "via": "direct"
+    },
+    {
+     "id": 1065,
+     "pset_id": 1068,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 1064,
      "via": "direct"
     },
@@ -12154,6 +12875,15 @@
      "via": "direct"
     },
     {
+     "id": 1124,
+     "pset_id": 1127,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
+     "element": 1123,
+     "via": "direct"
+    },
+    {
      "id": 1146,
      "pset_id": 1148,
      "pset_name": "Pset_SlabCommon",
@@ -12168,6 +12898,15 @@
      "pset_name": "Pset_SlabCommon",
      "name": "LoadBearing",
      "value": ".T.",
+     "element": 1144,
+     "via": "direct"
+    },
+    {
+     "id": 1145,
+     "pset_id": 1148,
+     "pset_name": "Pset_SlabCommon",
+     "name": "Status",
+     "value": "UNSET",
      "element": 1144,
      "via": "direct"
     }
@@ -12192,7 +12931,7 @@
   "n_spatial": 228,
   "n_element": 629,
   "n_quantity": 250,
-  "n_property": 242,
+  "n_property": 324,
   "n_anomaly": 2
  }
 }

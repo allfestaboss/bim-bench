@@ -150,10 +150,16 @@ _TYPED = None
 
 
 def _unwrap(v) -> str:
-    """IFCLABEL('REI60') のような型付き値から中身を取る。"""
+    """IFCLABEL('REI60') のような型付き値から中身を取る。
+
+    列挙型の属性は値がリストで来る（Status = (IFCLABEL('UNSET'))）ので
+    畳んでカンマで繋ぐ。IFC では列挙が複数値を取りうる。
+    """
     import re as _re
     if v is None:
         return ""
+    if isinstance(v, list):
+        return ",".join(_unwrap(x) for x in v)
     t = str(v)
     m = _re.fullmatch(r"[A-Z_0-9]+\((.*)\)", t.strip(), _re.S)
     if m:
@@ -381,7 +387,11 @@ def extract(model: Model) -> Extract:
         items = []
         for i in (lst if isinstance(lst, list) else []):
             e = model.get(i)
-            if e is not None and e.type == "IFCPROPERTYSINGLEVALUE":
+            # IFCPROPERTYSINGLEVALUE だけを見ると Status のような
+            # **列挙型の属性を丸ごと落とす**（コーパスに82件）。
+            # 値の位置は同じ第3引数だが、列挙型はそこがリストになっている。
+            if e is not None and e.type in ("IFCPROPERTYSINGLEVALUE",
+                                            "IFCPROPERTYENUMERATEDVALUE"):
                 items.append(e)
         pset_props[ps.id] = items
 

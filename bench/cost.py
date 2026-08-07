@@ -65,7 +65,8 @@ def workload(task_id: str) -> dict[str, int]:
     """課題の仕事量。参照解から数える。"""
     ref_path = ROOT / "reference" / f"{task_id}.json"
     if not ref_path.exists():
-        return {"files": 0, "tolerances": 0, "datums": 0}
+        return {"files": 0, "tolerances": 0, "spatials": 0,
+                "quantities": 0, "properties": 0, "anomalies": 0}
     ref = json.loads(ref_path.read_text(encoding="utf-8"))
     s = ref.get("summary", {})
     return {
@@ -73,6 +74,8 @@ def workload(task_id: str) -> dict[str, int]:
         "tolerances": s.get("n_element", 0),   # 単価の分母は要素数
         "spatials": s.get("n_spatial", 0),
         "quantities": s.get("n_quantity", 0),
+        "properties": s.get("n_property", 0),
+        "anomalies": s.get("n_anomaly", 0),
     }
 
 

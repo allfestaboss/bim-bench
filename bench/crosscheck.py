@@ -11,9 +11,20 @@ ifcopenshell は IFC の独立した実装なので、その思い込みごと�
     空間の親    ifcopenshell.util.element.get_aggregate(e)
     要素の所属  ifcopenshell.util.element.get_container(e)
     数量        ifcopenshell.util.element.get_psets(e, qtos_only=True)
+    性能仕様    get_psets(e, should_inherit=False) と get_psets(get_type(e))
 
 こちらは IFCRELAGGREGATES / IFCRELCONTAINEDINSPATIALSTRUCTURE / IFCELEMENTQUANTITY を
 生の実体からたどっている。到達経路が違うので、一致すれば意味がある。
+
+**性能仕様だけは向こうの既定 API をそのまま使えない。**
+get_psets(e) は既定で型の値を直接の値で上書きして1つの辞書に潰す。
+
+    #52 IfcSlab   get_psets(e)                -> FireRating = 'REI30'
+                  get_psets(e, 継承なし)       -> FireRating = 'REI30'
+                  get_psets(型 #50)           -> FireRating = 'REI60'
+
+つまり **既定のまま読むと REI60 は消え、耐火等級の矛盾は見えない。**
+照査で拾いたいのは当のその矛盾なので、2経路を別々に取って比べる。
 
 ifcopenshell は corpus に同梱していない（venv に入れる）。
 検算の道具であって、参照解の一部ではない。
@@ -29,6 +40,25 @@ from .step import load as load_step
 
 ROOT = Path(__file__).resolve().parent.parent
 CORPUS = ROOT / "corpus" / "buildingsmart"
+
+
+def _norm(v) -> str:
+    """ifcopenshell 側の値をこちら側の書き方に寄せる。
+
+    向こうは Python の型に直して返す（True / False / ['UNSET'] / 45.0）。
+    こちらは Part21 の書式のまま持っている（.T. / .F. / UNSET / 45.）。
+    **読み取れているかを見たいのであって、表記の差を咎めたいのではない。**
+    """
+    if isinstance(v, bool):
+        return "T" if v else "F"
+    if isinstance(v, (list, tuple)):
+        return ",".join(_norm(x) for x in v)
+    s = str(v).strip().strip(".") if not isinstance(v, float) else repr(v)
+    # Part21 は 45. と書き、ifcopenshell は 45.0 と読む。同じ数である。
+    try:
+        return repr(float(s))
+    except ValueError:
+        return s
 
 
 def _oshell_view(path: Path) -> dict:
@@ -71,8 +101,23 @@ def _oshell_view(path: Path) -> dict:
         if flat:
             quantities[e.id()] = flat
 
+    # 性能仕様。直接と型経由を**別々に**取る。既定の get_psets(e) は
+    # 型の値を直接の値で上書きするので、そのまま使うと矛盾が消える。
+    props: dict[tuple, str] = {}  # (要素, Pset名, 属性名, 付き方) -> 値
+    for e in f.by_type("IfcObject"):
+        pairs = [("direct", ue.get_psets(e, psets_only=True, should_inherit=False))]
+        t = ue.get_type(e)
+        if t is not None and t.id() != e.id():
+            pairs.append(("type", ue.get_psets(t, psets_only=True)))
+        for via, psets in pairs:
+            for pname, body in (psets or {}).items():
+                for k, v in (body or {}).items():
+                    if k == "id" or v is None:
+                        continue
+                    props[(e.id(), pname, k, via)] = _norm(v)
+
     return {"schema": f.schema, "spatial_parent": spatial_parent,
-            "container": container, "quantities": quantities}
+            "container": container, "quantities": quantities, "properties": props}
 
 
 def check_file(path: Path) -> list[str]:
@@ -138,6 +183,21 @@ def check_file(path: Path) -> list[str]:
                 bad.append(f"数量 #{i}/{name}: こちら={va} ifcopenshell={vb}")
             elif abs(va - vb) > max(abs(vb) * 1e-9, 1e-12):
                 bad.append(f"数量 #{i}/{name}: こちら={va} ifcopenshell={vb}")
+    # ---- 性能仕様 ----
+    my_p = {(p.element, p.pset_name, p.name, p.via): p.value
+            for p in mine.properties if p.element is not None}
+    th_p = theirs["properties"]
+    only_mine = set(my_p) - set(th_p)
+    only_theirs = set(th_p) - set(my_p)
+    for k in sorted(only_mine)[:6]:
+        bad.append(f"性能仕様 こちらだけにある {k}")
+    for k in sorted(only_theirs)[:6]:
+        bad.append(f"性能仕様 ifcopenshell だけにある {k}")
+    for k in sorted(set(my_p) & set(th_p)):
+        a, b = _norm(my_p[k]), th_p[k]
+        if a != b:
+            bad.append(f"性能仕様 {k}: こちら={my_p[k]!r} ifcopenshell={b!r}")
+
     if adheres:
         bad.append(f"（参考）付着による所属 {adheres}件は比較対象外。ifcopenshell は解決しない")
     return bad
