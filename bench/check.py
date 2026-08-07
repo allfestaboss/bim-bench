@@ -193,7 +193,11 @@ def grade(ref_doc: dict, sub_doc: dict, levels: list[str] | None = None) -> dict
                 # 単位は答案が出していれば見る。出していなければ値だけで判定しない。
                 u_want = str(r.get("unit") or "")
                 u_got = str(s.get("unit") or "")
-                u_ok = (not u_want) or (u_got.strip(".").upper() == u_want.strip(".").upper())
+                # 単位名の区切りは書式の問題であって読み取り能力の差ではない。
+                # こちらは接頭語と名前を '.' で繋いで MILLI.METRE と持つが、
+                # MILLIMETRE と書くのも同じ意味。点を全部落として比べる。
+                u_ok = (not u_want) or (
+                    u_got.replace(".", "").upper() == u_want.replace(".", "").upper())
                 e_ok = _ref_or_none(s.get("element")) == _ref_or_none(r.get("element"))
                 if v_ok and u_ok and e_ok:
                     good += 1
