@@ -77,7 +77,7 @@
   "同じ基底名のファイルが2つのスキーマ版に存在する。答案の file はディレクトリを含む相対パス（例 'ifc4/Building-Architecture.ifc'）で書くこと",
   "IFC 4.0 にはインフラ用の空間型（IFCBRIDGE / IFCROAD / IFCRAILWAY と各PART）が無い。4.0版では橋も道路も IFCBUILDING / IFCBUILDINGSTOREY で表現されている。スキーマ版ごとに実際に出てくる型を見ること",
   "性能仕様は要素に2通りで付く。直接は IFCRELDEFINESBYPROPERTIES、型経由は IFCRELDEFINESBYTYPE が指す型の第6引数 HasPropertySets。**同じ要素に同名の Pset が両経路から付き、値が食い違うことがある。** 両方を別々に報告し、付き方を via に 'direct'/'type' で残すこと",
-  "属性値は IFCLABEL('REI60') のような型付きで書かれている。中身だけを報告すること"
+  "属性値は IFCLABEL('...') のような型付きで書かれている。中身だけを報告すること"
  ],
  "grade_levels": [
   "Q1",
@@ -125,26 +125,35 @@
      }
     ],
     "anomalies": [
-     "#49 に同名の Pset_SlabCommon が複数付き、FireRating が食い違う: REI30(direct), REI60(type)"
+     "（気づいた矛盾を文で書く。無ければ空配列）"
     ],
     "properties": [
      {
-      "id": 961,
-      "pset_id": 800,
-      "pset_name": "Pset_SlabCommon",
-      "name": "FireRating",
-      "value": "REI30",
-      "element": 49,
+      "id": 263,
+      "pset_id": 266,
+      "pset_name": "Pset_WallCommon",
+      "name": "Status",
+      "value": "UNSET",
+      "element": 262,
       "via": "direct"
      },
      {
-      "id": 962,
-      "pset_id": 963,
-      "pset_name": "Pset_SlabCommon",
-      "name": "FireRating",
-      "value": "REI60",
-      "element": 49,
-      "via": "type"
+      "id": 31,
+      "pset_id": 32,
+      "pset_name": "Pset_BuildingCommon",
+      "name": "ConstructionMethod",
+      "value": "new construction",
+      "element": 30,
+      "via": "direct"
+     },
+     {
+      "id": 84,
+      "pset_id": 85,
+      "pset_name": "Pset_ZoneCommon",
+      "name": "HandicapAccessible",
+      "value": ".F.",
+      "element": 80,
+      "via": "direct"
      }
     ]
    }

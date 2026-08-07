@@ -48,7 +48,7 @@
   "推測で埋めない。読めなかったものは欠損として報告する",
   "数量の単位は量の種類ごとに違う。IFCSIUNIT の宣言を見ること（本 corpus は長さ MILLI.METRE、面積 SQUARE_METRE、体積 CUBIC_METRE）。値だけでは意味が決まらない",
   "性能仕様は要素に2通りで付く。直接は IFCRELDEFINESBYPROPERTIES、型経由は IFCRELDEFINESBYTYPE が指す型の第6引数 HasPropertySets。**同じ要素に同名の Pset が両経路から付き、値が食い違うことがある。** 両方を別々に報告し、付き方を via に 'direct'/'type' で残すこと",
-  "属性値は IFCLABEL('REI60') のような型付きで書かれている。中身だけを報告すること"
+  "属性値は IFCLABEL('...') のような型付きで書かれている。中身だけを報告すること"
  ],
  "grade_levels": [
   "Q1",
@@ -96,26 +96,35 @@
      }
     ],
     "anomalies": [
-     "#49 に同名の Pset_SlabCommon が複数付き、FireRating が食い違う: REI30(direct), REI60(type)"
+     "（気づいた矛盾を文で書く。無ければ空配列）"
     ],
     "properties": [
      {
-      "id": 961,
+      "id": 970,
       "pset_id": 800,
       "pset_name": "Pset_SlabCommon",
-      "name": "FireRating",
-      "value": "REI30",
+      "name": "AcousticRating",
+      "value": "29dB Rw",
       "element": 49,
       "via": "direct"
      },
      {
-      "id": 962,
-      "pset_id": 963,
+      "id": 855,
+      "pset_id": 800,
       "pset_name": "Pset_SlabCommon",
-      "name": "FireRating",
-      "value": "REI60",
+      "name": "IsExternal",
+      "value": ".T.",
       "element": 49,
-      "via": "type"
+      "via": "direct"
+     },
+     {
+      "id": 856,
+      "pset_id": 800,
+      "pset_name": "Pset_SlabCommon",
+      "name": "LoadBearing",
+      "value": ".F.",
+      "element": 49,
+      "via": "direct"
      }
     ]
    }
