@@ -84,7 +84,7 @@
   "Q5"
  ],
  "answer_format": {
-  "task": "T001",
+  "task": "T002",
   "results": [
    {
     "file": "ifc4x3/Building-Architecture.ifc",
@@ -93,18 +93,18 @@
      {
       "id": 40,
       "type": "IFCBUILDINGSTOREY",
-      "global_id": "1Ln2$YEIz2xxvw2$Q8dGpV",
+      "global_id": "1Ano2ZUxnEIvVQ_beukl8b",
       "name": "00 groundfloor",
       "parent": 30,
-      "depth": 4,
-      "parent_via": "aggregate"
+      "parent_via": "aggregate",
+      "depth": 4
      }
     ],
     "elements": [
      {
       "id": 49,
       "type": "IFCSLAB",
-      "global_id": "...",
+      "global_id": "3zR0BOEcLADRKln4HYporH",
       "name": "floor",
       "container": 40,
       "container_via": "direct"
@@ -116,13 +116,13 @@
       "kind": "IFCQUANTITYAREA",
       "name": "NetArea",
       "value": 25.749999999991743,
-      "element": 49,
-      "unit": "SQUARE_METRE"
+      "unit": "SQUARE_METRE",
+      "element": 49
      }
     ],
     "anomalies": []
    }
   ]
  },
- "answer_format_note": "例の値は実データそのもの。以前 depth を 3、数量を 25.75 と丸めて書いていたが、規則どおり数えると depth は 4（13→20→23→30→40）で、数量も丸めてはいけない。腕2本ともこの食い違いを指摘してきたので直した。**例は規則より弱い**が、食い違っていること自体が課題の不備である。"
+ "answer_format_note": "**この例は参照解から機械的に生成したもので、手で書いていない。**以前この例に手で書いた GlobalId を入れていたが、実データと違っていた（腕が指摘）。規則に『推測で埋めない』と書いておきながら課題文がそれを破っていた。"
 }
