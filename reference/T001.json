@@ -129,18 +129,25 @@
      "container": 30
     },
     {
+     "id": 343,
+     "type": "IFCSLAB",
+     "global_id": "0ZTBBPo6f6bxqV2K7Oelrq",
+     "name": "house - roof - slab left",
+     "container": 30
+    },
+    {
+     "id": 367,
+     "type": "IFCSLAB",
+     "global_id": "12UVOn4wvAJPMUExKdZLb8",
+     "name": "house - roof - slab right",
+     "container": 30
+    },
+    {
      "id": 49,
      "type": "IFCSLAB",
      "global_id": "3zR0BOEcLADRKln4HYporH",
      "name": "floor",
      "container": 40
-    },
-    {
-     "id": 385,
-     "type": "IFCSPATIALZONE",
-     "global_id": "1yP7NInQz5uQzbiOpVFFJr",
-     "name": "house - gross volume",
-     "container": 30
     },
     {
      "id": 277,
@@ -405,8 +412,7 @@
     "IFCEARTHWORKSFILL": 1,
     "IFCFURNITURE": 1,
     "IFCROOF": 1,
-    "IFCSLAB": 1,
-    "IFCSPATIALZONE": 1,
+    "IFCSLAB": 3,
     "IFCWALL": 4
    },
    "spatial_counts": {
@@ -660,6 +666,48 @@
    ],
    "elements": [
     {
+     "id": 236,
+     "type": "IFCBEAM",
+     "global_id": "0Lvk$Qa81D5et3l3a4S9Vk",
+     "name": "girder",
+     "container": 30
+    },
+    {
+     "id": 182,
+     "type": "IFCBEAM",
+     "global_id": "0fqX614OH1YO1Njdxms2$Q",
+     "name": "girder",
+     "container": 30
+    },
+    {
+     "id": 204,
+     "type": "IFCBEAM",
+     "global_id": "0rh7bRO0L9fg1NzgGKU$Ut",
+     "name": "girder",
+     "container": 30
+    },
+    {
+     "id": 252,
+     "type": "IFCBEAM",
+     "global_id": "2ddLgAnQf4mBfh5IpUp54U",
+     "name": "girder",
+     "container": 30
+    },
+    {
+     "id": 268,
+     "type": "IFCBEAM",
+     "global_id": "2fjJuPht9EIQaZQYZfC1Op",
+     "name": "girder",
+     "container": 30
+    },
+    {
+     "id": 220,
+     "type": "IFCBEAM",
+     "global_id": "3roxUKbVv98xiUcl22_T07",
+     "name": "girder",
+     "container": 30
+    },
+    {
      "id": 144,
      "type": "IFCBUILDINGELEMENTPROXY",
      "global_id": "1CjP_CWub368bZVuVHeHs3",
@@ -686,6 +734,20 @@
      "global_id": "3dkFAzOGrAIuOzY_RdrdVv",
      "name": "house - chimney",
      "container": 40
+    },
+    {
+     "id": 302,
+     "type": "IFCDISCRETEACCESSORY",
+     "global_id": "2cc4uJUVv5BevbidUpn1H3",
+     "name": "beam shoe",
+     "container": 30
+    },
+    {
+     "id": 286,
+     "type": "IFCDISCRETEACCESSORY",
+     "global_id": "2r_8UEywH9_RLHe8z$Xa8J",
+     "name": "beam shoe",
+     "container": 30
     },
     {
      "id": 49,
@@ -1040,8 +1102,10 @@
    ],
    "anomalies": [],
    "counts": {
+    "IFCBEAM": 6,
     "IFCBUILDINGELEMENTPROXY": 3,
     "IFCCHIMNEY": 1,
+    "IFCDISCRETEACCESSORY": 2,
     "IFCFOOTING": 1,
     "IFCROOF": 1,
     "IFCWALL": 4
@@ -3414,7 +3478,7 @@
  "summary": {
   "n_file": 8,
   "n_spatial": 108,
-  "n_element": 226,
+  "n_element": 235,
   "n_quantity": 86
  }
 }

@@ -10,7 +10,12 @@
 
   要素の所属 IFCRELCONTAINEDINSPATIALSTRUCTURE('id',$,$,$,(#要素,…),#空間)
             「どの要素がどの空間に載っているか」。国交省の BIM/CIM 照査で
-            人がチェックシートを見ながら確認しているのがここ
+            人がチェックシートを見ながら確認しているのがここ。
+
+            **直載せだけでは足りない。** 集合体（IFCRELAGGREGATES）の中に
+            入れ子になった要素は、親をたどって初めて所属が決まる。
+            例: IfcRoof の中の IfcSlab は、屋根が建物に載っているので建物に属する。
+            ifcopenshell との突き合わせで、これを落としていたことが分かった。
 
   数量      IFCELEMENTQUANTITY('id',$,名前,$,単位,(#数量,…))
             IFCQUANTITYLENGTH / AREA / VOLUME('名前',説明,単位,値,式)
@@ -151,7 +156,23 @@ def extract(model: Model) -> Extract:
     out.spatials = sorted(by_id.values(), key=lambda x: (x.depth, x.type, x.global_id))
 
     # ---- 要素の所属 ----
+    # 集合体の親子。空間の集約とは別に、要素が要素を束ねる形がある
+    # （IfcRoof が IfcSlab を束ねるなど）。
+    aggregate_parent: dict[int, int] = {}
+    for r in model.of("IFCRELAGGREGATES"):
+        if len(r.args) < 6:
+            continue
+        parent = model.get(r.args[4])
+        kids = r.args[5]
+        if parent is None or not isinstance(kids, list):
+            continue
+        for k in kids:
+            child = model.get(k)
+            if child is not None and child.id not in by_id:  # 空間でない子だけ
+                aggregate_parent[child.id] = parent.id
+
     elements: dict[int, Element] = {}
+    direct: dict[int, int | None] = {}
     for r in model.of("IFCRELCONTAINEDINSPATIALSTRUCTURE"):
         if len(r.args) < 6:
             continue
@@ -164,11 +185,34 @@ def extract(model: Model) -> Extract:
             if e is None:
                 out.anomalies.append(f"空間への所属が存在しない実体 {i} を指している")
                 continue
+            if e.id in by_id:
+                # 空間そのものが包含関係に出てくることがある（IfcSpatialZone など）。
+                # 空間は空間として扱い、物理要素として二重に数えない。
+                continue
             gid, name = _rooted(e)
             if e.id in elements:
                 out.anomalies.append(f"#{e.id} ({e.type}) が複数の空間に載っている")
+            direct[e.id] = space.id if space else None
             elements[e.id] = Element(id=e.id, type=e.type, global_id=gid, name=name,
                                      container=space.id if space else None)
+
+    # 集合体の中に入れ子になった要素。親をたどって所属を継承する。
+    for child, parent in aggregate_parent.items():
+        if child in elements:
+            continue
+        e = model.get(child)
+        if e is None or e.id in by_id:
+            continue
+        cur, seen = parent, {child}
+        while cur is not None and cur not in seen:
+            seen.add(cur)
+            if cur in direct:
+                gid, name = _rooted(e)
+                elements[child] = Element(id=child, type=e.type, global_id=gid,
+                                          name=name, container=direct[cur])
+                break
+            cur = aggregate_parent.get(cur)
+
     out.elements = sorted(elements.values(), key=lambda x: (x.type, x.global_id))
 
     # ---- 数量 ----

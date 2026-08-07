@@ -108,11 +108,54 @@ tasks/T001/          8ファイル横断の読解課題
 corpus/buildingsmart/ buildingSMART PCERT サンプル（CC BY 4.0、再配布可）
 ```
 
+## 外部検算 — ifcopenshell と突き合わせて2件見つけた
+
+IFC には kikai-bench の `INTEGER_REPRESENTATION_ITEM` のような自己申告が無い。
+代わりに **ifcopenshell（IFC の独立した実装）** を照合先にした。
+
+**同じ経路を再実装しない。** 向こうは `util.element` の API から取る。
+
+| | こちら | ifcopenshell |
+|---|---|---|
+| 空間の親 | `IFCRELAGGREGATES` を生でたどる | `get_aggregate(e)` |
+| 要素の所属 | `IFCRELCONTAINEDINSPATIALSTRUCTURE` を生でたどる | `get_container(e)` |
+| 数量 | `IFCELEMENTQUANTITY` を生でたどる | `get_psets(e, qtos_only=True)` |
+
+到達経路が違うので、一致すれば意味がある。初回は **11件の食い違い**が出た。
+
+### 1. 集合体の中の要素を落としていた（こちらのバグ）
+
+```
+#353=IFCRELAGGREGATES('09Xbpra…',#1,'house - roof container',$,#334,(#343,#367));
+     → #334 IfcRoof が #343/#367 IfcSlab を束ねている
+     → 屋根は建物に載っているので、スラブも建物に属する
+```
+
+こちらは `IFCRELCONTAINEDINSPATIALSTRUCTURE` の**直載せしか見ていなかった**。
+ifcopenshell の `get_container()` は集合体を経由して所属を解決する。
+Building-Structural では6件、Architecture では2件を落としていた。
+
+**「どの要素がどの空間に載っているか」は、このベンチが測る対象そのものである。**
+そこを落としていた。
+
+### 2. 空間を物理要素として二重に数えていた（こちらのバグ）
+
+`#385 IfcSpatialZone` は空間なのに `IFCRELCONTAINEDINSPATIALSTRUCTURE` に現れる。
+こちらは空間としても要素としても数えていた。空間として扱い、要素からは外した。
+
+### 3. `IfcProject` は定義の差（どちらも正しい）
+
+`IfcProject` は `IfcContext` であって `IfcSpatialElement` ではない。
+こちらは階層の根として空間に含めている。**どちらかが間違っているのではなく
+定義が違う**ので、検算器側でそう明記して揃えた。
+
+修正後、**8ファイル全て一致**。
+
 ## これから
 
-- 採点器と敵対テスト。**先に腕を走らせて分離を確認してから**
+- 腕を走らせて分離を確認。**採点器はその後**
   （jiban-bench で採点器を作り込んでから飽和が判明した順序の誤りを繰り返さない）
-- 外部検算の材料探し。IFC には検証プロパティのような自己申告が無いか要確認
+- 採点器と敵対テスト
 - コスト計測（`bench/cost.py` は移植済み）
 
 ## 出典
