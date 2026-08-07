@@ -453,7 +453,65 @@
      "element": 367
     }
    ],
-   "anomalies": [],
+   "properties": [
+    {
+     "id": 970,
+     "pset_id": 800,
+     "pset_name": "Pset_SlabCommon",
+     "name": "AcousticRating",
+     "value": "29dB Rw",
+     "element": 49,
+     "via": "direct"
+    },
+    {
+     "id": 961,
+     "pset_id": 800,
+     "pset_name": "Pset_SlabCommon",
+     "name": "FireRating",
+     "value": "REI30",
+     "element": 49,
+     "via": "direct"
+    },
+    {
+     "id": 962,
+     "pset_id": 963,
+     "pset_name": "Pset_SlabCommon",
+     "name": "FireRating",
+     "value": "REI60",
+     "element": 49,
+     "via": "type"
+    },
+    {
+     "id": 855,
+     "pset_id": 800,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 49,
+     "via": "direct"
+    },
+    {
+     "id": 856,
+     "pset_id": 800,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 49,
+     "via": "direct"
+    },
+    {
+     "id": 980,
+     "pset_id": 963,
+     "pset_name": "Pset_SlabCommon",
+     "name": "SurfaceSpreadOfFlame",
+     "value": "A2 s1 d0",
+     "element": 49,
+     "via": "type"
+    }
+   ],
+   "anomalies": [
+    "#49 に同名の Pset_SlabCommon が複数付き、FireRating が食い違う: REI30(direct), REI60(type)"
+   ],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 4,
     "IFCCHIMNEY": 1,
@@ -573,6 +631,7 @@
     }
    ],
    "quantities": [],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCAIRTERMINAL": 2,
@@ -678,6 +737,7 @@
     }
    ],
    "quantities": [],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 3,
@@ -1226,6 +1286,7 @@
      "element": 268
     }
    ],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBEAM": 6,
@@ -2174,6 +2235,7 @@
      "element": 732
     }
    ],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBEAM": 8,
@@ -2525,6 +2587,7 @@
     }
    ],
    "quantities": [],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 1,
@@ -3244,6 +3307,7 @@
     }
    ],
    "quantities": [],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 1,
@@ -4049,6 +4113,7 @@
     }
    ],
    "quantities": [],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 1,
@@ -4069,6 +4134,8 @@
   "n_file": 8,
   "n_spatial": 108,
   "n_element": 255,
-  "n_quantity": 86
+  "n_quantity": 86,
+  "n_property": 6,
+  "n_anomaly": 1
  }
 }

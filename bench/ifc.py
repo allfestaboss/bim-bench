@@ -25,6 +25,18 @@
             腕（armC）がこれを見つけた。独立実装との一致だけでは届かなかった。
             本ベンチは母体の所属を継承させ、container_via に経路を残す。
 
+  性能仕様  IFCPROPERTYSET('id',$,'Pset_SlabCommon',$,(#属性,…))
+            IFCPROPERTYSINGLEVALUE('FireRating',$,IFCLABEL('REI60'),$)  第3引数が値
+            要素への付き方が2通りある:
+              直接  IFCRELDEFINESBYPROPERTIES('id',$,$,$,(#要素…),#Pset)
+              型経由 IFCRELDEFINESBYTYPE('id',$,$,$,(#要素…),#型)
+                     -> 型の第6引数 HasPropertySets が Pset のリスト
+            **同じ要素に、同じ名前の Pset が両経路から付き、値が食い違うことがある。**
+            実物では床スラブ #49 に Pset_SlabCommon が2つ付き、
+            FireRating が型経由 REI60 / 直接 REI30 と矛盾していた。
+            腕(armB)がこれを見つけた。耐火等級の食い違いは BIM 照査が
+            捕まえるべきものの典型である。
+
   数量      IFCELEMENTQUANTITY('id',$,名前,$,単位,(#数量,…))
             IFCQUANTITYLENGTH / AREA / VOLUME('名前',説明,単位,値,式)
             **単位系が量ごとに違う。** 本 corpus は長さが MILLI.METRE、
@@ -100,11 +112,25 @@ class Quantity:
 
 
 @dataclass
+class Property:
+    """性能仕様の属性1件。"""
+
+    id: int
+    pset_id: int
+    pset_name: str
+    name: str
+    value: str
+    element: int | None = None
+    via: str = ""  # 'direct' / 'type'
+
+
+@dataclass
 class Extract:
     schema: str
     spatials: list[Spatial] = field(default_factory=list)
     elements: list[Element] = field(default_factory=list)
     quantities: list[Quantity] = field(default_factory=list)
+    properties: list[Property] = field(default_factory=list)
     anomalies: list[str] = field(default_factory=list)
 
     def counts(self) -> dict[str, int]:
@@ -118,6 +144,24 @@ class Extract:
         for s in self.spatials:
             out[s.type] = out.get(s.type, 0) + 1
         return dict(sorted(out.items()))
+
+
+_TYPED = None
+
+
+def _unwrap(v) -> str:
+    """IFCLABEL('REI60') のような型付き値から中身を取る。"""
+    import re as _re
+    if v is None:
+        return ""
+    t = str(v)
+    m = _re.fullmatch(r"[A-Z_0-9]+\((.*)\)", t.strip(), _re.S)
+    if m:
+        inner = m.group(1).strip()
+        if inner.startswith("'") and inner.endswith("'"):
+            return inner[1:-1]
+        return inner
+    return t
 
 
 def _rooted(entity: Entity) -> tuple[str, str]:
@@ -326,4 +370,67 @@ def extract(model: Model) -> Extract:
                          owner=owner, element=attached.get(owner) if owner else None)
             )
     out.quantities.sort(key=lambda q: (q.kind, q.name, q.id))
+
+    # ---- 性能仕様 ----
+    # Pset -> 属性
+    pset_props: dict[int, list[Entity]] = {}
+    pset_name: dict[int, str] = {}
+    for ps in model.of("IFCPROPERTYSET"):
+        pset_name[ps.id] = _s(ps.args[2]) if len(ps.args) > 2 else ""
+        lst = ps.args[4] if len(ps.args) > 4 else None
+        items = []
+        for i in (lst if isinstance(lst, list) else []):
+            e = model.get(i)
+            if e is not None and e.type == "IFCPROPERTYSINGLEVALUE":
+                items.append(e)
+        pset_props[ps.id] = items
+
+    # 要素 -> [(Pset, 経路)]
+    attach: list[tuple[int, int, str]] = []  # (element, pset, via)
+    for r in model.of("IFCRELDEFINESBYPROPERTIES"):
+        if len(r.args) < 6:
+            continue
+        pdef = model.get(r.args[5])
+        if pdef is None or pdef.type != "IFCPROPERTYSET":
+            continue
+        for o in (r.args[4] if isinstance(r.args[4], list) else []):
+            e = model.get(o)
+            if e is not None:
+                attach.append((e.id, pdef.id, "direct"))
+    for r in model.of("IFCRELDEFINESBYTYPE"):
+        if len(r.args) < 6:
+            continue
+        ty = model.get(r.args[5])
+        if ty is None:
+            continue
+        owned = ty.args[5] if len(ty.args) > 5 else None
+        for i in (owned if isinstance(owned, list) else []):
+            ps = model.get(i)
+            if ps is None or ps.type != "IFCPROPERTYSET":
+                continue
+            for o in (r.args[4] if isinstance(r.args[4], list) else []):
+                e = model.get(o)
+                if e is not None:
+                    attach.append((e.id, ps.id, "type"))
+
+    for elem, ps, via in attach:
+        for pr in pset_props.get(ps, []):
+            name = _s(pr.args[0]) if pr.args else ""
+            raw = pr.args[2] if len(pr.args) > 2 else None
+            out.properties.append(Property(
+                id=pr.id, pset_id=ps, pset_name=pset_name.get(ps, ""),
+                name=name, value=_unwrap(raw), element=elem, via=via))
+    out.properties.sort(key=lambda x: (x.element or 0, x.pset_name, x.name, x.id))
+
+    # 同じ要素・同じPset名・同じ属性名で値が食い違うものを矛盾として挙げる
+    seen: dict[tuple, list[Property]] = {}
+    for pr in out.properties:
+        seen.setdefault((pr.element, pr.pset_name, pr.name), []).append(pr)
+    for (elem, psn, nm), group in sorted(seen.items(), key=lambda kv: (kv[0][0] or 0, kv[0][1], kv[0][2])):
+        vals = {p.value for p in group}
+        if len(vals) > 1:
+            detail = ", ".join(f"{p.value}({p.via})" for p in group)
+            out.anomalies.append(
+                f"#{elem} に同名の {psn} が複数付き、{nm} が食い違う: {detail}")
+
     return out

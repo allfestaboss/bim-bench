@@ -146,6 +146,42 @@ def evil_parent_flip(ref):
     return s
 
 
+def evil_drop_type_properties(ref):
+    """型経由で付いた性能仕様を落とす。
+
+    直接付いたものだけ見ると、床スラブの FireRating は REI30 の1つに見え、
+    型経由の REI60 との矛盾が消える。**矛盾が見えなくなること自体が失点**である。
+    """
+    s = _sub(ref)
+    for r in s["results"]:
+        r["properties"] = [p for p in (r.get("properties") or []) if p.get("via") != "type"]
+    return s
+
+
+def evil_merge_conflict(ref):
+    """食い違う性能仕様を片方の値に揃える（矛盾を握りつぶした答案）。"""
+    s = _sub(ref)
+    for r in s["results"]:
+        first: dict = {}
+        for p in (r.get("properties") or []):
+            k = (p.get("element"), p.get("pset_name"), p.get("name"))
+            if k in first:
+                p["value"] = first[k]
+            else:
+                first[k] = p.get("value")
+    return s
+
+
+def evil_keep_typed_value(ref):
+    """属性値を IFCLABEL('REI60') のまま報告する（中身を取り出していない）。"""
+    s = _sub(ref)
+    for r in s["results"]:
+        for p in (r.get("properties") or []):
+            if p.get("value"):
+                p["value"] = f"IFCLABEL('{p['value']}')"
+    return s
+
+
 def benign_rounded(ref):
     """有効数字12桁に丸めただけ。これは通ってよい（許容の境界確認）。"""
     s = _sub(ref)
@@ -176,6 +212,12 @@ EVIL = [
      lambda r: _has(r, "elements", lambda t: t.get("container") is not None)),
     ("evil_quantity_scale", evil_quantity_scale, "Q5",
      lambda r: _has(r, "quantities", lambda t: t.get("value"))),
+    ("evil_drop_type_properties", evil_drop_type_properties, "Q6",
+     lambda r: any(p.get("via") == "type" for x in r["results"] for p in (x.get("properties") or []))),
+    ("evil_merge_conflict", evil_merge_conflict, "Q6",
+     lambda r: any(x.get("anomalies") for x in r["results"])),
+    ("evil_keep_typed_value", evil_keep_typed_value, "Q6",
+     lambda r: any(p.get("value") for x in r["results"] for p in (x.get("properties") or []))),
     ("evil_drop_unit", evil_drop_unit, "Q5",
      lambda r: _has(r, "quantities", lambda t: t.get("unit"))),
 ]

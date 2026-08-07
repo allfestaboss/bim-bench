@@ -6,7 +6,8 @@
   Q2 空間の親と深さ                                    20点
   Q3 要素の網羅（取りこぼしと捏造の両方）                20点
   Q4 要素の所属                                        25点
-  Q5 数量（値と単位）                                   20点
+  Q5 数量（値と単位）                                   17点
+  Q6 性能仕様（Pset名・属性名・値・付き方）               17点
 
 **Q4 が最も重い。** 「どの要素がどの空間に載っているか」は、国交省の BIM/CIM 照査で
 人が Word のチェックシートを見ながら確認している当のものだからである。
@@ -35,13 +36,14 @@ from pathlib import Path
 REL_TOL = 1e-9
 ABS_FLOOR = 1e-12
 
-POINTS = {"Q1": 15.0, "Q2": 20.0, "Q3": 20.0, "Q4": 25.0, "Q5": 20.0}
+POINTS = {"Q1": 12.0, "Q2": 16.0, "Q3": 16.0, "Q4": 22.0, "Q5": 17.0, "Q6": 17.0}
 LEVEL_NAME = {
     "Q1": "空間の網羅",
     "Q2": "空間の親と深さ",
     "Q3": "要素の網羅",
     "Q4": "要素の所属",
     "Q5": "数量（値と単位）",
+    "Q6": "性能仕様",
 }
 
 MISSING = object()  # 「答えていない」を None（＝所属なし）と区別するための番兵
@@ -125,6 +127,13 @@ def grade(ref_doc: dict, sub_doc: dict, levels: list[str] | None = None) -> dict
         rs, ss = _index(ref_rec, "spatials"), _index(sub_rec, "spatials")
         re_, se = _index(ref_rec, "elements"), _index(sub_rec, "elements")
         rq, sq = _index(ref_rec, "quantities"), _index(sub_rec, "quantities")
+        # 性能仕様は同じ属性実体が複数の要素に付くので id では引けない。
+        # (要素, Pset名, 属性名, 付き方) を鍵にする。
+        def _pkey(t):
+            return (t.get("element"), str(t.get("pset_name") or ""),
+                    str(t.get("name") or ""), str(t.get("via") or ""))
+        rp = {_pkey(t): t for t in (ref_rec.get("properties") or [])}
+        sp = {_pkey(t): t for t in ((sub_rec or {}).get("properties") or [])}
 
         # ---- Q1 / Q3 網羅 ----
         for level, r_idx, s_idx, what in (("Q1", rs, ss, "空間"), ("Q3", re_, se, "要素")):
@@ -180,6 +189,28 @@ def grade(ref_doc: dict, sub_doc: dict, levels: list[str] | None = None) -> dict
             if bad:
                 details["Q4"].append(f"{fname}: {good}/{len(re_)}  誤り {', '.join(bad[:6])}"
                                      + (" …" if len(bad) > 6 else ""))
+
+        # ---- Q6 性能仕様 ----
+        if "Q6" in active and rp:
+            good, bad = 0, []
+            for k, r in rp.items():
+                t = sp.get(k)
+                if t is None:
+                    bad.append(f"{k[1]}/{k[2]}(未提出)")
+                elif str(t.get("value") or "") == str(r.get("value") or ""):
+                    good += 1
+                else:
+                    bad.append(f"{k[1]}/{k[2]}(値)")
+            extra = len(set(sp) - set(rp))
+            # 捏造も減点する。網羅と同じ扱い。
+            score = good / (len(rp) + extra) if (len(rp) + extra) else 0.0
+            tally["Q6"][0] += score * len(rp)
+            tally["Q6"][1] += len(rp)
+            if bad or extra:
+                details["Q6"].append(
+                    f"{fname}: {good}/{len(rp)}"
+                    + (f" 捏造{extra}件" if extra else "")
+                    + (f"  誤り {', '.join(bad[:5])}" if bad else ""))
 
         # ---- Q5 数量 ----
         if "Q5" in active and rq:

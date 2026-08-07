@@ -27,6 +27,7 @@ def build(task_id: str) -> dict:
             "spatials": [dataclasses.asdict(s) for s in x.spatials],
             "elements": [dataclasses.asdict(e) for e in x.elements],
             "quantities": [dataclasses.asdict(q) for q in x.quantities],
+            "properties": [dataclasses.asdict(pr) for pr in x.properties],
             "anomalies": x.anomalies,
             "counts": x.counts(),
             "spatial_counts": x.spatial_counts(),
@@ -40,6 +41,8 @@ def build(task_id: str) -> dict:
             "n_spatial": sum(len(r["spatials"]) for r in results),
             "n_element": sum(len(r["elements"]) for r in results),
             "n_quantity": sum(len(r["quantities"]) for r in results),
+            "n_property": sum(len(r["properties"]) for r in results),
+            "n_anomaly": sum(len(r["anomalies"]) for r in results),
         },
     }
 
@@ -51,7 +54,7 @@ def main() -> int:
     out.write_text(json.dumps(ref, ensure_ascii=False, indent=1), encoding="utf-8")
     s = ref["summary"]
     print(f"{out.relative_to(ROOT)}: {s['n_file']}ファイル / 空間 {s['n_spatial']} / "
-          f"要素 {s['n_element']} / 数量 {s['n_quantity']}")
+          f"要素 {s['n_element']} / 数量 {s['n_quantity']} / 性能仕様 {s['n_property']} / 矛盾 {s['n_anomaly']}")
     for r in ref["results"]:
         print(f"    {r['file']:<28} 空間{len(r['spatials']):>3} 要素{len(r['elements']):>3} "
               f"数量{len(r['quantities']):>3}  {r['schema']}")

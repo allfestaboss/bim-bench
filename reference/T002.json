@@ -453,7 +453,65 @@
      "element": 367
     }
    ],
-   "anomalies": [],
+   "properties": [
+    {
+     "id": 970,
+     "pset_id": 800,
+     "pset_name": "Pset_SlabCommon",
+     "name": "AcousticRating",
+     "value": "29dB Rw",
+     "element": 49,
+     "via": "direct"
+    },
+    {
+     "id": 961,
+     "pset_id": 800,
+     "pset_name": "Pset_SlabCommon",
+     "name": "FireRating",
+     "value": "REI30",
+     "element": 49,
+     "via": "direct"
+    },
+    {
+     "id": 962,
+     "pset_id": 963,
+     "pset_name": "Pset_SlabCommon",
+     "name": "FireRating",
+     "value": "REI60",
+     "element": 49,
+     "via": "type"
+    },
+    {
+     "id": 855,
+     "pset_id": 800,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 49,
+     "via": "direct"
+    },
+    {
+     "id": 856,
+     "pset_id": 800,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 49,
+     "via": "direct"
+    },
+    {
+     "id": 980,
+     "pset_id": 963,
+     "pset_name": "Pset_SlabCommon",
+     "name": "SurfaceSpreadOfFlame",
+     "value": "A2 s1 d0",
+     "element": 49,
+     "via": "type"
+    }
+   ],
+   "anomalies": [
+    "#49 に同名の Pset_SlabCommon が複数付き、FireRating が食い違う: REI30(direct), REI60(type)"
+   ],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 4,
     "IFCCHIMNEY": 1,
@@ -573,6 +631,7 @@
     }
    ],
    "quantities": [],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCAIRTERMINAL": 2,
@@ -678,6 +737,7 @@
     }
    ],
    "quantities": [],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 3,
@@ -1226,6 +1286,7 @@
      "element": 268
     }
    ],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBEAM": 6,
@@ -2174,6 +2235,7 @@
      "element": 732
     }
    ],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBEAM": 8,
@@ -2525,6 +2587,7 @@
     }
    ],
    "quantities": [],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 1,
@@ -3244,6 +3307,7 @@
     }
    ],
    "quantities": [],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 1,
@@ -4049,6 +4113,7 @@
     }
    ],
    "quantities": [],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 1,
@@ -4515,7 +4580,317 @@
      "element": 425
     }
    ],
-   "anomalies": [],
+   "properties": [
+    {
+     "id": 31,
+     "pset_id": 32,
+     "pset_name": "Pset_BuildingCommon",
+     "name": "ConstructionMethod",
+     "value": "new construction",
+     "element": 30,
+     "via": "direct"
+    },
+    {
+     "id": 970,
+     "pset_id": 57,
+     "pset_name": "Pset_SlabCommon",
+     "name": "AcousticRating",
+     "value": "29dB Rw",
+     "element": 52,
+     "via": "direct"
+    },
+    {
+     "id": 961,
+     "pset_id": 57,
+     "pset_name": "Pset_SlabCommon",
+     "name": "FireRating",
+     "value": "REI30",
+     "element": 52,
+     "via": "direct"
+    },
+    {
+     "id": 962,
+     "pset_id": 963,
+     "pset_name": "Pset_SlabCommon",
+     "name": "FireRating",
+     "value": "REI60",
+     "element": 52,
+     "via": "type"
+    },
+    {
+     "id": 55,
+     "pset_id": 57,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 52,
+     "via": "direct"
+    },
+    {
+     "id": 56,
+     "pset_id": 57,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 52,
+     "via": "direct"
+    },
+    {
+     "id": 980,
+     "pset_id": 963,
+     "pset_name": "Pset_SlabCommon",
+     "name": "SurfaceSpreadOfFlame",
+     "value": "A2 s1 d0",
+     "element": 52,
+     "via": "type"
+    },
+    {
+     "id": 84,
+     "pset_id": 85,
+     "pset_name": "Pset_ZoneCommon",
+     "name": "HandicapAccessible",
+     "value": ".F.",
+     "element": 80,
+     "via": "direct"
+    },
+    {
+     "id": 82,
+     "pset_id": 85,
+     "pset_name": "Pset_ZoneCommon",
+     "name": "IsExternal",
+     "value": ".F.",
+     "element": 80,
+     "via": "direct"
+    },
+    {
+     "id": 83,
+     "pset_id": 85,
+     "pset_name": "Pset_ZoneCommon",
+     "name": "PubliclyAccessible",
+     "value": ".F.",
+     "element": 80,
+     "via": "direct"
+    },
+    {
+     "id": 91,
+     "pset_id": 95,
+     "pset_name": "Pset_SpaceCommon",
+     "name": "GrossPlannedArea",
+     "value": "18.5",
+     "element": 89,
+     "via": "direct"
+    },
+    {
+     "id": 94,
+     "pset_id": 95,
+     "pset_name": "Pset_SpaceCommon",
+     "name": "HandicapAccessible",
+     "value": ".F.",
+     "element": 89,
+     "via": "direct"
+    },
+    {
+     "id": 90,
+     "pset_id": 95,
+     "pset_name": "Pset_SpaceCommon",
+     "name": "IsExternal",
+     "value": ".F.",
+     "element": 89,
+     "via": "direct"
+    },
+    {
+     "id": 92,
+     "pset_id": 95,
+     "pset_name": "Pset_SpaceCommon",
+     "name": "NetPlannedArea",
+     "value": "18.5",
+     "element": 89,
+     "via": "direct"
+    },
+    {
+     "id": 93,
+     "pset_id": 95,
+     "pset_name": "Pset_SpaceCommon",
+     "name": "PubliclyAccessible",
+     "value": ".F.",
+     "element": 89,
+     "via": "direct"
+    },
+    {
+     "id": 205,
+     "pset_id": 209,
+     "pset_name": "Pset_SpaceCommon",
+     "name": "GrossPlannedArea",
+     "value": "6.08",
+     "element": 203,
+     "via": "direct"
+    },
+    {
+     "id": 208,
+     "pset_id": 209,
+     "pset_name": "Pset_SpaceCommon",
+     "name": "HandicapAccessible",
+     "value": ".F.",
+     "element": 203,
+     "via": "direct"
+    },
+    {
+     "id": 204,
+     "pset_id": 209,
+     "pset_name": "Pset_SpaceCommon",
+     "name": "IsExternal",
+     "value": ".F.",
+     "element": 203,
+     "via": "direct"
+    },
+    {
+     "id": 206,
+     "pset_id": 209,
+     "pset_name": "Pset_SpaceCommon",
+     "name": "NetPlannedArea",
+     "value": "6.08",
+     "element": 203,
+     "via": "direct"
+    },
+    {
+     "id": 207,
+     "pset_id": 209,
+     "pset_name": "Pset_SpaceCommon",
+     "name": "PubliclyAccessible",
+     "value": ".F.",
+     "element": 203,
+     "via": "direct"
+    },
+    {
+     "id": 264,
+     "pset_id": 266,
+     "pset_name": "Pset_WallCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 262,
+     "via": "direct"
+    },
+    {
+     "id": 265,
+     "pset_id": 266,
+     "pset_name": "Pset_WallCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 262,
+     "via": "direct"
+    },
+    {
+     "id": 293,
+     "pset_id": 295,
+     "pset_name": "Pset_WallCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 291,
+     "via": "direct"
+    },
+    {
+     "id": 294,
+     "pset_id": 295,
+     "pset_name": "Pset_WallCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 291,
+     "via": "direct"
+    },
+    {
+     "id": 317,
+     "pset_id": 319,
+     "pset_name": "Pset_WallCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 315,
+     "via": "direct"
+    },
+    {
+     "id": 318,
+     "pset_id": 319,
+     "pset_name": "Pset_WallCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 315,
+     "via": "direct"
+    },
+    {
+     "id": 355,
+     "pset_id": 357,
+     "pset_name": "Pset_WallCommon",
+     "name": "IsExternal",
+     "value": ".F.",
+     "element": 353,
+     "via": "direct"
+    },
+    {
+     "id": 356,
+     "pset_id": 357,
+     "pset_name": "Pset_WallCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 353,
+     "via": "direct"
+    },
+    {
+     "id": 384,
+     "pset_id": 385,
+     "pset_name": "Pset_RoofCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 382,
+     "via": "direct"
+    },
+    {
+     "id": 398,
+     "pset_id": 400,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 395,
+     "via": "direct"
+    },
+    {
+     "id": 399,
+     "pset_id": 400,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 395,
+     "via": "direct"
+    },
+    {
+     "id": 397,
+     "pset_id": 400,
+     "pset_name": "Pset_SlabCommon",
+     "name": "PitchAngle",
+     "value": "45.",
+     "element": 395,
+     "via": "direct"
+    },
+    {
+     "id": 427,
+     "pset_id": 429,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 425,
+     "via": "direct"
+    },
+    {
+     "id": 428,
+     "pset_id": 429,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 425,
+     "via": "direct"
+    }
+   ],
+   "anomalies": [
+    "#52 に同名の Pset_SlabCommon が複数付き、FireRating が食い違う: REI30(direct), REI60(type)"
+   ],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 5,
     "IFCCHIMNEY": 1,
@@ -4634,6 +5009,17 @@
     }
    ],
    "quantities": [],
+   "properties": [
+    {
+     "id": 31,
+     "pset_id": 32,
+     "pset_name": "Pset_BuildingCommon",
+     "name": "ConstructionMethod",
+     "value": "new construction",
+     "element": 30,
+     "via": "direct"
+    }
+   ],
    "anomalies": [],
    "counts": {
     "IFCAIRTERMINAL": 2,
@@ -4739,6 +5125,7 @@
     }
    ],
    "quantities": [],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 3,
@@ -5285,6 +5672,197 @@
      "unit": "CUBIC_METRE",
      "owner": 329,
      "element": 320
+    }
+   ],
+   "properties": [
+    {
+     "id": 31,
+     "pset_id": 32,
+     "pset_name": "Pset_BuildingCommon",
+     "name": "ConstructionMethod",
+     "value": "new construction",
+     "element": 30,
+     "via": "direct"
+    },
+    {
+     "id": 74,
+     "pset_id": 76,
+     "pset_name": "Pset_WallCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 71,
+     "via": "direct"
+    },
+    {
+     "id": 75,
+     "pset_id": 76,
+     "pset_name": "Pset_WallCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 71,
+     "via": "direct"
+    },
+    {
+     "id": 103,
+     "pset_id": 105,
+     "pset_name": "Pset_WallCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 101,
+     "via": "direct"
+    },
+    {
+     "id": 104,
+     "pset_id": 105,
+     "pset_name": "Pset_WallCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 101,
+     "via": "direct"
+    },
+    {
+     "id": 127,
+     "pset_id": 128,
+     "pset_name": "Pset_WallCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 125,
+     "via": "direct"
+    },
+    {
+     "id": 174,
+     "pset_id": 176,
+     "pset_name": "Pset_WallCommon",
+     "name": "IsExternal",
+     "value": ".F.",
+     "element": 172,
+     "via": "direct"
+    },
+    {
+     "id": 175,
+     "pset_id": 176,
+     "pset_name": "Pset_WallCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 172,
+     "via": "direct"
+    },
+    {
+     "id": 198,
+     "pset_id": 199,
+     "pset_name": "Pset_RoofCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 196,
+     "via": "direct"
+    },
+    {
+     "id": 211,
+     "pset_id": 213,
+     "pset_name": "Pset_BeamCommon",
+     "name": "IsExternal",
+     "value": ".F.",
+     "element": 209,
+     "via": "direct"
+    },
+    {
+     "id": 212,
+     "pset_id": 213,
+     "pset_name": "Pset_BeamCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 209,
+     "via": "direct"
+    },
+    {
+     "id": 238,
+     "pset_id": 240,
+     "pset_name": "Pset_BeamCommon",
+     "name": "IsExternal",
+     "value": ".F.",
+     "element": 236,
+     "via": "direct"
+    },
+    {
+     "id": 239,
+     "pset_id": 240,
+     "pset_name": "Pset_BeamCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 236,
+     "via": "direct"
+    },
+    {
+     "id": 259,
+     "pset_id": 261,
+     "pset_name": "Pset_BeamCommon",
+     "name": "IsExternal",
+     "value": ".F.",
+     "element": 257,
+     "via": "direct"
+    },
+    {
+     "id": 260,
+     "pset_id": 261,
+     "pset_name": "Pset_BeamCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 257,
+     "via": "direct"
+    },
+    {
+     "id": 280,
+     "pset_id": 282,
+     "pset_name": "Pset_BeamCommon",
+     "name": "IsExternal",
+     "value": ".F.",
+     "element": 278,
+     "via": "direct"
+    },
+    {
+     "id": 281,
+     "pset_id": 282,
+     "pset_name": "Pset_BeamCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 278,
+     "via": "direct"
+    },
+    {
+     "id": 301,
+     "pset_id": 303,
+     "pset_name": "Pset_BeamCommon",
+     "name": "IsExternal",
+     "value": ".F.",
+     "element": 299,
+     "via": "direct"
+    },
+    {
+     "id": 302,
+     "pset_id": 303,
+     "pset_name": "Pset_BeamCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 299,
+     "via": "direct"
+    },
+    {
+     "id": 322,
+     "pset_id": 324,
+     "pset_name": "Pset_BeamCommon",
+     "name": "IsExternal",
+     "value": ".F.",
+     "element": 320,
+     "via": "direct"
+    },
+    {
+     "id": 323,
+     "pset_id": 324,
+     "pset_name": "Pset_BeamCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 320,
+     "via": "direct"
     }
    ],
    "anomalies": [],
@@ -6228,6 +6806,7 @@
      "element": 796
     }
    ],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBEAM": 8,
@@ -7322,6 +7901,1052 @@
     }
    ],
    "quantities": [],
+   "properties": [
+    {
+     "id": 86,
+     "pset_id": 87,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 84,
+     "via": "direct"
+    },
+    {
+     "id": 85,
+     "pset_id": 87,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 84,
+     "via": "direct"
+    },
+    {
+     "id": 109,
+     "pset_id": 110,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 107,
+     "via": "direct"
+    },
+    {
+     "id": 108,
+     "pset_id": 110,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 107,
+     "via": "direct"
+    },
+    {
+     "id": 121,
+     "pset_id": 122,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 119,
+     "via": "direct"
+    },
+    {
+     "id": 120,
+     "pset_id": 122,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 119,
+     "via": "direct"
+    },
+    {
+     "id": 133,
+     "pset_id": 134,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 131,
+     "via": "direct"
+    },
+    {
+     "id": 132,
+     "pset_id": 134,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 131,
+     "via": "direct"
+    },
+    {
+     "id": 145,
+     "pset_id": 146,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 143,
+     "via": "direct"
+    },
+    {
+     "id": 144,
+     "pset_id": 146,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 143,
+     "via": "direct"
+    },
+    {
+     "id": 157,
+     "pset_id": 158,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 155,
+     "via": "direct"
+    },
+    {
+     "id": 156,
+     "pset_id": 158,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 155,
+     "via": "direct"
+    },
+    {
+     "id": 169,
+     "pset_id": 170,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 167,
+     "via": "direct"
+    },
+    {
+     "id": 168,
+     "pset_id": 170,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 167,
+     "via": "direct"
+    },
+    {
+     "id": 181,
+     "pset_id": 182,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 179,
+     "via": "direct"
+    },
+    {
+     "id": 180,
+     "pset_id": 182,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 179,
+     "via": "direct"
+    },
+    {
+     "id": 213,
+     "pset_id": 214,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 211,
+     "via": "direct"
+    },
+    {
+     "id": 212,
+     "pset_id": 214,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 211,
+     "via": "direct"
+    },
+    {
+     "id": 225,
+     "pset_id": 226,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 223,
+     "via": "direct"
+    },
+    {
+     "id": 224,
+     "pset_id": 226,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 223,
+     "via": "direct"
+    },
+    {
+     "id": 237,
+     "pset_id": 238,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 235,
+     "via": "direct"
+    },
+    {
+     "id": 236,
+     "pset_id": 238,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 235,
+     "via": "direct"
+    },
+    {
+     "id": 249,
+     "pset_id": 250,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 247,
+     "via": "direct"
+    },
+    {
+     "id": 248,
+     "pset_id": 250,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 247,
+     "via": "direct"
+    },
+    {
+     "id": 261,
+     "pset_id": 262,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 259,
+     "via": "direct"
+    },
+    {
+     "id": 260,
+     "pset_id": 262,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 259,
+     "via": "direct"
+    },
+    {
+     "id": 273,
+     "pset_id": 274,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 271,
+     "via": "direct"
+    },
+    {
+     "id": 272,
+     "pset_id": 274,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 271,
+     "via": "direct"
+    },
+    {
+     "id": 285,
+     "pset_id": 286,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 283,
+     "via": "direct"
+    },
+    {
+     "id": 284,
+     "pset_id": 286,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 283,
+     "via": "direct"
+    },
+    {
+     "id": 297,
+     "pset_id": 298,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 295,
+     "via": "direct"
+    },
+    {
+     "id": 296,
+     "pset_id": 298,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 295,
+     "via": "direct"
+    },
+    {
+     "id": 317,
+     "pset_id": 318,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 315,
+     "via": "direct"
+    },
+    {
+     "id": 316,
+     "pset_id": 318,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 315,
+     "via": "direct"
+    },
+    {
+     "id": 329,
+     "pset_id": 330,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 327,
+     "via": "direct"
+    },
+    {
+     "id": 328,
+     "pset_id": 330,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 327,
+     "via": "direct"
+    },
+    {
+     "id": 341,
+     "pset_id": 342,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 339,
+     "via": "direct"
+    },
+    {
+     "id": 340,
+     "pset_id": 342,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 339,
+     "via": "direct"
+    },
+    {
+     "id": 353,
+     "pset_id": 354,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 351,
+     "via": "direct"
+    },
+    {
+     "id": 352,
+     "pset_id": 354,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 351,
+     "via": "direct"
+    },
+    {
+     "id": 365,
+     "pset_id": 366,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 363,
+     "via": "direct"
+    },
+    {
+     "id": 364,
+     "pset_id": 366,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 363,
+     "via": "direct"
+    },
+    {
+     "id": 377,
+     "pset_id": 378,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 375,
+     "via": "direct"
+    },
+    {
+     "id": 376,
+     "pset_id": 378,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 375,
+     "via": "direct"
+    },
+    {
+     "id": 389,
+     "pset_id": 390,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 387,
+     "via": "direct"
+    },
+    {
+     "id": 388,
+     "pset_id": 390,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 387,
+     "via": "direct"
+    },
+    {
+     "id": 401,
+     "pset_id": 402,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 399,
+     "via": "direct"
+    },
+    {
+     "id": 400,
+     "pset_id": 402,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 399,
+     "via": "direct"
+    },
+    {
+     "id": 421,
+     "pset_id": 422,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 419,
+     "via": "direct"
+    },
+    {
+     "id": 420,
+     "pset_id": 422,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 419,
+     "via": "direct"
+    },
+    {
+     "id": 433,
+     "pset_id": 434,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 431,
+     "via": "direct"
+    },
+    {
+     "id": 432,
+     "pset_id": 434,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 431,
+     "via": "direct"
+    },
+    {
+     "id": 445,
+     "pset_id": 446,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 443,
+     "via": "direct"
+    },
+    {
+     "id": 444,
+     "pset_id": 446,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 443,
+     "via": "direct"
+    },
+    {
+     "id": 457,
+     "pset_id": 458,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 455,
+     "via": "direct"
+    },
+    {
+     "id": 456,
+     "pset_id": 458,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 455,
+     "via": "direct"
+    },
+    {
+     "id": 469,
+     "pset_id": 470,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 467,
+     "via": "direct"
+    },
+    {
+     "id": 468,
+     "pset_id": 470,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 467,
+     "via": "direct"
+    },
+    {
+     "id": 481,
+     "pset_id": 482,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 479,
+     "via": "direct"
+    },
+    {
+     "id": 480,
+     "pset_id": 482,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 479,
+     "via": "direct"
+    },
+    {
+     "id": 493,
+     "pset_id": 494,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 491,
+     "via": "direct"
+    },
+    {
+     "id": 492,
+     "pset_id": 494,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 491,
+     "via": "direct"
+    },
+    {
+     "id": 505,
+     "pset_id": 506,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 503,
+     "via": "direct"
+    },
+    {
+     "id": 504,
+     "pset_id": 506,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 503,
+     "via": "direct"
+    },
+    {
+     "id": 525,
+     "pset_id": 526,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 523,
+     "via": "direct"
+    },
+    {
+     "id": 524,
+     "pset_id": 526,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 523,
+     "via": "direct"
+    },
+    {
+     "id": 537,
+     "pset_id": 538,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 535,
+     "via": "direct"
+    },
+    {
+     "id": 536,
+     "pset_id": 538,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 535,
+     "via": "direct"
+    },
+    {
+     "id": 549,
+     "pset_id": 550,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 547,
+     "via": "direct"
+    },
+    {
+     "id": 548,
+     "pset_id": 550,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 547,
+     "via": "direct"
+    },
+    {
+     "id": 561,
+     "pset_id": 562,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 559,
+     "via": "direct"
+    },
+    {
+     "id": 560,
+     "pset_id": 562,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 559,
+     "via": "direct"
+    },
+    {
+     "id": 573,
+     "pset_id": 574,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 571,
+     "via": "direct"
+    },
+    {
+     "id": 572,
+     "pset_id": 574,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 571,
+     "via": "direct"
+    },
+    {
+     "id": 585,
+     "pset_id": 586,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 583,
+     "via": "direct"
+    },
+    {
+     "id": 584,
+     "pset_id": 586,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 583,
+     "via": "direct"
+    },
+    {
+     "id": 597,
+     "pset_id": 598,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 595,
+     "via": "direct"
+    },
+    {
+     "id": 596,
+     "pset_id": 598,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 595,
+     "via": "direct"
+    },
+    {
+     "id": 609,
+     "pset_id": 610,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 607,
+     "via": "direct"
+    },
+    {
+     "id": 608,
+     "pset_id": 610,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 607,
+     "via": "direct"
+    },
+    {
+     "id": 629,
+     "pset_id": 630,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 627,
+     "via": "direct"
+    },
+    {
+     "id": 628,
+     "pset_id": 630,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 627,
+     "via": "direct"
+    },
+    {
+     "id": 641,
+     "pset_id": 642,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 639,
+     "via": "direct"
+    },
+    {
+     "id": 640,
+     "pset_id": 642,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 639,
+     "via": "direct"
+    },
+    {
+     "id": 653,
+     "pset_id": 654,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 651,
+     "via": "direct"
+    },
+    {
+     "id": 652,
+     "pset_id": 654,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 651,
+     "via": "direct"
+    },
+    {
+     "id": 665,
+     "pset_id": 666,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 663,
+     "via": "direct"
+    },
+    {
+     "id": 664,
+     "pset_id": 666,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 663,
+     "via": "direct"
+    },
+    {
+     "id": 677,
+     "pset_id": 678,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 675,
+     "via": "direct"
+    },
+    {
+     "id": 676,
+     "pset_id": 678,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 675,
+     "via": "direct"
+    },
+    {
+     "id": 689,
+     "pset_id": 690,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 687,
+     "via": "direct"
+    },
+    {
+     "id": 688,
+     "pset_id": 690,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 687,
+     "via": "direct"
+    },
+    {
+     "id": 701,
+     "pset_id": 702,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 699,
+     "via": "direct"
+    },
+    {
+     "id": 700,
+     "pset_id": 702,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 699,
+     "via": "direct"
+    },
+    {
+     "id": 713,
+     "pset_id": 714,
+     "pset_name": "SizeSet",
+     "name": "Height",
+     "value": "3378.2",
+     "element": 711,
+     "via": "direct"
+    },
+    {
+     "id": 712,
+     "pset_id": 714,
+     "pset_name": "SizeSet",
+     "name": "Volume",
+     "value": "0.7619999999999999",
+     "element": 711,
+     "via": "direct"
+    },
+    {
+     "id": 800,
+     "pset_id": 802,
+     "pset_name": "Pset_MemberCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 797,
+     "via": "direct"
+    },
+    {
+     "id": 801,
+     "pset_id": 802,
+     "pset_name": "Pset_MemberCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 797,
+     "via": "direct"
+    },
+    {
+     "id": 846,
+     "pset_id": 848,
+     "pset_name": "Pset_MemberCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 844,
+     "via": "direct"
+    },
+    {
+     "id": 847,
+     "pset_id": 848,
+     "pset_name": "Pset_MemberCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 844,
+     "via": "direct"
+    },
+    {
+     "id": 874,
+     "pset_id": 876,
+     "pset_name": "Pset_MemberCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 872,
+     "via": "direct"
+    },
+    {
+     "id": 875,
+     "pset_id": 876,
+     "pset_name": "Pset_MemberCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 872,
+     "via": "direct"
+    },
+    {
+     "id": 902,
+     "pset_id": 904,
+     "pset_name": "Pset_MemberCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 900,
+     "via": "direct"
+    },
+    {
+     "id": 903,
+     "pset_id": 904,
+     "pset_name": "Pset_MemberCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 900,
+     "via": "direct"
+    },
+    {
+     "id": 1203,
+     "pset_id": 1205,
+     "pset_name": "Pset_MemberCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 1201,
+     "via": "direct"
+    },
+    {
+     "id": 1204,
+     "pset_id": 1205,
+     "pset_name": "Pset_MemberCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 1201,
+     "via": "direct"
+    },
+    {
+     "id": 1237,
+     "pset_id": 1239,
+     "pset_name": "Pset_MemberCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 1235,
+     "via": "direct"
+    },
+    {
+     "id": 1238,
+     "pset_id": 1239,
+     "pset_name": "Pset_MemberCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 1235,
+     "via": "direct"
+    },
+    {
+     "id": 1379,
+     "pset_id": 1381,
+     "pset_name": "Pset_MemberCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 1377,
+     "via": "direct"
+    },
+    {
+     "id": 1380,
+     "pset_id": 1381,
+     "pset_name": "Pset_MemberCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 1377,
+     "via": "direct"
+    },
+    {
+     "id": 1413,
+     "pset_id": 1415,
+     "pset_name": "Pset_MemberCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 1411,
+     "via": "direct"
+    },
+    {
+     "id": 1414,
+     "pset_id": 1415,
+     "pset_name": "Pset_MemberCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 1411,
+     "via": "direct"
+    },
+    {
+     "id": 1441,
+     "pset_id": 1443,
+     "pset_name": "Pset_MemberCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 1439,
+     "via": "direct"
+    },
+    {
+     "id": 1442,
+     "pset_id": 1443,
+     "pset_name": "Pset_MemberCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 1439,
+     "via": "direct"
+    },
+    {
+     "id": 1469,
+     "pset_id": 1471,
+     "pset_name": "Pset_MemberCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 1467,
+     "via": "direct"
+    },
+    {
+     "id": 1470,
+     "pset_id": 1471,
+     "pset_name": "Pset_MemberCommon",
+     "name": "LoadBearing",
+     "value": ".F.",
+     "element": 1467,
+     "via": "direct"
+    }
+   ],
    "anomalies": [],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 16,
@@ -7665,6 +9290,7 @@
     }
    ],
    "quantities": [],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 1,
@@ -8384,6 +10010,7 @@
     }
    ],
    "quantities": [],
+   "properties": [],
    "anomalies": [],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 73,
@@ -9967,6 +11594,584 @@
      "element": 1144
     }
    ],
+   "properties": [
+    {
+     "id": 59,
+     "pset_id": 61,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 56,
+     "via": "direct"
+    },
+    {
+     "id": 60,
+     "pset_id": 61,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 56,
+     "via": "direct"
+    },
+    {
+     "id": 88,
+     "pset_id": 90,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 86,
+     "via": "direct"
+    },
+    {
+     "id": 89,
+     "pset_id": 90,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 86,
+     "via": "direct"
+    },
+    {
+     "id": 116,
+     "pset_id": 118,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 114,
+     "via": "direct"
+    },
+    {
+     "id": 117,
+     "pset_id": 118,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 114,
+     "via": "direct"
+    },
+    {
+     "id": 144,
+     "pset_id": 146,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 142,
+     "via": "direct"
+    },
+    {
+     "id": 145,
+     "pset_id": 146,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 142,
+     "via": "direct"
+    },
+    {
+     "id": 200,
+     "pset_id": 202,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 198,
+     "via": "direct"
+    },
+    {
+     "id": 201,
+     "pset_id": 202,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 198,
+     "via": "direct"
+    },
+    {
+     "id": 224,
+     "pset_id": 226,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 222,
+     "via": "direct"
+    },
+    {
+     "id": 225,
+     "pset_id": 226,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 222,
+     "via": "direct"
+    },
+    {
+     "id": 290,
+     "pset_id": 292,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 288,
+     "via": "direct"
+    },
+    {
+     "id": 291,
+     "pset_id": 292,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 288,
+     "via": "direct"
+    },
+    {
+     "id": 313,
+     "pset_id": 315,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 311,
+     "via": "direct"
+    },
+    {
+     "id": 314,
+     "pset_id": 315,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 311,
+     "via": "direct"
+    },
+    {
+     "id": 347,
+     "pset_id": 349,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 345,
+     "via": "direct"
+    },
+    {
+     "id": 348,
+     "pset_id": 349,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 345,
+     "via": "direct"
+    },
+    {
+     "id": 366,
+     "pset_id": 368,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 364,
+     "via": "direct"
+    },
+    {
+     "id": 367,
+     "pset_id": 368,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 364,
+     "via": "direct"
+    },
+    {
+     "id": 384,
+     "pset_id": 386,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 382,
+     "via": "direct"
+    },
+    {
+     "id": 385,
+     "pset_id": 386,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 382,
+     "via": "direct"
+    },
+    {
+     "id": 402,
+     "pset_id": 404,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 400,
+     "via": "direct"
+    },
+    {
+     "id": 403,
+     "pset_id": 404,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 400,
+     "via": "direct"
+    },
+    {
+     "id": 442,
+     "pset_id": 444,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 440,
+     "via": "direct"
+    },
+    {
+     "id": 443,
+     "pset_id": 444,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 440,
+     "via": "direct"
+    },
+    {
+     "id": 461,
+     "pset_id": 463,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 459,
+     "via": "direct"
+    },
+    {
+     "id": 462,
+     "pset_id": 463,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 459,
+     "via": "direct"
+    },
+    {
+     "id": 514,
+     "pset_id": 516,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 512,
+     "via": "direct"
+    },
+    {
+     "id": 515,
+     "pset_id": 516,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 512,
+     "via": "direct"
+    },
+    {
+     "id": 532,
+     "pset_id": 534,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 530,
+     "via": "direct"
+    },
+    {
+     "id": 533,
+     "pset_id": 534,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 530,
+     "via": "direct"
+    },
+    {
+     "id": 601,
+     "pset_id": 603,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 599,
+     "via": "direct"
+    },
+    {
+     "id": 602,
+     "pset_id": 603,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 599,
+     "via": "direct"
+    },
+    {
+     "id": 625,
+     "pset_id": 627,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 623,
+     "via": "direct"
+    },
+    {
+     "id": 626,
+     "pset_id": 627,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 623,
+     "via": "direct"
+    },
+    {
+     "id": 648,
+     "pset_id": 650,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 646,
+     "via": "direct"
+    },
+    {
+     "id": 649,
+     "pset_id": 650,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 646,
+     "via": "direct"
+    },
+    {
+     "id": 671,
+     "pset_id": 673,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 669,
+     "via": "direct"
+    },
+    {
+     "id": 672,
+     "pset_id": 673,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 669,
+     "via": "direct"
+    },
+    {
+     "id": 729,
+     "pset_id": 731,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 727,
+     "via": "direct"
+    },
+    {
+     "id": 730,
+     "pset_id": 731,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 727,
+     "via": "direct"
+    },
+    {
+     "id": 751,
+     "pset_id": 753,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 749,
+     "via": "direct"
+    },
+    {
+     "id": 752,
+     "pset_id": 753,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 749,
+     "via": "direct"
+    },
+    {
+     "id": 772,
+     "pset_id": 774,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 770,
+     "via": "direct"
+    },
+    {
+     "id": 773,
+     "pset_id": 774,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 770,
+     "via": "direct"
+    },
+    {
+     "id": 793,
+     "pset_id": 795,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 791,
+     "via": "direct"
+    },
+    {
+     "id": 794,
+     "pset_id": 795,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 791,
+     "via": "direct"
+    },
+    {
+     "id": 857,
+     "pset_id": 859,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 855,
+     "via": "direct"
+    },
+    {
+     "id": 858,
+     "pset_id": 859,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 855,
+     "via": "direct"
+    },
+    {
+     "id": 879,
+     "pset_id": 881,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 877,
+     "via": "direct"
+    },
+    {
+     "id": 880,
+     "pset_id": 881,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 877,
+     "via": "direct"
+    },
+    {
+     "id": 938,
+     "pset_id": 940,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 936,
+     "via": "direct"
+    },
+    {
+     "id": 939,
+     "pset_id": 940,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 936,
+     "via": "direct"
+    },
+    {
+     "id": 959,
+     "pset_id": 961,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 957,
+     "via": "direct"
+    },
+    {
+     "id": 960,
+     "pset_id": 961,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 957,
+     "via": "direct"
+    },
+    {
+     "id": 1044,
+     "pset_id": 1046,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 1042,
+     "via": "direct"
+    },
+    {
+     "id": 1045,
+     "pset_id": 1046,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 1042,
+     "via": "direct"
+    },
+    {
+     "id": 1066,
+     "pset_id": 1068,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 1064,
+     "via": "direct"
+    },
+    {
+     "id": 1067,
+     "pset_id": 1068,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 1064,
+     "via": "direct"
+    },
+    {
+     "id": 1125,
+     "pset_id": 1127,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 1123,
+     "via": "direct"
+    },
+    {
+     "id": 1126,
+     "pset_id": 1127,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 1123,
+     "via": "direct"
+    },
+    {
+     "id": 1146,
+     "pset_id": 1148,
+     "pset_name": "Pset_SlabCommon",
+     "name": "IsExternal",
+     "value": ".T.",
+     "element": 1144,
+     "via": "direct"
+    },
+    {
+     "id": 1147,
+     "pset_id": 1148,
+     "pset_name": "Pset_SlabCommon",
+     "name": "LoadBearing",
+     "value": ".T.",
+     "element": 1144,
+     "via": "direct"
+    }
+   ],
    "anomalies": [],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 1,
@@ -9986,6 +12191,8 @@
   "n_file": 17,
   "n_spatial": 228,
   "n_element": 629,
-  "n_quantity": 250
+  "n_quantity": 250,
+  "n_property": 242,
+  "n_anomaly": 2
  }
 }
