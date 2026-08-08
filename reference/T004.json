@@ -1,0 +1,91 @@
+{
+ "from": "T002",
+ "anchor": "2つの独立実装（生実体たどり / ifcopenshell util.element）が実際に食い違い、かつ規格上どちらもあり得る箇所だけを採る",
+ "sites": [
+  {
+   "id": "project_as_spatial",
+   "entities": [
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13
+   ],
+   "reading_a": "IfcProject を空間の一員として数える（深さ0の根）",
+   "reading_b": "IfcProject は IfcContext であって空間ではないので数えない",
+   "moves": "空間の行数",
+   "affected": 17,
+   "count_a": 228,
+   "count_b": 211
+  },
+  {
+   "id": "zone_parent_via_containment",
+   "entities": [
+    385,
+    448
+   ],
+   "reading_a": "包含関係で置かれた空間は、置かれ先を親とする",
+   "reading_b": "集約以外で親は決まらない。親なし（根と同列）とする",
+   "moves": "深さ0（親を持たない）空間の行数",
+   "affected": 2,
+   "count_a": 17,
+   "count_b": 19
+  },
+  {
+   "id": "adheres_container",
+   "entities": [
+    178,
+    195,
+    203,
+    211,
+    219,
+    334,
+    343,
+    351,
+    359,
+    367,
+    647,
+    659,
+    667,
+    675,
+    683,
+    800,
+    812,
+    820,
+    828,
+    836
+   ],
+   "reading_a": "付着関係の要素は母体の所属を継ぐ（物理的にそこにある）",
+   "reading_b": "包含関係に無いのだから、どの空間にも載っていない",
+   "moves": "所属を持つ要素の行数",
+   "affected": 20,
+   "count_a": 629,
+   "count_b": 609
+  },
+  {
+   "id": "type_property_precedence",
+   "entities": [
+    49,
+    52
+   ],
+   "reading_a": "直接と型経由を別の行として両方報告する",
+   "reading_b": "同じ属性は1つ。直接の値が型の値を上書きする",
+   "moves": "性能仕様の行数",
+   "affected": 2,
+   "count_a": 324,
+   "count_b": 322
+  }
+ ]
+}

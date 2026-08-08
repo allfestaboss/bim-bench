@@ -9,6 +9,8 @@
   Q5 数量（値と単位）                                   17点
   Q6 性能仕様（Pset名・属性名・値・付き方）               17点
   Q7 欠陥の指摘（種別と実体番号）                        25点
+  Q8 規格が2通りに読める箇所への気づき（実体集合）        40点
+  Q9 その選択で何件動くかの計算                          60点
 
 **Q4 が最も重い。** 「どの要素がどの空間に載っているか」は、国交省の BIM/CIM 照査で
 人が Word のチェックシートを見ながら確認している当のものだからである。
@@ -38,7 +40,7 @@ REL_TOL = 1e-9
 ABS_FLOOR = 1e-12
 
 POINTS = {"Q1": 12.0, "Q2": 16.0, "Q3": 16.0, "Q4": 22.0, "Q5": 17.0, "Q6": 17.0,
-          "Q7": 25.0}
+          "Q7": 25.0, "Q8": 40.0, "Q9": 60.0}
 LEVEL_NAME = {
     "Q1": "空間の網羅",
     "Q2": "空間の親と深さ",
@@ -47,6 +49,8 @@ LEVEL_NAME = {
     "Q5": "数量（値と単位）",
     "Q6": "性能仕様",
     "Q7": "欠陥の指摘",
+    "Q8": "分かれ目への気づき",
+    "Q9": "影響の計算",
 }
 
 MISSING = object()  # 「答えていない」を None（＝所属なし）と区別するための番兵
@@ -120,6 +124,99 @@ def _index(rec: dict | None, key: str) -> dict[int, dict]:
         except (KeyError, TypeError, ValueError):
             continue
     return out
+
+
+def _ents(t) -> frozenset:
+    out = set()
+    for e in (t.get("entities") or []):
+        try:
+            out.add(int(e))
+        except (TypeError, ValueError):
+            pass
+    return frozenset(out)
+
+
+def grade_ambiguity(ref_doc: dict, sub_doc: dict, levels: list[str] | None = None) -> dict:
+    """「決まらない箇所」の課題を採点する。
+
+    **語彙で照合しない。** こちらが site の名前を課題文に並べれば、腕はそれを
+    引き写すだけになり、気づいたかを測ったことにならない。名前は自由に書かせ、
+    **実体番号の集合の重なり**で対応を取る。集合は客観的で、共通語彙が要らない。
+
+    Q8 気づき   参照側の各箇所について、最もよく重なる答案の項目との Jaccard。
+                拾えないのと、無い箇所をでっち上げるのを F1 で同じだけ嫌う。
+    Q9 影響     対応が取れた箇所について、もう一方の読み方を採ったときの行数が
+                合っているか。**「曖昧だ」と言うのは安い。「322件になる」は
+                両方の読み方を実際に適用しないと言えない。** ここが分離点。
+    """
+    active = [l for l in ("Q8", "Q9") if levels is None or l in levels]
+    ref_sites = ref_doc.get("sites") or []
+    sub_sites = [t for t in (sub_doc.get("sites") or []) if isinstance(t, dict)]
+
+    checks: list[dict] = []
+    fatal = None if sub_sites else "sites が無いか、形が違う"
+
+    pairs: list[tuple[dict, dict | None, float]] = []
+    used: set[int] = set()
+    for r in ref_sites:
+        rs = _ents(r)
+        best, best_j, best_i = None, 0.0, -1
+        for i, t in enumerate(sub_sites):
+            if i in used:
+                continue
+            ts = _ents(t)
+            union = rs | ts
+            j = len(rs & ts) / len(union) if union else 0.0
+            if j > best_j:
+                best, best_j, best_i = t, j, i
+        if best_i >= 0:
+            used.add(best_i)
+        pairs.append((r, best, best_j))
+
+    if "Q8" in active:
+        recall = sum(j for _, _, j in pairs) / len(ref_sites) if ref_sites else 0.0
+        matched = sum(1 for _, t, j in pairs if t is not None and j > 0)
+        precision = matched / len(sub_sites) if sub_sites else 0.0
+        f1 = (2 * recall * precision / (recall + precision)) if (recall + precision) else 0.0
+        miss = [r["id"] for r, _, j in pairs if j == 0.0]
+        checks.append({
+            "level": "Q8", "name": LEVEL_NAME["Q8"],
+            "ok": abs(f1 - 1.0) < 1e-9, "points": POINTS["Q8"] * f1, "max": POINTS["Q8"],
+            "detail": ("OK" if abs(f1 - 1.0) < 1e-9 else
+                       f"重なり {recall:.2f} / 的中率 {precision:.2f}"
+                       + (f"  気づいていない: {miss}" if miss else "")
+                       + (f"  余分な指摘 {len(sub_sites) - matched}件"
+                          if len(sub_sites) > matched else "")),
+        })
+
+    if "Q9" in active:
+        good, bad = 0.0, []
+        for r, t, j in pairs:
+            if t is None or j == 0.0:
+                bad.append(f"{r['id']}(気づいていない)")
+                continue
+            a, b = num(t.get("count_a")), num(t.get("count_b"))
+            wa, wb = num(r.get("count_a")), num(r.get("count_b"))
+            # 片方だけ合っていても半分は認める。どちらの読み方も数えたことにはなる。
+            hit = (0.5 if a is not None and a == wa else 0.0) \
+                + (0.5 if b is not None and b == wb else 0.0)
+            good += hit
+            if hit < 1.0:
+                bad.append(f"{r['id']}({r['moves']} 期待 {wa}->{wb} 提出 {a}->{b})")
+        score = good / len(ref_sites) if ref_sites else 0.0
+        checks.append({
+            "level": "Q9", "name": LEVEL_NAME["Q9"],
+            "ok": abs(score - 1.0) < 1e-9, "points": POINTS["Q9"] * score,
+            "max": POINTS["Q9"],
+            "detail": "OK" if not bad else " / ".join(bad[:4]),
+        })
+
+    total = 0.0 if fatal else sum(c["points"] for c in checks)
+    mx = sum(POINTS[l] for l in active)
+    if mx and abs(mx - 100.0) > 1e-9:
+        total = total * 100.0 / mx
+    return {"file": sub_doc.get("_file", "?"), "score": total, "max": 100.0,
+            "fatal": fatal, "checks": checks}
 
 
 def grade(ref_doc: dict, sub_doc: dict, levels: list[str] | None = None) -> dict:
@@ -329,7 +426,11 @@ def main() -> int:
                         "fatal": f"JSONとして読めない: {e}", "checks": []})
             continue
         sub["_file"] = s
-        out.append(grade(ref, sub, levels))
+        # 「決まらない箇所」の課題は形が違うので採点器を分ける。
+        if "sites" in ref:
+            out.append(grade_ambiguity(ref, sub, levels))
+        else:
+            out.append(grade(ref, sub, levels))
     print(json.dumps(out, ensure_ascii=False))
     return 0
 

@@ -1,0 +1,1 @@
+[{"file": "out/_calib_t004.json", "score": 100.0, "max": 100.0, "fatal": null, "checks": [{"level": "Q8", "name": "分かれ目への気づき", "ok": true, "points": 40.0, "max": 40.0, "detail": "OK"}, {"level": "Q9", "name": "影響の計算", "ok": true, "points": 60.0, "max": 60.0, "detail": "OK"}]}]

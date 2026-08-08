@@ -1,0 +1,94 @@
+{
+ "id": "T004",
+ "title": "IFC の中で、規格が2通りに読める箇所を見つける — 17ファイル横断",
+ "note": "T001/T002/T003 は3課題続けて両腕とも到達範囲で満点になり分離しなかった。**測る軸を変える。**測るのは正しく読めるかではなく、**正解が1つに決まらない箇所に気づき、どちらを採るかを決め、その選択で何件動くかを言えるか**である。採点は「正しい読み方」を正解とはしない。正しい読み方が無いのが前提だからである。**決まらない箇所の集合**を参照解にしてある。何箇所あるかは教えない。",
+ "files": [
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Building-Architecture.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Building-Hvac.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Building-Landscaping.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Building-Structural.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Infra-Bridge.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Infra-Plumbing.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Infra-Rail.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Infra-Road.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Building-Architecture.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Building-Hvac.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Building-Landscaping.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Building-Structural.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Bridge.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Landscaping.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Plumbing.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Rail.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Road.ifc"
+  }
+ ],
+ "asked": [
+  "これらのファイルを読むにあたり、規格や関係の定義が2通り以上に読め、どちらを採るかで答案の行数が変わる箇所を挙げよ",
+  "各箇所について、2つの読み方をそれぞれ述べ、どちらを採るかと理由を書け",
+  "**各箇所について、両方の読み方それぞれで該当する行が何件になるかを数えよ**"
+ ],
+ "rules": [
+  "entities には、その箇所で扱いが変わる実体番号を**全部**入れる。ファイルをまたいでよい",
+  "**site の名前は自由**。こちらの語彙に合わせる必要はない。対応は実体番号の集合で取る",
+  "count_a は reading_a を採ったときの行数、count_b は reading_b を採ったときの行数。**同じ種類の行を数えること**（空間の行数なら両方とも空間の行数）。何を数えたかは moves に書く",
+  "数えるのは17ファイル全体の合計。ファイルごとの内訳は要らない",
+  "「曖昧だ」と述べるだけでは点にならない。**両方の読み方を実際に適用して数えること**",
+  "好みや流儀の違いは対象外。**どちらを採っても規格上あり得る**箇所だけを挙げる。実在しない箇所を挙げると、見落としと同じだけ減点する",
+  "T002 と同じ17ファイルである。空間・要素・数量・性能仕様の一覧そのものは答案に要らない"
+ ],
+ "grade_levels": [
+  "Q8",
+  "Q9"
+ ],
+ "answer_format": {
+  "task": "T004",
+  "sites": [
+   {
+    "site": "（自分で付けた短い名前）",
+    "entities": [
+     0
+    ],
+    "reading_a": "（読み方その1）",
+    "reading_b": "（読み方その2）",
+    "chosen": "a",
+    "why": "（なぜそちらを採るか）",
+    "moves": "（何の行数を数えたか。例: 空間の行数）",
+    "count_a": 0,
+    "count_b": 0
+   }
+  ]
+ }
+}
