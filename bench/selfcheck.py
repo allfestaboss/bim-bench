@@ -80,6 +80,60 @@ def hand_bridge_hierarchy() -> dict:
     }
 
 
+def _example_provenance() -> bool:
+    """課題文の答案例が、名乗ったファイルに**実在する**行だけで出来ているか。
+
+    ここを見ていなかったせいで同じ失敗を4回した。
+    1回目 手で書いた GlobalId が実データと違う
+    2回目 depth の例が規則と食い違う
+    3回目 anomalies の例に答え（測りたい矛盾）そのものを書いていた
+    4回目 3回目を直したとき、別ファイルの属性を元のファイル名の下に置いた
+
+    機械生成にしただけでは足りない。**生成したものを参照解に照合し直す。**
+    """
+    import json as _json
+    good = True
+    print()
+    print("=== 課題文の例の出どころ ===")
+    for tdir in sorted((ROOT / "tasks").iterdir()):
+        tf = tdir / "task.json"
+        if not tf.exists():
+            continue
+        task = _json.loads(tf.read_text(encoding="utf-8"))
+        rf = ROOT / "reference" / f"{tdir.name}.json"
+        if not rf.exists():
+            continue
+        ref = _json.loads(rf.read_text(encoding="utf-8"))
+        for ex in (task.get("answer_format", {}).get("results") or []):
+            fname = ex.get("file")
+            rec = next((x for x in ref["results"] if x["file"] == fname), None)
+            if rec is None:
+                print(f"  [{tdir.name}] {fname} は参照解に無い <-- NG")
+                good = False
+                continue
+            bad = []
+            for key, ident in (("spatials", lambda t: t.get("id")),
+                               ("elements", lambda t: t.get("id")),
+                               ("quantities", lambda t: t.get("id")),
+                               ("properties", lambda t: (t.get("element"), t.get("pset_name"),
+                                                         t.get("name"), t.get("via")))):
+                have = {ident(t) for t in (rec.get(key) or [])}
+                for t in (ex.get(key) or []):
+                    if ident(t) not in have:
+                        bad.append(f"{key}:{ident(t)}")
+            # 答え（矛盾）を例に書いていないか
+            leaked = [a for a in (ex.get("anomalies") or []) if a in (rec.get("anomalies") or [])]
+            mark = "OK" if not bad and not leaked else "<-- NG"
+            print(f"  [{tdir.name}] {fname:<38} {mark}")
+            if bad:
+                print(f"      そのファイルに無い行: {bad[:6]}")
+                good = False
+            if leaked:
+                print(f"      答えを例に書いている: {leaked[:2]}")
+                good = False
+    return good
+
+
 def main() -> int:
     ok = True
     print("=== 較正 ===")
@@ -125,6 +179,8 @@ def main() -> int:
     good = got_depth == b["max_depth"]
     ok = ok and good
     print(f"  {'最大の深さ':<16} 手={b['max_depth']:<26} 抽出={got_depth:<26} {'' if good else '<-- NG'}")
+
+    ok = _example_provenance() and ok
 
     print()
     print("較正:", "OK（手読みと一致）" if ok else "NG（不一致あり）")

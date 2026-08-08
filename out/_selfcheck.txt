@@ -15,4 +15,8 @@
                    抽出={'IFCBRIDGE': 3, 'IFCBRIDGEPART': 18, 'IFCPROJECT': 1, 'IFCSITE': 6} 
   最大の深さ            手=5                          抽出=5                          
 
+=== 課題文の例の出どころ ===
+  [T001] ifc4x3/Building-Architecture.ifc       OK
+  [T002] ifc4x3/Building-Architecture.ifc       OK
+
 較正: OK（手読みと一致）

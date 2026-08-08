@@ -41,6 +41,7 @@
   "集約(IFCRELAGGREGATES)の親を持たない空間が、包含関係(IFCRELCONTAINEDINSPATIALSTRUCTURE)で他の空間の下に置かれていることがある（IFCSPATIALZONE など。IFC4.3 で合法）。その場合はその空間を親とする。経路を parent_via に 'aggregate'/'contained' で残すこと",
   "要素の所属は IFCRELCONTAINEDINSPATIALSTRUCTURE の第5引数が要素リスト、第6引数が空間",
   "深さはプロジェクトを0として親をたどった段数",
+  "**IFCPROJECT も spatials に1件として含める**（深さ0、親は null）。IfcProject は厳密には IfcContext であって IfcSpatialElement ではないが、集約ツリーの根であり深さの起点なので、このベンチでは空間の一員として数える。第1回は両腕とも独立に「含めない」と判断しており、規則が決めていなかった。",
   "**同じ型が入れ子になる**。IFCSITE の中に IFCSITE、IFCBRIDGEPART の中に IFCBRIDGEPART が入る。「建物→階」の2段で決め打ちしない",
   "母体に貼り付いている要素（IFCRELADHERESTOELEMENT の第6引数、路面標示など）は、母体の所属を継承する。厳密な包含関係ではないが、母体が載っている空間に物理的に存在するため。経路を container_via に 'direct'/'aggregate'/'adheres' で残すこと",
   "数量は IFCELEMENTQUANTITY の第6引数にぶら下がり、IFCRELDEFINESBYPROPERTIES で要素に結ばれる",
