@@ -510,7 +510,13 @@
     }
    ],
    "anomalies": [
-    "#49 に同名の Pset_SlabCommon が複数付き、FireRating が食い違う: REI30(direct), REI60(type)"
+    {
+     "kind": "property_conflict",
+     "entities": [
+      49
+     ],
+     "detail": "同名の Pset_SlabCommon が複数付き、FireRating が食い違う: REI30(direct), REI60(type)"
+    }
    ],
    "counts": {
     "IFCBUILDINGELEMENTPROXY": 4,

@@ -182,6 +182,53 @@ def evil_keep_typed_value(ref):
     return s
 
 
+def evil_no_anomalies(ref):
+    """「異常なし」と書く。照査で最も高くつく答案。"""
+    s = _sub(ref)
+    for r in s["results"]:
+        r["anomalies"] = []
+    return s
+
+
+def evil_flood_anomalies(ref):
+    """全部の要素を怪しいと書く。**見落としゼロだが役に立たない。**
+
+    再現率だけで採ると満点になってしまうので、F1 で採っていることの確認。
+    """
+    s = _sub(ref)
+    for r in s["results"]:
+        a = list(r.get("anomalies") or [])
+        for i in range(30):
+            a.append({"kind": "orphan_element", "entities": [900000 + i],
+                      "detail": "怪しい"})
+        r["anomalies"] = a
+    return s
+
+
+def evil_wrong_kind(ref):
+    """欠陥の場所は当てているが、種別を取り違えている。"""
+    s = _sub(ref)
+    for r in s["results"]:
+        for a in (r.get("anomalies") or []):
+            a["kind"] = "orphan_element" if a["kind"] != "orphan_element" else "multi_parent"
+    return s
+
+
+def evil_cycle_cascade(ref):
+    """循環を、輪に入っている空間ごとに1件ずつ挙げる（同じ壊れ方を水増し）。"""
+    s = _sub(ref)
+    for r in s["results"]:
+        out = []
+        for a in (r.get("anomalies") or []):
+            if a["kind"] == "aggregation_cycle" and len(a.get("entities") or []) > 1:
+                out.extend({"kind": "aggregation_cycle", "entities": [e],
+                            "detail": a.get("detail", "")} for e in a["entities"])
+            else:
+                out.append(a)
+        r["anomalies"] = out
+    return s
+
+
 def benign_rounded(ref):
     """有効数字12桁に丸めただけ。これは通ってよい（許容の境界確認）。"""
     s = _sub(ref)
@@ -218,6 +265,14 @@ EVIL = [
      lambda r: any(x.get("anomalies") for x in r["results"])),
     ("evil_keep_typed_value", evil_keep_typed_value, "Q6",
      lambda r: any(p.get("value") for x in r["results"] for p in (x.get("properties") or []))),
+    ("evil_no_anomalies", evil_no_anomalies, "Q7",
+     lambda r: any(x.get("anomalies") for x in r["results"])),
+    ("evil_flood_anomalies", evil_flood_anomalies, "Q7", lambda r: True),
+    ("evil_wrong_kind", evil_wrong_kind, "Q7",
+     lambda r: any(x.get("anomalies") for x in r["results"])),
+    ("evil_cycle_cascade", evil_cycle_cascade, "Q7",
+     lambda r: any(a["kind"] == "aggregation_cycle" and len(a.get("entities") or []) > 1
+                   for x in r["results"] for a in (x.get("anomalies") or []))),
     ("evil_drop_unit", evil_drop_unit, "Q5",
      lambda r: _has(r, "quantities", lambda t: t.get("unit"))),
 ]

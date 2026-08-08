@@ -13,6 +13,10 @@
 [OK] evil_drop_type_properties: 94.3/100  失点=['Q6']  期待=Q6
 [OK] evil_merge_conflict: 97.2/100  失点=['Q6']  期待=Q6
 [OK] evil_keep_typed_value: 83.0/100  失点=['Q6']  期待=Q6
+[--] evil_no_anomalies: この課題は Q7 を採点しないので飛ばす
+[--] evil_flood_anomalies: この課題は Q7 を採点しないので飛ばす
+[--] evil_wrong_kind: この課題は Q7 を採点しないので飛ばす
+[--] evil_cycle_cascade: この課題は Q7 を採点しないので飛ばす
 [OK] evil_drop_unit: 83.0/100  失点=['Q5']  期待=Q5
 
 敵対テスト: 16/16 通過

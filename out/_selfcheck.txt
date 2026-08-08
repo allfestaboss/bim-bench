@@ -18,5 +18,6 @@
 === 課題文の例の出どころ ===
   [T001] ifc4x3/Building-Architecture.ifc       OK
   [T002] ifc4x3/Building-Architecture.ifc       OK
+  [T003] injected/A-Building-Architecture.ifc   OK
 
 較正: OK（手読みと一致）

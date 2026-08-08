@@ -203,6 +203,56 @@ def check_file(path: Path) -> list[str]:
     return bad
 
 
+def check_injected() -> list[str]:
+    """仕込んだ欠陥を ifcopenshell から独立に確認する。
+
+    仕込みの正しさは注入前後の差分で保証されるが、**それはこちらの道具だけで
+    閉じた証明**である。外の実装が同じものを見ているかを別に確かめる。
+
+    ifcopenshell の API で直に取れるのは次の2種類だけ。残りは構成による保証と、
+    原本（buildingSMART 側）に元からある2件が支える。
+
+        duplicate_global_id  by_type("IfcRoot") の GlobalId を数える
+        orphan_element       get_container() も get_aggregate() も None
+    """
+    import json
+
+    import ifcopenshell
+    import ifcopenshell.util.element as ue
+
+    inj = ROOT / "corpus" / "injected"
+    man = json.loads((inj / "MANIFEST.json").read_text(encoding="utf-8"))
+    bad: list[str] = []
+    for name, d in sorted(man.items()):
+        planted = {(a["kind"], tuple(sorted(a["entities"]))) for a in d["planted"]}
+        f = ifcopenshell.open(str(inj / name))
+
+        seen: dict[str, list[int]] = {}
+        for e in f.by_type("IfcRoot"):
+            if e.GlobalId:
+                seen.setdefault(e.GlobalId, []).append(e.id())
+        dup = {("duplicate_global_id", tuple(sorted(v))) for v in seen.values() if len(v) > 1}
+
+        # 付着関係(IFCRELADHERESTOELEMENT)で母体に貼り付いている要素は、
+        # ifcopenshell から見ると容器が無い。**欠陥ではない**ので除く。
+        mine = extract(load_step(inj / name))
+        adheres = {e.id for e in mine.elements if e.container_via == "adheres"}
+        orph = {("orphan_element", (e.id(),)) for e in f.by_type("IfcElement")
+                if ue.get_container(e) is None and ue.get_aggregate(e) is None
+                and e.id() not in adheres}
+
+        for kind, found in (("duplicate_global_id", dup), ("orphan_element", orph)):
+            want = {k for k in planted if k[0] == kind}
+            if found != want:
+                for k in sorted(want - found):
+                    bad.append(f"{name}: 仕込んだ {k} を ifcopenshell が見ていない")
+                for k in sorted(found - want):
+                    bad.append(f"{name}: 仕込んでいない {k} を ifcopenshell が見ている")
+        n = len({k for k in planted if k[0] in ("duplicate_global_id", "orphan_element")})
+        print(f"  {name:<38} 外から確認できた仕込み {n}件")
+    return bad
+
+
 def main() -> int:
     try:
         import ifcopenshell  # noqa: F401
@@ -227,6 +277,14 @@ def main() -> int:
             print(f"      {b}")
         if len(bad) > 8:
             print(f"      … 他 {len(bad) - 8}件")
+    if (ROOT / "corpus" / "injected" / "MANIFEST.json").exists():
+        print()
+        print("=== 仕込んだ欠陥を外から確認 ===")
+        bad = check_injected()
+        total += len(bad)
+        for b in bad:
+            print(f"      {b}")
+
     print()
     print(f"突き合わせ: {'全ファイル一致' if total == 0 else f'計 {total}件の食い違い'}")
     return 0 if total == 0 else 1

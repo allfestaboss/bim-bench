@@ -16,19 +16,31 @@ from .step import load
 ROOT = Path(__file__).resolve().parent.parent
 
 
+def _rel(path: str) -> str:
+    p = Path(path)
+    for base in ("corpus/buildingsmart", "corpus"):
+        try:
+            return str(p.relative_to(base))
+        except ValueError:
+            continue
+    return str(p)
+
+
 def build(task_id: str) -> dict:
     task = json.loads((ROOT / "tasks" / task_id / "task.json").read_text(encoding="utf-8"))
     results = []
     for f in task["files"]:
         x = extract(load(ROOT / f["path"]))
         results.append({
-            "file": str(Path(f["path"]).relative_to("corpus/buildingsmart")),
+            # 課題によって corpus/buildingsmart/ と corpus/injected/ を使い分ける。
+            # 原本を使う課題の答案名は従来どおり（T001/T002 の腕の答案がそれで書かれている）。
+            "file": _rel(f["path"]),
             "schema": x.schema,
             "spatials": [dataclasses.asdict(s) for s in x.spatials],
             "elements": [dataclasses.asdict(e) for e in x.elements],
             "quantities": [dataclasses.asdict(q) for q in x.quantities],
             "properties": [dataclasses.asdict(pr) for pr in x.properties],
-            "anomalies": x.anomalies,
+            "anomalies": [dataclasses.asdict(a) for a in x.anomalies],
             "counts": x.counts(),
             "spatial_counts": x.spatial_counts(),
         })

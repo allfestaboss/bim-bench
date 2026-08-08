@@ -8,6 +8,7 @@
   Q4 要素の所属                                        25点
   Q5 数量（値と単位）                                   17点
   Q6 性能仕様（Pset名・属性名・値・付き方）               17点
+  Q7 欠陥の指摘（種別と実体番号）                        25点
 
 **Q4 が最も重い。** 「どの要素がどの空間に載っているか」は、国交省の BIM/CIM 照査で
 人が Word のチェックシートを見ながら確認している当のものだからである。
@@ -36,7 +37,8 @@ from pathlib import Path
 REL_TOL = 1e-9
 ABS_FLOOR = 1e-12
 
-POINTS = {"Q1": 12.0, "Q2": 16.0, "Q3": 16.0, "Q4": 22.0, "Q5": 17.0, "Q6": 17.0}
+POINTS = {"Q1": 12.0, "Q2": 16.0, "Q3": 16.0, "Q4": 22.0, "Q5": 17.0, "Q6": 17.0,
+          "Q7": 25.0}
 LEVEL_NAME = {
     "Q1": "空間の網羅",
     "Q2": "空間の親と深さ",
@@ -44,6 +46,7 @@ LEVEL_NAME = {
     "Q4": "要素の所属",
     "Q5": "数量（値と単位）",
     "Q6": "性能仕様",
+    "Q7": "欠陥の指摘",
 }
 
 MISSING = object()  # 「答えていない」を None（＝所属なし）と区別するための番兵
@@ -226,6 +229,40 @@ def grade(ref_doc: dict, sub_doc: dict, levels: list[str] | None = None) -> dict
                     f"{fname}: {good}/{len(rp)}"
                     + (f" 捏造{extra}件" if extra else "")
                     + (f"  誤り {', '.join(bad[:5])}" if bad else ""))
+
+        # ---- Q7 欠陥の指摘 ----
+        # 自由文では機械採点できないので (種別, 実体番号の組) を鍵にする。
+        # **F1 で採る。** 拾えないのと、無いものを挙げるのを、同じだけ嫌う。
+        # 照査で「異常なし」と書くのと「全部が異常」と書くのは、どちらも役に立たない。
+        if "Q7" in active:
+            def _akey(t):
+                ents = t.get("entities")
+                ents = ents if isinstance(ents, list) else []
+                out = []
+                for e in ents:
+                    try:
+                        out.append(int(e))
+                    except (TypeError, ValueError):
+                        pass
+                return (str(t.get("kind") or "").strip().lower(), tuple(sorted(out)))
+            ra = {_akey(t) for t in (ref_rec.get("anomalies") or [])}
+            sa = {_akey(t) for t in ((sub_rec or {}).get("anomalies") or [])}
+            hit = len(ra & sa)
+            extra = len(sa - ra)
+            # 欠陥が無いファイルは、何も挙げなければ満点。挙げたら減点。
+            if not ra:
+                f1 = 0.0 if extra else 1.0
+            else:
+                f1 = _f1(hit, len(ra), extra)
+            tally["Q7"][0] += f1
+            tally["Q7"][1] += 1
+            if f1 < 1.0:
+                miss = sorted(ra - sa)
+                inv = sorted(sa - ra)
+                details["Q7"].append(
+                    f"{fname}: {hit}/{len(ra)}"
+                    + (f" 見落とし {miss[:3]}" if miss else "")
+                    + (f" 誤指摘 {inv[:3]}" if inv else ""))
 
         # ---- Q5 数量 ----
         if "Q5" in active and rq:

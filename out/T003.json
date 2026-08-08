@@ -1,0 +1,1 @@
+[{"file": "out/_calib_t003.json", "score": 100.0, "max": 100.0, "fatal": null, "checks": [{"level": "Q0", "name": "対象ファイルが揃っている", "ok": true, "points": 0.0, "max": 0.0, "detail": "OK"}, {"level": "Q7", "name": "欠陥の指摘", "ok": true, "points": 25.0, "max": 25.0, "detail": "OK"}]}]

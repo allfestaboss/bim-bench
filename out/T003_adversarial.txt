@@ -1,0 +1,22 @@
+[OK] 較正: 参照解 100.0/100
+[OK] benign_rounded: 100.0/100  ← 丸めは通るべき
+[OK] evil_malformed: 0.0/100  失格
+[--] evil_drop_file: この課題は Q1 を採点しないので飛ばす
+[--] evil_invent_elements: この課題は Q3 を採点しないので飛ばす
+[--] evil_depth_naive: この課題は Q2 を採点しないので飛ばす
+[--] evil_zero_depth: この課題は Q2 を採点しないので飛ばす
+[--] evil_parent_flip: この課題は Q2 を採点しないので飛ばす
+[--] evil_drop_adheres: この課題は Q3 を採点しないので飛ばす
+[--] evil_container_null: この課題は Q4 を採点しないので飛ばす
+[--] evil_container_root: この課題は Q4 を採点しないので飛ばす
+[--] evil_quantity_scale: この課題は Q5 を採点しないので飛ばす
+[--] evil_drop_type_properties: この課題は Q6 を採点しないので飛ばす
+[--] evil_merge_conflict: この課題は Q6 を採点しないので飛ばす
+[--] evil_keep_typed_value: この課題は Q6 を採点しないので飛ばす
+[OK] evil_no_anomalies: 0.0/100  失点=['Q7']  期待=Q7
+[OK] evil_flood_anomalies: 13.4/100  失点=['Q7']  期待=Q7
+[OK] evil_wrong_kind: 0.0/100  失点=['Q7']  期待=Q7
+[OK] evil_cycle_cascade: 92.9/100  失点=['Q7']  期待=Q7
+[--] evil_drop_unit: この課題は Q5 を採点しないので飛ばす
+
+敵対テスト: 7/7 通過

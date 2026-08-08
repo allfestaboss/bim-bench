@@ -22,4 +22,12 @@
   ifc4x3/Infra-Road.ifc                  （参考）付着による所属 20件は比較対象外。ifcopenshell は解決しない
   ifc4x3/Infra-Road.ifc                  OK
 
+=== 仕込んだ欠陥を外から確認 ===
+  A-Building-Architecture.ifc            外から確認できた仕込み 1件
+  B-Infra-Bridge.ifc                     外から確認できた仕込み 1件
+  C-Infra-Road.ifc                       外から確認できた仕込み 0件
+  D-Building-Structural.ifc              外から確認できた仕込み 2件
+  E-Infra-Landscaping.ifc                外から確認できた仕込み 1件
+  F-Building-Architecture.ifc            外から確認できた仕込み 0件
+
 突き合わせ: 全ファイル一致

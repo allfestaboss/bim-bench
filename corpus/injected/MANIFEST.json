@@ -1,0 +1,127 @@
+{
+ "A-Building-Architecture.ifc": {
+  "source": "ifc4x3/Building-Architecture.ifc",
+  "planted": [
+   {
+    "kind": "orphan_element",
+    "entities": [
+     310
+    ]
+   },
+   {
+    "kind": "quantity_mismatch",
+    "entities": [
+     49
+    ]
+   }
+  ],
+  "pre_existing": [
+   {
+    "kind": "property_conflict",
+    "entities": [
+     49
+    ]
+   }
+  ]
+ },
+ "B-Infra-Bridge.ifc": {
+  "source": "ifc4x3/Infra-Bridge.ifc",
+  "planted": [
+   {
+    "kind": "multi_parent",
+    "entities": [
+     23
+    ]
+   },
+   {
+    "kind": "duplicate_global_id",
+    "entities": [
+     43,
+     50
+    ]
+   }
+  ],
+  "pre_existing": []
+ },
+ "C-Infra-Road.ifc": {
+  "source": "ifc4x3/Infra-Road.ifc",
+  "planted": [
+   {
+    "kind": "double_containment",
+    "entities": [
+     56
+    ]
+   },
+   {
+    "kind": "dangling_reference",
+    "entities": [
+     1888
+    ]
+   }
+  ],
+  "pre_existing": []
+ },
+ "D-Building-Structural.ifc": {
+  "source": "ifc4/Building-Structural.ifc",
+  "planted": [
+   {
+    "kind": "orphan_element",
+    "entities": [
+     172
+    ]
+   },
+   {
+    "kind": "duplicate_global_id",
+    "entities": [
+     71,
+     101
+    ]
+   }
+  ],
+  "pre_existing": []
+ },
+ "E-Infra-Landscaping.ifc": {
+  "source": "ifc4/Infra-Landscaping.ifc",
+  "planted": [
+   {
+    "kind": "orphan_element",
+    "entities": [
+     727
+    ]
+   },
+   {
+    "kind": "property_conflict",
+    "entities": [
+     84
+    ]
+   }
+  ],
+  "pre_existing": []
+ },
+ "F-Building-Architecture.ifc": {
+  "source": "ifc4/Building-Architecture.ifc",
+  "planted": [
+   {
+    "kind": "aggregation_cycle",
+    "entities": [
+     23,
+     30
+    ]
+   },
+   {
+    "kind": "double_containment",
+    "entities": [
+     52
+    ]
+   }
+  ],
+  "pre_existing": [
+   {
+    "kind": "property_conflict",
+    "entities": [
+     52
+    ]
+   }
+  ]
+ }
+}

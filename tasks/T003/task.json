@@ -1,0 +1,69 @@
+{
+ "id": "T003",
+ "title": "IFC の欠陥を見つける — 照査6ファイル",
+ "note": "T001/T002 は両腕とも到達範囲で満点になり、分離しなかった。**測る軸を変える。**このファイル群は buildingSMART の原本に、照査で問題になる欠陥を意図的に仕込んだ派生物である。1ファイルあたり数行しか違わない。**訊くのは欠陥だけで、空間・要素・数量・性能仕様は答案に要らない。**原本には元から入っている欠陥もあり、仕込みと区別せず全て報告対象とする。何件仕込んだかは教えない。",
+ "files": [
+  {
+   "path": "corpus/injected/A-Building-Architecture.ifc"
+  },
+  {
+   "path": "corpus/injected/B-Infra-Bridge.ifc"
+  },
+  {
+   "path": "corpus/injected/C-Infra-Road.ifc"
+  },
+  {
+   "path": "corpus/injected/D-Building-Structural.ifc"
+  },
+  {
+   "path": "corpus/injected/E-Infra-Landscaping.ifc"
+  },
+  {
+   "path": "corpus/injected/F-Building-Architecture.ifc"
+  }
+ ],
+ "asked": [
+  "各ファイルについて、見つけた欠陥を種別（kind）と関係する実体番号（entities）で報告せよ"
+ ],
+ "rules": [
+  "kind は下の語彙から選ぶ。語彙に無い壊れ方を見つけたら kind を 'other' として detail に書く（採点対象外だが読む）",
+  "kind 'property_conflict': 同じ要素・同じ Pset 名・同じ属性名の値が、付き方（直接/型経由）や複数の Pset をまたいで食い違う",
+  "kind 'double_containment': 1つの要素が複数の空間に載っている（数量が二重計上される）",
+  "kind 'orphan_element': 物理要素がどの空間にも載っていない（数量拾いから漏れる）",
+  "kind 'multi_parent': 1つの空間が複数の親から集約されている（階層が木でなくなる）",
+  "kind 'aggregation_cycle': 空間の集約が循環していて根にたどり着かない",
+  "kind 'dangling_reference': 存在しない実体を参照している",
+  "kind 'duplicate_global_id': 別々の実体が同じ GlobalId を名乗っている",
+  "kind 'quantity_mismatch': 数量どうしが整合しない（NetVolume != NetArea x Depth/1000）",
+  "entities には、その欠陥の当事者となる実体番号だけを入れる。**波及して壊れたものは入れない**",
+  "  property_conflict / double_containment / orphan_element / multi_parent / quantity_mismatch は当事者1件",
+  "  duplicate_global_id は同じ GlobalId を名乗っている実体を全部",
+  "  aggregation_cycle は輪に入っている空間を全部（輪1つにつき1件。ぶら下がる子孫は含めない）",
+  "  dangling_reference は参照されているのに存在しない番号",
+  "**推測で挙げない。** 挙げた欠陥が実在しなければ、見落としと同じだけ減点する",
+  "欠陥が1件も無いファイルもありうる。その場合は anomalies を空配列にする",
+  "数量の単位は長さ MILLI.METRE、面積 SQUARE_METRE、体積 CUBIC_METRE。体積は面積 x 厚さ/1000 で照合できる",
+  "答案の file はファイル名だけでよい（例 'injected/A-Building-Architecture.ifc'）"
+ ],
+ "grade_levels": [
+  "Q7"
+ ],
+ "answer_format": {
+  "task": "T003",
+  "results": [
+   {
+    "file": "injected/A-Building-Architecture.ifc",
+    "schema": "IFC4X3_ADD2",
+    "anomalies": [
+     {
+      "kind": "（語彙から選ぶ）",
+      "entities": [
+       0
+      ],
+      "detail": "（何がどう壊れているかを文で）"
+     }
+    ]
+   }
+  ]
+ }
+}

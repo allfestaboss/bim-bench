@@ -46,6 +46,7 @@
 
 from __future__ import annotations
 
+import re as _re_mod
 from dataclasses import dataclass, field
 
 from .step import Entity, Model, Ref
@@ -125,13 +126,42 @@ class Property:
 
 
 @dataclass
+class Anomaly:
+    """ファイルの欠陥。**自由文ではなく種別と実体番号で持つ。**
+
+    照査で問題になるのは「何が」「どこで」壊れているかであって、文章の言い回しではない。
+    機械採点するために (kind, entities) を鍵にする。detail は人が読むためだけのもの。
+
+    kind の語彙:
+      property_conflict   同じ要素・同じPset名・同じ属性が、経路違いで値が食い違う
+      double_containment  1つの要素が複数の空間に載っている（数量の二重計上になる）
+      multi_parent        1つの空間が複数の親から集約されている
+      aggregation_cycle   集約が循環していて根にたどり着かない
+      dangling_reference  存在しない実体を参照している
+      duplicate_global_id 別々の実体が同じ GlobalId を名乗っている
+      orphan_element      物理要素がどの空間にも載っていない（数量拾いから漏れる）
+      quantity_mismatch   数量どうしが整合しない（体積 != 面積 x 厚さ）
+    """
+    kind: str
+    entities: list[int]
+    detail: str = ""
+
+    def key(self) -> tuple:
+        return (self.kind, tuple(sorted(self.entities)))
+
+    def text(self) -> str:
+        ids = ", ".join(f"#{i}" for i in sorted(self.entities))
+        return f"[{self.kind}] {ids} {self.detail}".strip()
+
+
+@dataclass
 class Extract:
     schema: str
     spatials: list[Spatial] = field(default_factory=list)
     elements: list[Element] = field(default_factory=list)
     quantities: list[Quantity] = field(default_factory=list)
     properties: list[Property] = field(default_factory=list)
-    anomalies: list[str] = field(default_factory=list)
+    anomalies: list[Anomaly] = field(default_factory=list)
 
     def counts(self) -> dict[str, int]:
         out: dict[str, int] = {}
@@ -200,9 +230,9 @@ def extract(model: Model) -> Extract:
             if child is None or child.id not in by_id:
                 continue
             if by_id[child.id].parent is not None:
-                out.anomalies.append(
-                    f"#{child.id} ({child.type}) が複数の親から集約されている"
-                )
+                out.anomalies.append(Anomaly(
+                    "multi_parent", [child.id],
+                    f"{child.type} が複数の親から集約されている"))
             by_id[child.id].parent = parent.id if parent.id in by_id else None
             by_id[child.id].parent_via = "aggregate"
 
@@ -226,17 +256,24 @@ def extract(model: Model) -> Extract:
             by_id[c.id].parent_via = "contained"
 
     # 深さを付ける。親をたどるだけ。循環していたら報告する。
+    # **輪1つにつき1件**として、輪に入っている空間を全部 entities に並べる。
+    # 節点ごとに1件出すと、輪の下にぶら下がる子孫まで全部「循環」として挙がり、
+    # 同じ1つの壊れ方が何十件にも化ける。人はそう報告しない。
+    cycles: set[frozenset] = set()
     for s in by_id.values():
-        seen: set[int] = set()
+        path: list[int] = []
         cur, d = s.parent, 0
         while cur is not None and cur in by_id:
-            if cur in seen:
-                out.anomalies.append(f"#{s.id} の空間階層が循環している")
+            if cur in path:
+                cycles.add(frozenset(path[path.index(cur):]))
                 break
-            seen.add(cur)
+            path.append(cur)
             d += 1
             cur = by_id[cur].parent
         s.depth = d
+    for c in sorted(cycles, key=lambda x: sorted(x)):
+        out.anomalies.append(Anomaly(
+            "aggregation_cycle", sorted(c), "空間の集約が循環している"))
     out.spatials = sorted(by_id.values(), key=lambda x: (x.depth, x.type, x.global_id))
 
     # ---- 要素の所属 ----
@@ -267,7 +304,9 @@ def extract(model: Model) -> Extract:
         for i in items:
             e = model.get(i)
             if e is None:
-                out.anomalies.append(f"空間への所属が存在しない実体 {i} を指している")
+                out.anomalies.append(Anomaly(
+                    "dangling_reference", [i],
+                    "空間への所属が存在しない実体を指している"))
                 continue
             if e.id in by_id:
                 # 空間そのものが包含関係に出てくることがある（IfcSpatialZone など）。
@@ -275,7 +314,9 @@ def extract(model: Model) -> Extract:
                 continue
             gid, name = _rooted(e)
             if e.id in elements:
-                out.anomalies.append(f"#{e.id} ({e.type}) が複数の空間に載っている")
+                out.anomalies.append(Anomaly(
+                    "double_containment", [e.id],
+                    f"{e.type} が複数の空間に載っている"))
             direct[e.id] = space.id if space else None
             elements[e.id] = Element(id=e.id, type=e.type, global_id=gid, name=name,
                                      container=space.id if space else None,
@@ -440,7 +481,63 @@ def extract(model: Model) -> Extract:
         vals = {p.value for p in group}
         if len(vals) > 1:
             detail = ", ".join(f"{p.value}({p.via})" for p in group)
-            out.anomalies.append(
-                f"#{elem} に同名の {psn} が複数付き、{nm} が食い違う: {detail}")
+            out.anomalies.append(Anomaly(
+                "property_conflict", [elem],
+                f"同名の {psn} が複数付き、{nm} が食い違う: {detail}"))
 
+    # ---- 別々の実体が同じ GlobalId を名乗っている ----
+    # IfcRoot の GlobalId は一意でなければならない（ISO 16739）。壊れると
+    # 「同じ物」と「別の物」の区別が付かなくなる。差分管理が成り立たない。
+    # IfcRoot かどうかを「22文字だから」で決めてはいけない。この corpus には
+    # 'composite_element_roof' や 'metal_steel-galvanized' という**ちょうど22文字の
+    # 材料名**があり、それを GlobalId と取り違えて誤検出した。
+    # IfcRoot の第2引数は OwnerHistory なので、そこが IFCOWNERHISTORY を指すことで判定する。
+    _GUID = _re_mod.compile(r"[0-9A-Za-z_$]{22}\Z")
+    by_gid: dict[str, list[int]] = {}
+    for e in model.entities.values():
+        if len(e.args) < 2:
+            continue
+        owner = model.get(e.args[1])
+        if owner is None or owner.type != "IFCOWNERHISTORY":
+            continue
+        gid = _s(e.args[0])
+        if _GUID.match(gid):
+            by_gid.setdefault(gid, []).append(e.id)
+    for gid, ids in sorted(by_gid.items()):
+        if len(ids) > 1:
+            out.anomalies.append(Anomaly(
+                "duplicate_global_id", sorted(ids),
+                f"別々の実体が同じ GlobalId '{gid}' を名乗っている"))
+
+    # ---- どの空間にも載っていない物理要素 ----
+    # 要素の型の語彙は**このファイルで実際に空間に載っている型**から作る。
+    # 手で型一覧を書くと、書き忘れた型が黙って検査から漏れる。
+    kinds = {e.type for e in out.elements}
+    placed = {e.id for e in out.elements}
+    for e in model.entities.values():
+        if e.type in kinds and e.id not in placed:
+            gid, name = _rooted(e)
+            out.anomalies.append(Anomaly(
+                "orphan_element", [e.id],
+                f"{e.type} '{name}' がどの空間にも載っていない"))
+
+    # ---- 数量どうしが整合しない ----
+    # この corpus は面積 m2・厚さ mm・体積 m3 で宣言されており、
+    # 体積 = 面積 x 厚さ/1000 が全ての三つ組で成り立つ（armC が確認、こちらでも検算した）。
+    # 崩れていれば数量拾いか幾何のどちらかが壊れている。
+    by_elem: dict[int, dict[str, float]] = {}
+    for q in out.quantities:
+        if q.element is not None and q.value is not None:
+            by_elem.setdefault(q.element, {})[q.name] = q.value
+    for elem, qs in sorted(by_elem.items()):
+        a, d, v = qs.get("NetArea"), qs.get("Depth"), qs.get("NetVolume")
+        if a is None or d is None or v is None:
+            continue
+        want = a * d / 1000.0
+        if abs(v - want) > max(abs(want) * 1e-6, 1e-9):
+            out.anomalies.append(Anomaly(
+                "quantity_mismatch", [elem],
+                f"NetVolume={v} だが NetArea x Depth/1000 = {want}"))
+
+    out.anomalies.sort(key=lambda a: (a.kind, tuple(sorted(a.entities))))
     return out
