@@ -1,0 +1,71 @@
+{
+  "task": "T004",
+  "sites": [
+    {
+      "site": "型のPsetと実体のPsetが同名で値が食い違う（Pset_SlabCommon の FireRating）",
+      "entities": [47, 48, 49, 50, 51, 52, 57, 58, 800, 801, 855, 856, 961, 962, 963, 970, 980],
+      "reading_a": "IfcTypeObject.HasPropertySets に付いた Pset と、IfcRelDefinesByProperties で実体に付いた同名 Pset は1つのものとして統合し、同名プロパティは実体側が型側を上書きする。したがって当該スラブの FireRating は実体側の REI30 だけが有効な行になる。",
+      "reading_b": "型に付いた Pset と実体に付いた Pset は別々の IfcPropertySetDefinition であり、どちらも独立して有効。名前が同じでも上書き規定は Pset 単位で明文化されていないので、型の REI60 と実体の REI30 の両方を行として立てる。",
+      "chosen": "a",
+      "why": "IFC の型/実体の関係は、型が既定値を与え実体がそれを特化するという向きで定義されている。同じ Pset 名・同じプロパティ名が両側にあるとき、実体側を採るのが規格の意図に沿う。ただしどちらの読み方も禁止されてはいない。なお ifc4/ifc4x3 の Building-Architecture の両方で、この型側 Pset は他の実体番号（#1〜#517 前後）から大きく外れた #961〜#980 の塊として差し込まれており、意図的に置かれた食い違いに見える。",
+      "moves": "FireRating の行数（17ファイル合計）",
+      "count_a": 2,
+      "count_b": 4
+    },
+    {
+      "site": "IfcSpatialZone を空間に数えるか要素に数えるか",
+      "entities": [335, 383, 384, 385, 387, 446, 447, 448],
+      "reading_a": "IfcSpatialZone は IfcSpatialElement の下位型なので空間の行に数える。IfcSpace と並べて室・ゾーンの一覧に載せる。",
+      "reading_b": "この2ファイルでは IfcSpatialZone が IfcRelAggregates ではなく IfcRelContainedInSpatialStructure の RelatedElements に、屋根や砂床といった物理要素と並べて置かれている。IFC4X3 の RelatedElements は IfcProduct なのでこれは規格上正しい。格納された側は要素として扱い、空間の行には数えない。",
+      "chosen": "a",
+      "why": "実体型が IfcSpatialZone である以上、空間として数えるのが素直。IfcSpatialZone は IfcSpatialStructureElement ではないため空間構造の入れ子には入れられず、エクスポータが containment に逃がしただけと読むのが妥当。ただし空間構造をたどって空間一覧を作る抽出器は、この2件を要素として拾うか、まったく拾わないかのどちらかになる。",
+      "moves": "空間（室・ゾーン）の行数。IfcSpace と IfcSpatialZone の合計、17ファイル合計",
+      "count_a": 6,
+      "count_b": 4
+    },
+    {
+      "site": "分解された要素で親も数えるか葉だけ数えるか（IfcRoof と IfcElementAssembly）",
+      "entities": [173, 182, 192, 196, 204, 209, 220, 224, 236, 252, 257, 268, 278, 286, 299, 302, 320, 327, 334, 340, 343, 348, 353, 359, 362, 367, 378, 382, 395, 397, 406, 410, 411, 421, 425, 435, 454, 463, 467, 475, 486, 524, 536, 543, 556, 570, 579, 586, 594, 751, 761, 768, 776, 787, 789, 796, 797, 803, 808, 811, 822, 838, 844, 850, 858, 866, 872, 878, 886, 894, 900, 906, 914, 1195, 1201, 1207, 1218, 1229, 1235, 1241, 1249, 1371, 1377, 1383, 1394, 1405, 1411, 1417, 1425, 1433, 1439, 1445, 1453, 1461, 1467, 1473, 1481],
+      "reading_a": "IfcRelAggregates の RelatingObject（屋根、橋脚アセンブリ、標識アセンブリ）も RelatedObjects（スラブ、梁、柱、基礎、支柱、標識板）も、どれも IfcElement の実体なのでそれぞれ1行ずつ数える。",
+      "reading_b": "IfcRelAggregates は全体と部分の関係であり、親は部分の総体を指すだけで別の物ではない。したがって葉（部分）だけを数え、親は行にしない。",
+      "chosen": "b",
+      "why": "親側は形状も数量も持たないものが多い（ifc4x3 の屋根 #334 と ifc4 の屋根 #382/#196 は Representation が空、ifc4 Infra-Bridge の橋脚アセンブリは Pset だけで形状なし）。親と部分を両方数えると同じ材料を二重に数えることになり、数量集計と食い違う。ただし施工単位としてアセンブリを1行立てる読み方も規格上あり得る。",
+      "moves": "分解関係にある要素の行数（親21件＋部分57件 か、部分57件だけか）。17ファイル合計",
+      "count_a": 78,
+      "count_b": 57
+    },
+    {
+      "site": "IfcSurfaceFeature（路面標示）を独立した要素に数えるか宿主の一部に数えるか",
+      "entities": [178, 194, 195, 203, 211, 219, 238, 254, 262, 270, 278, 334, 342, 343, 351, 359, 367, 472, 480, 488, 496, 504, 647, 658, 659, 667, 675, 683, 800, 811, 812, 820, 828, 836, 893, 904, 912, 920, 928, 1080, 1091, 1099, 1107, 1115],
+      "reading_a": "IfcSurfaceFeature は IfcFeatureElement を経て IfcElement の下位型であり、独自の GlobalId と ObjectType と材料（thermoplastic road marking paint）を持つ。したがって独立した要素の行として数える。",
+      "reading_b": "IfcFeatureElement は要素の形状を修飾するものであり、IfcRelAdheresToElement は標示が宿主の表層コースに従属することを明示している。IfcOpeningElement を要素一覧に載せないのと同じ扱いで、宿主の一部として行にしない。",
+      "chosen": "a",
+      "why": "路面標示は材料も施工も舗装本体と別で、独自の GlobalId を持つ実在の成果物。要素として数えるのが妥当。ただし ifc4x3 側では標示が IfcRelContainedInSpatialStructure にまったく現れず IfcRelAdheresToElement からしか到達できないため、空間構造をたどる抽出器では自然に count_b になる。同じ標示が ifc4 側では空間構造に直接格納されており、同じ物が2つの読み方に割れている。",
+      "moves": "要素の行数（Infra-Road の ifc4x3 版と ifc4 版の合計。各55行 対 各35行）",
+      "count_a": 110,
+      "count_b": 70
+    },
+    {
+      "site": "同じ GlobalId のオブジェクトが複数ファイルに出るとき1行か17行か",
+      "entities": [137, 140, 142, 334, 336, 391, 436, 501, 710, 737, 865, 935, 1002, 1265],
+      "reading_a": "17ファイルはそれぞれ独立した交換ファイルなので、ファイルごとに1行ずつ数える。合計は各ファイルの行数の総和。",
+      "reading_b": "IfcRoot.GlobalId は全世界で一意にオブジェクトを同定するという規定なので、GlobalId が同一なら同一オブジェクト。17ファイルを federate した1つのモデルとみなして重複を畳み、1行にする。",
+      "chosen": "a",
+      "why": "課題が17ファイル全体の合計を求めているので、ファイル単位の総和を採る。ただし geo-reference プロキシ（GlobalId 3Fit2Fad92zf2f6aWdJtF5）は17ファイル全部に同一 GlobalId で出ており、GlobalId 規定に従えば1個のオブジェクトである。同じ問題は IfcProject #13、environment - site #20、house - site #23、煙突、origin プロキシにも及ぶ。しかも geo-reference は ifc4 と ifc4x3 で配置が食い違う（Building 系は E729013348/N9063992684/H1300/30度回転、Infra 系は E729011225/N9063960607/H0/回転なし）ので、同一 GlobalId でありながら同一オブジェクトとは言い切れない。",
+      "moves": "要素の行数（geo-reference プロキシ。17ファイル合計）",
+      "count_a": 17,
+      "count_b": 1
+    },
+    {
+      "site": "CompositionType が COMPLEX の IfcSite を1行に数えるか集合体として数えないか",
+      "entities": [20, 23, 30, 36, 131, 208, 221, 349, 381, 391, 472, 502, 548, 576, 582, 679, 723, 731, 743, 750, 807, 813, 878, 931, 948, 1015, 1056, 1138, 1278, 1324],
+      "reading_a": "IfcSite の実体はすべて1行ずつ数える。COMPLEX も PARTIAL も同じ IfcSite であり、CompositionType は付加情報にすぎない。",
+      "reading_b": "IfcElementCompositionEnum の定義では COMPLEX は同種要素の集合体、PARTIAL はその部分である。全17ファイルで environment - site（#20）は COMPLEX で、その下に PARTIAL の敷地を IfcRelAggregates で束ねている。COMPLEX は束ねる箱にすぎないので敷地の行には数えず、PARTIAL の敷地だけを数える。",
+      "chosen": "a",
+      "why": "environment - site は説明文（周囲の景観を示すサンプルシーンの環境）を持ち、自身にも要素（geo-reference）が格納されている実在の敷地なので、行として立てるべき。ただし COMPLEX を集合体と読むのは規格の定義そのままであり、敷地の入れ子（IfcSite の中に IfcSite）が全17ファイルにあるので、どちらを採るかで17行動く。",
+      "moves": "敷地（IfcSite）の行数、17ファイル合計",
+      "count_a": 72,
+      "count_b": 55
+    }
+  ]
+}

@@ -156,37 +156,44 @@ def grade_ambiguity(ref_doc: dict, sub_doc: dict, levels: list[str] | None = Non
     checks: list[dict] = []
     fatal = None if sub_sites else "sites が無いか、形が違う"
 
+    # **Jaccard では採らない。** 参照側は要素番号だけを挙げ、答案は型や Pset まで
+    # 挙げる——どちらも「扱いが変わる実体を全部」という規則を満たす。
+    # 粒度の流儀で減点すると、読解でなく書き方の癖を測ることになる。
+    # 参照側の実体をどれだけ覆えたか（包含）で採る。
     pairs: list[tuple[dict, dict | None, float]] = []
     used: set[int] = set()
     for r in ref_sites:
         rs = _ents(r)
-        best, best_j, best_i = None, 0.0, -1
+        best, best_c, best_i = None, 0.0, -1
         for i, t in enumerate(sub_sites):
             if i in used:
                 continue
-            ts = _ents(t)
-            union = rs | ts
-            j = len(rs & ts) / len(union) if union else 0.0
-            if j > best_j:
-                best, best_j, best_i = t, j, i
+            cov = len(rs & _ents(t)) / len(rs) if rs else 0.0
+            if cov > best_c:
+                best, best_c, best_i = t, cov, i
         if best_i >= 0:
             used.add(best_i)
-        pairs.append((r, best, best_j))
+        pairs.append((r, best, best_c))
 
     if "Q8" in active:
         recall = sum(j for _, _, j in pairs) / len(ref_sites) if ref_sites else 0.0
-        matched = sum(1 for _, t, j in pairs if t is not None and j > 0)
-        precision = matched / len(sub_sites) if sub_sites else 0.0
+        # **参照解に無い箇所を挙げたことは咎めない。** こちらの4箇所は
+        # 「2実装が実際に食い違う」に絞った下限であって、上限ではない。
+        # 落とすのは実在しない実体を並べた箇所だけ。
+        real = set(ref_doc.get("real_ids") or [])
+        bogus = [t for t in sub_sites
+                 if real and _ents(t) and not (_ents(t) & real)]
+        precision = 1.0 - len(bogus) / len(sub_sites) if sub_sites else 0.0
         f1 = (2 * recall * precision / (recall + precision)) if (recall + precision) else 0.0
         miss = [r["id"] for r, _, j in pairs if j == 0.0]
+        matched = len(sub_sites) - len(bogus)
         checks.append({
             "level": "Q8", "name": LEVEL_NAME["Q8"],
             "ok": abs(f1 - 1.0) < 1e-9, "points": POINTS["Q8"] * f1, "max": POINTS["Q8"],
             "detail": ("OK" if abs(f1 - 1.0) < 1e-9 else
-                       f"重なり {recall:.2f} / 的中率 {precision:.2f}"
+                       f"覆えた割合 {recall:.2f} / 実在する箇所の割合 {precision:.2f}"
                        + (f"  気づいていない: {miss}" if miss else "")
-                       + (f"  余分な指摘 {len(sub_sites) - matched}件"
-                          if len(sub_sites) > matched else "")),
+                       + (f"  実在しない実体を挙げた箇所 {len(bogus)}件" if bogus else "")),
         })
 
     if "Q9" in active:
@@ -195,14 +202,30 @@ def grade_ambiguity(ref_doc: dict, sub_doc: dict, levels: list[str] | None = Non
             if t is None or j == 0.0:
                 bad.append(f"{r['id']}(気づいていない)")
                 continue
+            # **何を数えるかは腕が選んでよい**（規則がそう書いてある）。
+            # こちらが「深さ0の空間」を数え、腕が「空間」を数えるのは、どちらも正しい。
+            # 咎めるべきはそこではないので、次の2点だけを見る。
+            #   1. count_a が**コーパスから実際に数えられる値**か
+            #      228 や 629 や 324 は17ファイルを最後まで数えないと出てこない
+            #   2. 差が、その箇所で扱いが変わる実体の数と合っているか
             a, b = num(t.get("count_a")), num(t.get("count_b"))
-            wa, wb = num(r.get("count_a")), num(r.get("count_b"))
-            # 片方だけ合っていても半分は認める。どちらの読み方も数えたことにはなる。
-            hit = (0.5 if a is not None and a == wa else 0.0) \
-                + (0.5 if b is not None and b == wb else 0.0)
-            good += hit
-            if hit < 1.0:
-                bad.append(f"{r['id']}({r['moves']} 期待 {wa}->{wb} 提出 {a}->{b})")
+            totals = set(ref_doc.get("totals") or [])
+            # **実体番号は集合にすると潰れる。** #13 は17ファイル全部の IFCPROJECT で、
+            # 集合にすると1件になってしまう。armC が「番号だけでは箇所が一意に
+            # 決まらない」と指摘した箇所そのもの。件数は参照側が持っている値を使う。
+            n = int(r.get("affected") or len(_ents(r)))
+            base_ok = a is not None and int(a) in totals
+            delta_ok = a is not None and b is not None and abs(a - b) == n
+            if base_ok and delta_ok:
+                good += 1.0
+            else:
+                why = []
+                if not base_ok:
+                    why.append(f"count_a={a} は実際には数えられない値")
+                if not delta_ok:
+                    why.append(f"差が {abs(a - b) if a is not None and b is not None else '?'}"
+                               f" で、扱いが変わる実体 {n}件と合わない")
+                bad.append(f"{r['id']}({' / '.join(why)})")
         score = good / len(ref_sites) if ref_sites else 0.0
         checks.append({
             "level": "Q9", "name": LEVEL_NAME["Q9"],

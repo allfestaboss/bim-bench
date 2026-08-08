@@ -103,6 +103,60 @@ def sites(ref: dict) -> list[dict]:
     return out
 
 
+def totals(ref: dict) -> list[int]:
+    """コーパスから実際に数えられる集計値の集合。
+
+    **どの読み方を採るかで「何の行を数えるか」自体が変わる。**
+    こちらが「深さ0の空間の行数」を数えても、腕が「空間の行数」を数えるのは
+    規則が許している（`moves` に何を数えたか書かせている）。
+    どちらの土台で数えたかを咎めず、**その土台が実在するか**だけを見る。
+
+    表ごとの総数と、分類ごとの内訳と、総数から内訳を引いた数を集める。
+    228 や 629 や 324 は、17ファイルを最後まで数えないと出てこない。
+    **当てずっぽうでは当たらない。** そこが測りたいところである。
+    """
+    got: set[int] = set()
+    tables = {
+        "spatials": ("type", "parent_via", "depth"),
+        "elements": ("type", "container_via"),
+        "quantities": ("kind", "unit"),
+        "properties": ("via", "pset_name"),
+    }
+    for name, fields in tables.items():
+        rows = [r for x in ref["results"] for r in x[name]]
+        got.add(len(rows))
+        for f in fields:
+            groups: dict = {}
+            for r in rows:
+                groups[r.get(f)] = groups.get(r.get(f), 0) + 1
+            for n in groups.values():
+                got.add(n)
+                got.add(len(rows) - n)
+        # 値が埋まっている行の数（所属あり・親ありなど）も土台になりうる
+        for f in ("container", "parent", "element"):
+            if rows and f in rows[0]:
+                n = sum(1 for r in rows if r.get(f) is not None)
+                got.add(n)
+                got.add(len(rows) - n)
+    return sorted(x for x in got if x > 0)
+
+
+def real_ids(task_id: str) -> list[int]:
+    """課題の全ファイルに実在する実体番号の和集合。
+
+    **参照解に無い箇所を挙げたこと自体は咎めない。** こちらの参照解は
+    「2実装が実際に食い違う4箇所」に絞った**下限**であって、上限ではない。
+    腕がそれ以外の本物の分かれ目を見つけたなら、それは減点する理由にならない。
+    落とすのは**実在しない実体を並べた答案**だけにする。
+    """
+    from .step import load
+    task = json.loads((ROOT / "tasks" / task_id / "task.json").read_text(encoding="utf-8"))
+    out: set[int] = set()
+    for f in task["files"]:
+        out |= set(load(ROOT / f["path"]).entities)
+    return sorted(out)
+
+
 def build(task_id: str = "T002") -> dict:
     ref = json.loads((ROOT / "reference" / f"{task_id}.json").read_text(encoding="utf-8"))
     return {
@@ -110,14 +164,19 @@ def build(task_id: str = "T002") -> dict:
         "anchor": ("2つの独立実装（生実体たどり / ifcopenshell util.element）が"
                    "実際に食い違い、かつ規格上どちらもあり得る箇所だけを採る"),
         "sites": sites(ref),
+        "totals": totals(ref),
+        # 実在する実体番号。でっち上げの箇所を落とすためだけに使う。
+        "real_ids": real_ids(task_id),
     }
 
 
 def main() -> int:
-    doc = build(sys.argv[1] if len(sys.argv) > 1 else "T002")
+    src = sys.argv[1] if len(sys.argv) > 1 else "T002"
+    doc = build(src)
     out = ROOT / "reference" / "T004.json"
     out.write_text(json.dumps(doc, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"{out.relative_to(ROOT)}: 決まらない箇所 {len(doc['sites'])}件")
+    print(f"{out.relative_to(ROOT)}: 決まらない箇所 {len(doc['sites'])}件 / "
+          f"実在する集計値 {len(doc['totals'])}種 / 実在する実体 {len(doc['real_ids'])}件")
     for s in doc["sites"]:
         print(f"  {s['id']:<28} 実体{s['affected']:>3}件  "
               f"{s['moves']} {s['count_a']} -> {s['count_b']}")

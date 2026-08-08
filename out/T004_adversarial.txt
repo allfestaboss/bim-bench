@@ -1,9 +1,9 @@
 [OK] 較正: 参照解 100.0/100
 [OK] malformed: 0.0  ← 失格になるべき
 [OK] no_counts: 40.0/100  失点=['Q9']  期待=Q9
-[OK] wrong_counts: 40.0/100  失点=['Q9']  期待=Q9
-[OK] swapped_counts: 40.0/100  失点=['Q9']  期待=Q9
-[OK] one_bucket: 0.8/100  失点=['Q8', 'Q9']  期待=Q8
+[OK] wrong_counts: 55.0/100  失点=['Q9']  期待=Q9
+[OK] swapped_counts: 85.0/100  失点=['Q9']  期待=Q9
+[OK] one_bucket: 16.0/100  失点=['Q8', 'Q9']  期待=Q8
 [OK] flood: 80.0/100  失点=['Q8']  期待=Q8
 [OK] biggest_only: 31.0/100  失点=['Q8', 'Q9']  期待=Q8
 
