@@ -28,7 +28,7 @@ DATA;
 #21=IFCRELAGGREGATES('0gLz00O0H9XhZA1crsmo4_',#1,'ifc silly sample scene - project container',$,#13,(#20));
 #22=IFCLOCALPLACEMENT($,#7);
 #23=IFCSITE('1Pbuu0tu59NfhrTsztVBK1',#1,'house - site','Smoke curls from a friendly chimney, promising warmth within this idyllic hilltop house.',$,#25,$,$,.PARTIAL.,$,$,0.,$,$);
-#24=IFCRELAGGREGATES('25mKqsAjT0xehpz3PssaKG',#1,'environment - site container',$,#20,));
+
 #25=IFCLOCALPLACEMENT(#22,#26);
 #26=IFCAXIS2PLACEMENT3D(#27,#28,#29);
 #27=IFCCARTESIANPOINT((5800.000000000015,5800.000000000001,-1300.0000000000018));
@@ -450,6 +450,6 @@ DATA;
 #516=IFCSHAPEREPRESENTATION(#12,'Body','Tessellation',(#512));
 #517=IFCPRODUCTDEFINITIONSHAPE($,$,(#516));
 
-#981=IFCRELAGGREGATES('3zZ$Injected000000000C',#1,$,$,#30,(#23));
+#981=IFCRELAGGREGATES('786AtJGK9gt$4c3stN2Var',#1,$,$,#30,(#23));
 ENDSEC;
 END-ISO-10303-21;

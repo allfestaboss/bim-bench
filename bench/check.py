@@ -246,7 +246,12 @@ def grade(ref_doc: dict, sub_doc: dict, levels: list[str] | None = None) -> dict
                         pass
                 return (str(t.get("kind") or "").strip().lower(), tuple(sorted(out)))
             ra = {_akey(t) for t in (ref_rec.get("anomalies") or [])}
-            sa = {_akey(t) for t in ((sub_rec or {}).get("anomalies") or [])}
+            # kind 'other' は語彙に無い壊れ方の受け皿で、課題文が「採点対象外だが読む」と
+            # 約束している。**約束した以上、誤指摘として数えてはいけない。**
+            # 実際にこれで armC が減点された。語彙に無い欠陥を正直に挙げたほうが
+            # 損をする採点器は、正直さを罰している。
+            sa = {_akey(t) for t in ((sub_rec or {}).get("anomalies") or [])
+                  if str(t.get("kind") or "").strip().lower() != "other"}
             hit = len(ra & sa)
             extra = len(sa - ra)
             # 欠陥が無いファイルは、何も挙げなければ満点。挙げたら減点。

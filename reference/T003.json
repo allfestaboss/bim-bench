@@ -4267,7 +4267,7 @@
      "pset_id": 1490,
      "pset_name": "SizeSet",
      "name": "Height",
-     "value": "INJECTED",
+     "value": "REI120",
      "element": 84,
      "via": "direct"
     },
@@ -5410,7 +5410,7 @@
      "entities": [
       84
      ],
-     "detail": "同名の SizeSet が複数付き、Height が食い違う: 3378.2(direct), INJECTED(direct)"
+     "detail": "同名の SizeSet が複数付き、Height が食い違う: 3378.2(direct), REI120(direct)"
     }
    ],
    "counts": {

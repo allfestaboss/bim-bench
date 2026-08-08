@@ -69,6 +69,27 @@ def _next_id(model) -> int:
     return max(model.entities) + 1
 
 
+_B64 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_$"
+
+
+def _guid(seed: str) -> str:
+    """IFC の GlobalId の形をした22文字を、種文字列から決定的に作る。
+
+    以前は 'Injected' という文字列をそのまま GlobalId に入れていた。
+    **知識のみの腕でも「ここが後付け」と一目で分かってしまう**と armB が指摘した。
+    仕込みの位置が見えていたら、見つける腕を測ったことにならない。
+    hashlib を使うので走らせ直しても同じ値になる。
+    """
+    import hashlib
+    h = hashlib.sha256(seed.encode()).digest()
+    n = int.from_bytes(h[:17], "big")
+    out = []
+    for _ in range(22):
+        n, r = divmod(n, 64)
+        out.append(_B64[r])
+    return "".join(reversed(out))
+
+
 # ---- 仕込み方。どれも (text, model) を受け取り (text, Anomaly の鍵) を返す ----
 
 def dup_global_id(text, model, kind_of: str):
@@ -170,10 +191,13 @@ def prop_conflict(text, model):
     p = sorted(cand, key=lambda t: (t.element or 0, t.pset_name, t.name))[0]
     nid = _next_id(model)
     owner = model.of("IFCOWNERHISTORY")[0].id
-    gid = "3zZ$Injected000000000A"
-    add = (f"\n#{nid}=IFCPROPERTYSINGLEVALUE('{p.name}',$,IFCLABEL('INJECTED'),$);"
-           f"\n#{nid+1}=IFCPROPERTYSET('{gid}',#{owner},'{p.pset_name}',$,(#{nid}));"
-           f"\n#{nid+2}=IFCRELDEFINESBYPROPERTIES('{gid[:-1]}B',#{owner},$,$,(#{p.element}),#{nid+1});")
+    # 値も 'INJECTED' と書いていた。実務で起きる形（別の等級）にする。
+    other = "REI120" if p.value != "REI120" else "REI90"
+    add = (f"\n#{nid}=IFCPROPERTYSINGLEVALUE('{p.name}',$,IFCLABEL('{other}'),$);"
+           f"\n#{nid+1}=IFCPROPERTYSET('{_guid(f'pset{p.element}')}',#{owner},"
+           f"'{p.pset_name}',$,(#{nid}));"
+           f"\n#{nid+2}=IFCRELDEFINESBYPROPERTIES('{_guid(f'rel{p.element}')}',#{owner},"
+           f"$,$,(#{p.element}),#{nid+1});")
     text = text.replace("ENDSEC;\nEND-ISO-10303-21;", add + "\nENDSEC;\nEND-ISO-10303-21;", 1)
     return text, ("property_conflict", (p.element,))
 
@@ -220,18 +244,25 @@ def cycle(text, model):
             if not isinstance(kk, list) or parent not in [int(i) for i in kk]:
                 continue
             _, _, st = _stmt(text, r.id)
-            new = re.sub(rf"(\(|,)#{parent}(,|\))",
-                         lambda m: m.group(1) if m.group(2) == "," else m.group(2),
-                         st, count=1)
-            if new == st:
-                continue
-            text = _replace(text, r.id, new)
+            if len(kk) == 1:
+                # **唯一の子を抜くと `(#23)` が `)` になり Part21 が壊れる。**
+                # 実際に壊れたファイルを出荷し、armC が構文破損として指摘した。
+                # 子が1つだけなら関係そのものを消す（関係が存在しないだけで合法）。
+                a, b, _x = _stmt(text, r.id)
+                text = text[:a] + text[b:]
+            else:
+                new = re.sub(rf"(\(|,)#{parent}(,|\))",
+                             lambda m: m.group(1) if m.group(2) == "," else m.group(2),
+                             st, count=1)
+                if new == st:
+                    continue
+                text = _replace(text, r.id, new)
             break
         else:
             continue
         nid = _next_id(model)
         owner = model.of("IFCOWNERHISTORY")[0].id
-        add = (f"\n#{nid}=IFCRELAGGREGATES('3zZ$Injected000000000C',#{owner},$,$,"
+        add = (f"\n#{nid}=IFCRELAGGREGATES('{_guid(f'agg{child}{parent}')}',#{owner},$,$,"
                f"#{child},(#{parent}));")
         text = text.replace("ENDSEC;\nEND-ISO-10303-21;",
                             add + "\nENDSEC;\nEND-ISO-10303-21;", 1)
@@ -249,6 +280,30 @@ PLAN: list[tuple[str, str, list]] = [
     ("ifc4/Infra-Landscaping.ifc", "E", [orphan, prop_conflict]),
     ("ifc4/Building-Architecture.ifc", "F", [cycle, double_contain]),
 ]
+
+
+def _syntax_errors(text: str) -> list[str]:
+    """括弧と引用符の釣り合いを見る。
+
+    **意味の一致だけでは構文破損を検出できない。** こちらのパーサが寛容なので、
+    壊れた行を空リストとして読み、検出結果は期待どおりになってしまった。
+    ifcopenshell も開けてしまった。厳格なパーサなら読めないファイルを出荷していた。
+    """
+    bad: list[str] = []
+    for m in re.finditer(r"#(\d+)\s*=\s*(.*?);\s*(?=#\d+\s*=|ENDSEC|\Z)", text, re.S):
+        s, depth, quote = m.group(2), 0, False
+        for c in s:
+            if c == "'":
+                quote = not quote
+            elif not quote and c == "(":
+                depth += 1
+            elif not quote and c == ")":
+                depth -= 1
+                if depth < 0:
+                    break
+        if depth != 0 or quote:
+            bad.append(f"#{m.group(1)} 括弧か引用符が釣り合わない: {s[:60]}")
+    return bad
 
 
 def build() -> int:
@@ -270,6 +325,14 @@ def build() -> int:
                 planted.append(key)
         except LookupError as e:
             print(f"  [NG] {tag}-{Path(rel).name}: 仕込めなかった: {e}")
+            bad += 1
+            continue
+
+        syntax = _syntax_errors(text)
+        if syntax:
+            print(f"  [NG] {tag}-{Path(rel).name}: Part21 として壊れている")
+            for e in syntax[:3]:
+                print(f"        {e}")
             bad += 1
             continue
 

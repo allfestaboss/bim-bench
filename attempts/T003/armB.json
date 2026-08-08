@@ -1,0 +1,116 @@
+{
+  "task": "T003",
+  "results": [
+    {
+      "file": "injected/A-Building-Architecture.ifc",
+      "schema": "IFC4X3_ADD2",
+      "anomalies": [
+        {
+          "kind": "property_conflict",
+          "entities": [49],
+          "detail": "#49 IFCSLAB 'floor' に Pset_SlabCommon が2経路で付いており FireRating が食い違う。型経由は #48 IFCRELDEFINESBYTYPE -> #47 IFCSLABTYPE の HasPropertySets -> #963 IFCPROPERTYSET('Pset_SlabCommon') -> #962 FireRating=IFCLABEL('REI60')。直接付与は #801 IFCRELDEFINESBYPROPERTIES -> #800 IFCPROPERTYSET('Pset_SlabCommon') -> #961 FireRating=IFCLABEL('REI30')。同一要素・同一Pset名・同一属性名で REI60 と REI30 が競合する。"
+        },
+        {
+          "kind": "quantity_mismatch",
+          "entities": [49],
+          "detail": "#49 IFCSLAB に付く #57 IFCELEMENTQUANTITY('Qto_SlabBaseQuantities', #58 経由) の数量が整合しない。#54 NetVolume=9.65625 CUBIC_METRE、#56 NetArea=25.749999999991743 SQUARE_METRE、#55 Depth=250.00000000009484 MILLI.METRE。NetArea x Depth/1000 = 6.4375 であり NetVolume 9.65625 と一致しない（ちょうど1.5倍にずれている）。同一モデルの F-Building-Architecture.ifc の対応する #66 では NetVolume=6.4375 で整合している。"
+        },
+        {
+          "kind": "orphan_element",
+          "entities": [310],
+          "detail": "#310 IFCWALL 'plumbing wall' がどの IFCRELCONTAINEDINSPATIALSTRUCTURE にも載っていない。本ファイルの収容関係は #59(->#40 storey, (#49,#234,#258,#277,#296,#302))、#160(->#75)、#335(->#30)、#422(->#23)、#441(->#20) の5件だけで、#310 はいずれにも現れない。IFCRELAGGREGATES 6件の RelatedObjects にも含まれないため要素分解による救済もない。同一モデルの F-Building-Architecture.ifc では対応する 'plumbing wall'(#353) が階の収容関係 #68 に入っており、#59 のリストから除去された欠陥である。数量拾いから漏れる。"
+        }
+      ]
+    },
+    {
+      "file": "injected/B-Infra-Bridge.ifc",
+      "schema": "IFC4X3_ADD2",
+      "anomalies": [
+        {
+          "kind": "multi_parent",
+          "entities": [23],
+          "detail": "#23 IFCSITE 'road parking - site' が2つの親から集約されており階層が木でなくなっている。#21=IFCRELAGGREGATES('0Wkzl4gCH07fF4svuC1E2v',#1,'ifc silly sample scene - project container',$,#13,(#20,#23)); で #13 IFCPROJECT の直下に付き、同時に #24=IFCRELAGGREGATES('3zs2X4xb17GAIKevGWlUHi',#1,'environment - site container',$,#20,(#23,#30,#472,#679,#878)); で #20 IFCSITE 'environment - site' の直下にも付いている。同一シーンの C-Infra-Road.ifc では対応する #21 の RelatedObjects が (#20) のみであり、#21 に #23 が加えられた欠陥である。"
+        },
+        {
+          "kind": "duplicate_global_id",
+          "entities": [43, 50],
+          "detail": "別々の実体 #43 と #50 が同じ GlobalId '04kO$szQnDTAhzkZMdfItT' を名乗っている。#43=IFCBRIDGEPART('04kO$szQnDTAhzkZMdfItT',#1,'road rail bridge - approach',...,'approach',#45,$,$,.COMPLEX.,.LATERAL.,.NOTDEFINED.); と #50=IFCBRIDGEPART('04kO$szQnDTAhzkZMdfItT',#1,'bridge road - abutment',...,'abutment',#52,$,$,.PARTIAL.,.LATERAL.,.ABUTMENT.); で、Name・ObjectType・配置・CompositionType・PredefinedType がすべて異なる。さらに #51=IFCRELAGGREGATES(...,$,#43,(#50)) により #50 は #43 の子であり、親子が同じ GlobalId を持つことは原理的にありえない。対称位置にある #103 'road rail bridge - approach' と #109 'bridge road - abutment' はそれぞれ固有の GlobalId を持っており、#50 の GlobalId が親 #43 のもので上書きされた欠陥である。"
+        }
+      ]
+    },
+    {
+      "file": "injected/C-Infra-Road.ifc",
+      "schema": "IFC4X3_ADD2",
+      "anomalies": [
+        {
+          "kind": "dangling_reference",
+          "entities": [1888],
+          "detail": "#61=IFCRELCONTAINEDINSPATIALSTRUCTURE('3s7Pr7CNjFtuAZ73Xpc39x',#1,$,$,(#56,#75,#91,#107,#1888),#47); の RelatedElements が #1888 を参照しているが、#1888 という実体はファイル内に存在しない（定義されている最大の実体番号は #887）。"
+        },
+        {
+          "kind": "double_containment",
+          "entities": [56],
+          "detail": "#56 IFCCOURSE 'asphalt binder course - road - parking' が2つの空間に載っている。#61(RelatingStructure=#47 IFCROADPART 'road - parking') と #154(RelatingStructure=#145 IFCROADPART 'road - carriageway') の両方の RelatedElements に現れる。#154 は他の同型グループ(#263/#318/#441/#532/#625/#778)がいずれも4要素なのに対し末尾に #56 が加えられて5要素になっている。数量が二重計上される。"
+        }
+      ]
+    },
+    {
+      "file": "injected/D-Building-Structural.ifc",
+      "schema": "IFC4",
+      "anomalies": [
+        {
+          "kind": "duplicate_global_id",
+          "entities": [71, 101],
+          "detail": "別々の実体 #71 と #101 が同じ GlobalId '0DyViLJJ175RvWQi1rE7a6' を名乗っている。#71=IFCWALL('0DyViLJJ175RvWQi1rE7a6',#1,'house - outer wall - house back',...,#88,#98,...)、#101=IFCWALL('0DyViLJJ175RvWQi1rE7a6',#1,'house - outer wall - house front',...,#113,#122,...)。名前・形状・型(#69 と #99)・Pset(#76 と #105) がすべて別物であり、GlobalId で同定する照査では2枚の壁が1枚に潰れる。"
+        },
+        {
+          "kind": "orphan_element",
+          "entities": [172],
+          "detail": "#172 IFCWALL 'house - inner wall' がどの IFCRELCONTAINEDINSPATIALSTRUCTURE にも載っていない。収容関係は #57(->#43 storey, (#52,#71,#101,#125,#148,#162))、#201(->#30)、#377(->#23)、#396(->#20) の4件だけで #172 はいずれにも現れず、IFCRELAGGREGATES 5件の RelatedObjects にも含まれない。一方 #80 IFCRELASSOCIATESMATERIAL は (#71,#101,#125,#148,#172) と #172 を他の壁と同列に扱っており、収容されるべき要素が漏れている。数量拾いから漏れる。"
+        }
+      ]
+    },
+    {
+      "file": "injected/E-Infra-Landscaping.ifc",
+      "schema": "IFC4",
+      "anomalies": [
+        {
+          "kind": "property_conflict",
+          "entities": [84],
+          "detail": "#84 IFCGEOGRAPHICELEMENT 'apple' に同じ Pset 名 'SizeSet' の IFCPROPERTYSET が2つ付いており Height が食い違う。#88 IFCRELDEFINESBYPROPERTIES -> #87 IFCPROPERTYSET('SizeSet') -> #86 Height=IFCPOSITIVELENGTHMEASURE(3378.2)。もう一方は #1491 IFCRELDEFINESBYPROPERTIES -> #1490 IFCPROPERTYSET('SizeSet') -> #1489 Height=IFCLABEL('INJECTED')。値だけでなく型（長さ計測値 vs ラベル）も食い違う。他の47個のりんごは 'SizeSet' が1つずつで矛盾がない。"
+        },
+        {
+          "kind": "orphan_element",
+          "entities": [727],
+          "detail": "#727 IFCGEOGRAPHICELEMENT 'park - site - soil' がどの IFCRELCONTAINEDINSPATIALSTRUCTURE にも載っていない。#37(RelatingStructure=#23 'park - site') は56要素（地形2＋樹6＋りんご48）を収容するが #727 を含まず、他7件の収容関係にも現れない。IFCRELAGGREGATES 17件の RelatedObjects にも含まれない。他のサイトは underground/soil/grass の3点セットが必ず収容されており（例 #750 -> (#749,#763,#776)、#1331 -> (#1330,#1349,#1360)）、park だけ soil が欠落している。数量拾いから漏れる。"
+        }
+      ]
+    },
+    {
+      "file": "injected/F-Building-Architecture.ifc",
+      "schema": "IFC4",
+      "anomalies": [
+        {
+          "kind": "property_conflict",
+          "entities": [52],
+          "detail": "#52 IFCSLAB 'floor' に Pset_SlabCommon が2経路で付いており FireRating が食い違う。型経由は #51 IFCRELDEFINESBYTYPE -> #50 IFCSLABTYPE の HasPropertySets -> #963 IFCPROPERTYSET('Pset_SlabCommon') -> #962 FireRating=IFCLABEL('REI60')。直接付与は #58 IFCRELDEFINESBYPROPERTIES -> #57 IFCPROPERTYSET('Pset_SlabCommon') -> #961 FireRating=IFCLABEL('REI30')。同一要素・同一Pset名・同一属性名で REI60 と REI30 が競合する。"
+        },
+        {
+          "kind": "double_containment",
+          "entities": [52],
+          "detail": "#52 IFCSLAB 'floor' が2つの空間に載っている。#68=IFCRELCONTAINEDINSPATIALSTRUCTURE(...,(#52,#262,#291,#315,#339,#345,#353),#43 IFCBUILDINGSTOREY) と #181=IFCRELCONTAINEDINSPATIALSTRUCTURE(...,(#176,#193,#52),#89 IFCSPACE 'living room') の両方の RelatedElements に現れる。#181 は同一モデルの A-Building-Architecture.ifc の対応関係 #160 が2要素であるのに対し末尾に #52 が加えられている。数量が二重計上される。"
+        },
+        {
+          "kind": "aggregation_cycle",
+          "entities": [23, 30],
+          "detail": "空間の集約が2要素の輪になっており根にたどり着かない。#37=IFCRELAGGREGATES('3Iflj1ItL2Bu3rAalwSa$1',#1,'house - site container',$,#23,(#30)) で #23 IFCSITE 'house - site' が #30 IFCBUILDING を集約し、#981=IFCRELAGGREGATES('3zZ$Injected000000000C',#1,$,$,#30,(#23)) で逆に #30 が #23 を集約している。#23 -> #30 -> #23 の閉路。ぶら下がる #43 以下の子孫は輪には含まない。"
+        },
+        {
+          "kind": "other",
+          "entities": [24],
+          "detail": "31行目 #24=IFCRELAGGREGATES('25mKqsAjT0xehpz3PssaKG',#1,'environment - site container',$,#20,)); が STEP として構文破損している。IfcRelAggregates の第6属性 RelatedObjects の集約が丸ごと欠落し、閉じ括弧が1つ余っている（正しくは (#23) が入るべき位置）。厳格なパーサはこの行でファイル全体の読み込みに失敗する。結果として #20 IFCSITE 'environment - site' は子を1つも持たず、#23 の唯一の親は上記 #981 経由の #30 になっている（そのため #23 は multi_parent には該当しない）。"
+        }
+      ]
+    }
+  ]
+}

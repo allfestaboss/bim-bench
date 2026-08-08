@@ -34,16 +34,17 @@
   "kind 'aggregation_cycle': 空間の集約が循環していて根にたどり着かない",
   "kind 'dangling_reference': 存在しない実体を参照している",
   "kind 'duplicate_global_id': 別々の実体が同じ GlobalId を名乗っている",
-  "kind 'quantity_mismatch': 数量どうしが整合しない（NetVolume != NetArea x Depth/1000）",
+  "kind 'quantity_mismatch': 数量どうしが整合しない。照合式は部材で違う。板 NetVolume = NetArea x Depth/1000、壁 = NetSideArea x Width/1000、梁 = CrossSectionArea x Length/1000（長さだけ mm なので 1/1000 する）",
   "entities には、その欠陥の当事者となる実体番号だけを入れる。**波及して壊れたものは入れない**",
-  "  property_conflict / double_containment / orphan_element / multi_parent / quantity_mismatch は当事者1件",
+  "  property_conflict / double_containment / orphan_element / multi_parent は当事者1件（食い違っている要素・空間そのもの）",
+  "  quantity_mismatch は**数量が食い違っている要素**1件。値を持つ IfcQuantity* や 束ねる IfcElementQuantity ではなく、その数量が付いている要素の番号を書く",
   "  duplicate_global_id は同じ GlobalId を名乗っている実体を全部",
   "  aggregation_cycle は輪に入っている空間を全部（輪1つにつき1件。ぶら下がる子孫は含めない）",
   "  dangling_reference は参照されているのに存在しない番号",
   "**推測で挙げない。** 挙げた欠陥が実在しなければ、見落としと同じだけ減点する",
   "欠陥が1件も無いファイルもありうる。その場合は anomalies を空配列にする",
-  "数量の単位は長さ MILLI.METRE、面積 SQUARE_METRE、体積 CUBIC_METRE。体積は面積 x 厚さ/1000 で照合できる",
-  "答案の file はファイル名だけでよい（例 'injected/A-Building-Architecture.ifc'）"
+  "答案の file はファイル名だけでよい（例 'injected/A-Building-Architecture.ifc'）",
+  "数量の単位は長さ MILLI.METRE、面積 SQUARE_METRE、体積 CUBIC_METRE"
  ],
  "grade_levels": [
   "Q7"

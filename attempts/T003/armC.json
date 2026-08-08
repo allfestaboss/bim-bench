@@ -1,0 +1,116 @@
+{
+  "task": "T003",
+  "results": [
+    {
+      "file": "injected/A-Building-Architecture.ifc",
+      "schema": "IFC4X3_ADD2",
+      "anomalies": [
+        {
+          "kind": "quantity_mismatch",
+          "entities": [54],
+          "detail": "#54=IFCQUANTITYVOLUME('NetVolume') = 9.65625 CUBIC_METRE, but the sibling quantities in the same #57=IFCELEMENTQUANTITY('Qto_SlabBaseQuantities',(#54,#55,#56)) give NetArea(#56)=25.749999999991743 SQUARE_METRE x Depth(#55)=250.00000000009484 MILLI.METRE / 1000 = 6.437500000000378. NetVolume is exactly 1.5x the value implied by area x thickness, so the volume take-off of the slab #49 is overstated by 3.21875 m3."
+        },
+        {
+          "kind": "orphan_element",
+          "entities": [310],
+          "detail": "#310=IFCWALL ('plumbing wall') appears in no IfcRelContainedInSpatialStructure. #59=IFCRELCONTAINEDINSPATIALSTRUCTURE lists (#49,#234,#258,#277,#296,#302) for storey #40 but not #310, and #310 is not an aggregated/nested part of any assembly either, so it hangs off the spatial structure entirely and is dropped from any quantity take-off done per space."
+        },
+        {
+          "kind": "property_conflict",
+          "entities": [49],
+          "detail": "#49=IFCSLAB receives 'Pset_SlabCommon'.'FireRating' twice with different values: directly via #801=IFCRELDEFINESBYPROPERTIES -> #800=IFCPROPERTYSET('Pset_SlabCommon') -> #961=IFCPROPERTYSINGLEVALUE('FireRating',IFCLABEL('REI30')), and through its type #47=IFCSLABTYPE -> #963=IFCPROPERTYSET('Pset_SlabCommon') -> #962=IFCPROPERTYSINGLEVALUE('FireRating',IFCLABEL('REI60')). REI30 vs REI60 - the fire rating of the same slab is ambiguous."
+        }
+      ]
+    },
+    {
+      "file": "injected/B-Infra-Bridge.ifc",
+      "schema": "IFC4X3_ADD2",
+      "anomalies": [
+        {
+          "kind": "duplicate_global_id",
+          "entities": [43, 50],
+          "detail": "#43=IFCBRIDGEPART ('road rail bridge - approach') and #50=IFCBRIDGEPART ('bridge road - abutment') both carry GlobalId '04kO$szQnDTAhzkZMdfItT'. GlobalId must be unique across the whole file, so the two bridge parts collide and cannot be told apart on re-import / model comparison."
+        },
+        {
+          "kind": "multi_parent",
+          "entities": [23],
+          "detail": "#23=IFCSITE ('house - site') is aggregated by two different parents: #21=IFCRELAGGREGATES puts it under the project #13=IFCPROJECT (RelatedObjects (#20,#23)), while #24=IFCRELAGGREGATES ('environment - site container', RelatedObjects (#23,#30,#472,#679,#878)) puts it under the site #20=IFCSITE. The spatial hierarchy is therefore no longer a tree - #23 and everything below it is reachable by two paths."
+        }
+      ]
+    },
+    {
+      "file": "injected/C-Infra-Road.ifc",
+      "schema": "IFC4X3_ADD2",
+      "anomalies": [
+        {
+          "kind": "dangling_reference",
+          "entities": [1888],
+          "detail": "#61=IFCRELCONTAINEDINSPATIALSTRUCTURE lists RelatedElements (#56,#75,#91,#107,#1888), but #1888 is never defined in the DATA section (the highest instance number in the file is #887). The reference points at a non-existent entity."
+        },
+        {
+          "kind": "double_containment",
+          "entities": [56],
+          "detail": "#56=IFCCOURSE ('asphalt binder course - road - parking') is listed as a RelatedElement in two IfcRelContainedInSpatialStructure relations at once: #61 (RelatingStructure #47=IFCROADPART 'road - parking') and #154 (RelatingStructure #145=IFCROADPART 'road - carriageway'). IFC allows an element to be contained in exactly one spatial structure, so this element is counted twice in any per-spatial-unit quantity take-off."
+        }
+      ]
+    },
+    {
+      "file": "injected/D-Building-Structural.ifc",
+      "schema": "IFC4",
+      "anomalies": [
+        {
+          "kind": "duplicate_global_id",
+          "entities": [71, 101],
+          "detail": "#71=IFCWALL and #101=IFCWALL ('house - outer wall - house front') both carry GlobalId '0DyViLJJ175RvWQi1rE7a6'. Two distinct wall occurrences share one GUID, which breaks identity across model versions and federated models."
+        },
+        {
+          "kind": "orphan_element",
+          "entities": [172],
+          "detail": "#172=IFCWALL ('house - inner wall') is not a RelatedElement of any IfcRelContainedInSpatialStructure. #57=IFCRELCONTAINEDINSPATIALSTRUCTURE lists (#52,#71,#101,#125,#148,#162) for #43 but omits #172, and #172 is not an aggregated part of any assembly, so it belongs to no storey/space and is missed by quantity take-off."
+        }
+      ]
+    },
+    {
+      "file": "injected/E-Infra-Landscaping.ifc",
+      "schema": "IFC4",
+      "anomalies": [
+        {
+          "kind": "orphan_element",
+          "entities": [727],
+          "detail": "#727=IFCGEOGRAPHICELEMENT ('park - site - soil') is contained in no spatial structure. #37=IFCRELCONTAINEDINSPATIALSTRUCTURE (RelatingStructure #23) lists 56 elements ending at #711 and no longer includes #727, and no aggregation covers it, so the element sits outside the spatial hierarchy."
+        },
+        {
+          "kind": "property_conflict",
+          "entities": [84],
+          "detail": "#84=IFCGEOGRAPHICELEMENT ('apple') gets the property 'Height' of Pset 'SizeSet' from two different property sets with different values: #88=IFCRELDEFINESBYPROPERTIES -> #87=IFCPROPERTYSET('SizeSet') -> #86=IFCPROPERTYSINGLEVALUE('Height',IFCPOSITIVELENGTHMEASURE(3378.2)), and #1491=IFCRELDEFINESBYPROPERTIES -> #1490=IFCPROPERTYSET('SizeSet') -> #1489=IFCPROPERTYSINGLEVALUE('Height',IFCLABEL('INJECTED')). Same element, same Pset name, same property name, two conflicting values (and even different value types)."
+        }
+      ]
+    },
+    {
+      "file": "injected/F-Building-Architecture.ifc",
+      "schema": "IFC4",
+      "anomalies": [
+        {
+          "kind": "double_containment",
+          "entities": [52],
+          "detail": "#52=IFCSLAB ('floor') is a RelatedElement of two IfcRelContainedInSpatialStructure relations: #68 (RelatingStructure #43=IFCBUILDINGSTOREY '00 groundfloor') and #181 (RelatingStructure #89=IFCSPACE). The slab is therefore attached to two spatial units at once and its area/volume is double-counted."
+        },
+        {
+          "kind": "aggregation_cycle",
+          "entities": [23, 30],
+          "detail": "#37=IFCRELAGGREGATES aggregates #30=IFCBUILDING under #23=IFCSITE, while #981=IFCRELAGGREGATES aggregates #23=IFCSITE under #30=IFCBUILDING. Site and building are each other's parent, so the two form a closed loop. Because #24=IFCRELAGGREGATES (site container under #20) no longer holds #23, the loop is detached from the project root #13 as well - walking upwards from #23 or #30 never reaches IfcProject, and their descendants (#43, #89, #203) are cut off with them."
+        },
+        {
+          "kind": "property_conflict",
+          "entities": [52],
+          "detail": "#52=IFCSLAB receives 'Pset_SlabCommon'.'FireRating' from two sources with different values: directly via #58=IFCRELDEFINESBYPROPERTIES -> #57=IFCPROPERTYSET('Pset_SlabCommon') -> #961=IFCPROPERTYSINGLEVALUE('FireRating',IFCLABEL('REI30')), and via its type #50=IFCSLABTYPE -> #963=IFCPROPERTYSET('Pset_SlabCommon') -> #962=IFCPROPERTYSINGLEVALUE('FireRating',IFCLABEL('REI60'))."
+        },
+        {
+          "kind": "other",
+          "entities": [24],
+          "detail": "Syntax defect (not in the given vocabulary). The statement #24=IFCRELAGGREGATES('25mKqsAjT0xehpz3PssaKG',#1,'environment - site container',$,#20,)); is malformed: the RelatedObjects aggregate lost its opening parenthesis and its content, so the 6th attribute is an empty slot followed by an unbalanced ')' before the terminating ';'. Read leniently, RelatedObjects becomes empty, which also violates the cardinality rule (IfcRelAggregates.RelatedObjects must have at least one member). A strict ISO-10303-21 reader rejects this line; a tolerant one loses the link #20 -> #23, which is what leaves the #23/#30 aggregation cycle above disconnected from the project root."
+        }
+      ]
+    }
+  ]
+}

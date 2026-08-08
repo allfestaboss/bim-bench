@@ -529,15 +529,26 @@ def extract(model: Model) -> Extract:
     for q in out.quantities:
         if q.element is not None and q.value is not None:
             by_elem.setdefault(q.element, {})[q.name] = q.value
+    # 照合式は部材の種類で違う。板だけを見ていると壁と梁が検査から漏れる。
+    # armB が「NetArea x Depth は Slab 専用で、D には NetArea も Depth も無い」と指摘した。
+    # 長さだけ mm、面積は m2、体積は m3 なので、長さの側だけ 1/1000 する。
+    RELS = (("NetArea", "Depth"),            # 板
+            ("NetSideArea", "Width"),        # 壁
+            ("CrossSectionArea", "Length"))  # 梁
     for elem, qs in sorted(by_elem.items()):
-        a, d, v = qs.get("NetArea"), qs.get("Depth"), qs.get("NetVolume")
-        if a is None or d is None or v is None:
+        v = qs.get("NetVolume")
+        if v is None:
             continue
-        want = a * d / 1000.0
-        if abs(v - want) > max(abs(want) * 1e-6, 1e-9):
-            out.anomalies.append(Anomaly(
-                "quantity_mismatch", [elem],
-                f"NetVolume={v} だが NetArea x Depth/1000 = {want}"))
+        for area_name, len_name in RELS:
+            a, d = qs.get(area_name), qs.get(len_name)
+            if a is None or d is None:
+                continue
+            want = a * d / 1000.0
+            if abs(v - want) > max(abs(want) * 1e-6, 1e-9):
+                out.anomalies.append(Anomaly(
+                    "quantity_mismatch", [elem],
+                    f"NetVolume={v} だが {area_name} x {len_name}/1000 = {want}"))
+            break
 
     out.anomalies.sort(key=lambda a: (a.kind, tuple(sorted(a.entities))))
     return out
