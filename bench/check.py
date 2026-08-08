@@ -77,6 +77,21 @@ def _ref_or_none(v):
         return MISSING
 
 
+def _val(v) -> str:
+    """性能仕様の値を比べる形にそろえる。
+
+    Part21 は 45. と書き、JSON の数値として 45.0 と書く答案もある。**同じ数である。**
+    単位名の点を落として比べるのと同じ理屈で、書式の差は読み取り能力の差ではない。
+    """
+    if isinstance(v, bool):
+        return ".T." if v else ".F."
+    s = "" if v is None else str(v).strip()
+    try:
+        return repr(float(s))
+    except ValueError:
+        return s
+
+
 def _f1(hit: int, want: int, extra: int) -> float:
     recall = hit / want if want else 0.0
     precision = hit / (hit + extra) if (hit + extra) else 0.0
@@ -197,7 +212,7 @@ def grade(ref_doc: dict, sub_doc: dict, levels: list[str] | None = None) -> dict
                 t = sp.get(k)
                 if t is None:
                     bad.append(f"{k[1]}/{k[2]}(未提出)")
-                elif str(t.get("value") or "") == str(r.get("value") or ""):
+                elif _val(t.get("value")) == _val(r.get("value")):
                     good += 1
                 else:
                     bad.append(f"{k[1]}/{k[2]}(値)")

@@ -1,0 +1,25 @@
+NOTICE — データの取り扱い / Note on data
+========================================
+
+`LICENSE` の MIT は、本リポジトリの**コードと文章**に適用されます。
+同梱しているデータは MIT の対象外で、それぞれの配布条件に従います。
+The MIT License covers the code and prose. Bundled data is NOT covered
+by it and retains its own terms.
+
+
+同梱しているもの / Bundled
+---------------------------
+
+  corpus/buildingsmart/ifc4/*.ifc   IFC4 サンプルモデル
+
+  出典 : buildingSMART International Ltd.
+         Sample-Test-Files  https://github.com/buildingSMART/Sample-Test-Files
+
+  条件 : **Creative Commons Attribution 4.0 International（CC BY 4.0）**
+         http://creativecommons.org/licenses/by/4.0/
+         出典表示のみで再配布・改変・商用利用が可能です。
+         元リポジトリの LICENSE も corpus/ 以下に同梱してあります。
+
+  Licensed CC BY 4.0 by buildingSMART International Ltd. Redistribution,
+  adaptation and commercial use are permitted with attribution. The upstream
+  LICENSE file is included alongside the data.

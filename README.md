@@ -443,3 +443,31 @@ kikai-bench でも bim-bench T001 でも同じことをやっている。3回目
 corpus は [buildingSMART/Sample-Test-Files](https://github.com/buildingSMART/Sample-Test-Files)
 の PCERT-Sample-Scene（IFC 4.3.2.0 / IFC4X3_ADD2）である。
 (C) buildingSMART International Ltd. / CC BY 4.0。
+
+
+## 関連研究 — この位置づけ
+
+| 研究 | 対象 | 本ベンチとの違い |
+|---|---|---|
+| [BIM-Edit](https://arxiv.org/abs/2606.20146v1) (2026) | IFC の自然言語**編集**。324タスク | 本ベンチは**読解**。既存モデルを書き換えるのではなく、構造と数量を正しく取り出せるかを問う |
+| [BIM Information Extraction via LLM-based Adaptive Exploration](https://arxiv.org/pdf/2605.01698) | IFC からの情報抽出 | 近接する。本ベンチは腕を分けてコストまで測る点が異なる |
+| [AECV-Bench](https://api.emergentmind.com/topics/aecv-bench) | 建築・工学図面の多モーダル理解 | 図面画像。IFC はグラフであって画像ではない |
+
+IFC を対象とする研究は 2026 年に入って増えており、**本ベンチは先行研究のある領域**である。BIM-Edit は編集、本ベンチは読解と、課すものが異なる。シリーズとしての価値は単独の新規性ではなく、同一設計で他業界と並べられる点にある。
+
+なお**コストを併記すること自体は 2026 年時点で標準的**であり、本ベンチの新規性ではない。
+主要リーダーボードは cost-per-task を既定で並べている。シリーズとして測っているのは、
+業界をまたいで条件を揃えたときの**単価の差**のほうである。
+
+## ライセンスと引用
+
+**コードと文章は MIT。** → `LICENSE`
+
+**同梱データは MIT の対象外**で、それぞれの配布条件に従う。詳細は `NOTICE`。
+
+引用は `CITATION.cff` を参照（GitHub の「Cite this repository」からも取得できる）。
+
+```
+Ohkubo, B. (Allfesta Corp.) (2026). bim-bench: AIは BIM モデルの空間構造をどこまで読めるか.
+https://orcid.org/0009-0007-8300-0039
+```

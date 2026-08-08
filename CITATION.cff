@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+message: "本ベンチマークを利用した場合は、以下を引用してください。 / If you use this benchmark, please cite it as below."
+type: software
+
+title: "bim-bench: AIは BIM モデルの空間構造をどこまで読めるか"
+
+abstract: >-
+  A benchmark measuring how far large language models can read the spatial structure of a building from IFC: the site-building-storey-space hierarchy, which elements belong to which storey, and the quantities attached to them.
+  
+  IFC is a graph, not a drawing, so the questions have exact answers that a parser can confirm. The corpus is buildingSMART's own Sample-Test-Files, published under CC BY 4.0 and bundled here with attribution.
+  
+  Principal finding: accuracy and cost separate in opposite directions. Arm B (no code execution) reached 235/255 on element attribution at 372k tokens and 36 minutes; arm C (Python permitted) reached 255/255 at 99k tokens and 9 minutes — better on every axis at roughly a quarter of the cost. Arm C additionally declined to trust a quantity field it could not verify, and derived the volumes independently.
+
+  IFC に入っている空間構造・要素の所属・数量を読み取る能力を測る。コード実行を許した腕が、点数でもコストでも上回った。
+
+authors:
+  - family-names: "Ohkubo"
+    given-names: "Boss"
+    affiliation: "Allfesta Corp."
+    orcid: "https://orcid.org/0009-0007-8300-0039"
+
+version: "1.0.0"
+date-released: "2026-08-08"
+license: MIT
+url: "https://github.com/allfestaboss/bim-bench"
+repository-code: "https://github.com/allfestaboss/bim-bench"
+
+keywords:
+  - LLM benchmark
+  - IFC
+  - BIM
+  - buildingSMART
+  - spatial structure
+  - quantity takeoff
+  - architecture
+  - cost-aware evaluation
+  - evaluation methodology
+  - 建築BIM
+
+references:
+  - type: data
+    title: "Sample-Test-Files"
+    authors:
+      - name: "buildingSMART International Ltd."
+    url: "https://github.com/buildingSMART/Sample-Test-Files"
+    notes: "IFC4 サンプルモデルの出所。CC BY 4.0。"
