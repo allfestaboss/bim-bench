@@ -1,5 +1,8 @@
 # bim-bench — AIは BIM モデルの空間構造をどこまで読めるか
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21847249.svg)](https://doi.org/10.5281/zenodo.21847249)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 IFC に入っている**空間構造・要素の所属・数量**を読み取る能力を、機械採点で測るベンチマーク。
 AI実務到達度インデックスの7本目で、**CAD横断シリーズの4業界目**
 （建築2D DXF → 土木 SXF → 機械 STEP AP242 → 建築BIM IFC）。
@@ -470,4 +473,5 @@ IFC を対象とする研究は 2026 年に入って増えており、**本ベ�
 ```
 Ohkubo, B. (Allfesta Corp.) (2026). bim-bench: AIは BIM モデルの空間構造をどこまで読めるか.
 https://orcid.org/0009-0007-8300-0039
+Zenodo. https://doi.org/10.5281/zenodo.21847249
 ```
