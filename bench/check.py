@@ -228,14 +228,20 @@ def grade_ambiguity(ref_doc: dict, sub_doc: dict, levels: list[str] | None = Non
             # 集合にすると1件になってしまう。armC が「番号だけでは箇所が一意に
             # 決まらない」と指摘した箇所そのもの。件数は参照側が持っている値を使う。
             n = int(r.get("affected") or len(_ents(r)))
-            base_ok = a is not None and int(a) in totals
+            # **どちらの読みを a と呼ぶかは規則で決めていない。**
+            # こちらは「含める」側を a にしたが、腕が「統合する」側を a に置くのも
+            # 規則に反しない。実際 armC が 322->324 と書いてきた（こちらは 324->322）。
+            # 順番で減点すると、読解ではなく並べ方の癖を測ることになる。
+            # **どちらかがコーパスから実際に数えられる値であればよい**とする。
+            base_ok = (a is not None and int(a) in totals) or \
+                      (b is not None and int(b) in totals)
             delta_ok = a is not None and b is not None and abs(a - b) == n
             if base_ok and delta_ok:
                 good += 1.0
             else:
                 why = []
                 if not base_ok:
-                    why.append(f"count_a={a} は実際には数えられない値")
+                    why.append(f"count_a={a} / count_b={b} のどちらも実際には数えられない値")
                 if not delta_ok:
                     why.append(f"差が {abs(a - b) if a is not None and b is not None else '?'}"
                                f" で、扱いが変わる実体 {n}件と合わない")

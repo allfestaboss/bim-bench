@@ -1,0 +1,93 @@
+{
+  "task": "T004",
+  "sites": [
+    {
+      "site": "型PsetとオカレンスPsetの同名衝突（Pset_SlabCommon / FireRating）",
+      "entities": [47, 48, 49, 50, 51, 52, 57, 800, 801, 855, 856, 961, 962, 963, 970, 980],
+      "reading_a": "オカレンスに直接付いた同名のプロパティセットが、型オブジェクト経由で継承される同名セットを丸ごと上書きする。したがって床スラブに効く Pset_SlabCommon は1つだけで、FireRating は REI30。型側の REI60 と SurfaceSpreadOfFlame は上書きされて消える。",
+      "reading_b": "型経由(IfcRelDefinesByType→HasPropertySets)とオカレンス経由(IfcRelDefinesByProperties)は別々の付与経路であり、同名でも両方が要素に付く。したがって床スラブには Pset_SlabCommon が2つ付き、FireRating は REI60 と REI30 の両方が並ぶ。",
+      "chosen": "a",
+      "why": "IFC4 / IFC4X3 のオブジェクトタイピングの規定では、型オブジェクトの HasPropertySets はオカレンスに継承されるが、同名のプロパティセットがオカレンス側に直接付与されている場合はそちらが優先される（オーバーライド）。したがって規格に忠実な読みは a。ただし『上書き単位はセット名か、個々のプロパティ名か』は規格文に書かれておらず、b を採る実装も実在するので、ここは一意に決まらない。この箇所は corpus のうち ifc4x3/Building-Architecture.ifc と ifc4/Building-Architecture.ifc の2ファイルにだけ存在し、両ファイルとも当該行だけ実体番号が昇順から外れている（#963 や #800 などファイルの最大番号を超える番号が中途に挿入されている）。",
+      "moves": "床スラブ（ifc4x3 の #49、ifc4 の #52）に有効となるプロパティ行の数（要素×プロパティ、17ファイル合計）。ifc4x3 側はオカレンスセット4件＋型セット2件、ifc4 側はオカレンスセット5件＋型セット2件。",
+      "count_a": 9,
+      "count_b": 13
+    },
+    {
+      "site": "IfcSite の入れ子（.COMPLEX. の中の .PARTIAL. サイト）",
+      "entities": [20, 23, 30, 36, 131, 208, 221, 349, 381, 391, 472, 502, 548, 576, 582, 679, 723, 731, 743, 750, 807, 878, 931, 948, 1015, 1056, 1138, 1278, 1324],
+      "reading_a": "IfcSite のインスタンスはすべて空間の1行。親サイト（CompositionType=.COMPLEX. の 'environment - site'）と、その中に IfcRelAggregates でぶら下がる .PARTIAL. の子サイト群を、それぞれ別々のサイト行として数える。",
+      "reading_b": "CompositionType の .COMPLEX./.PARTIAL. は『同種のものの全体と部分』を表す指示なので、.PARTIAL. の子サイトは親サイトの構成部分にすぎず、独立したサイト行ではない。1ファイルにつきサイトは最上位の1件だけ。",
+      "chosen": "a",
+      "why": "IfcSite は IfcSpatialStructureElement の具象クラスで、インスタンスごとに GlobalId と配置と包含関係を持ち、要素の収容先（IfcRelContainedInSpatialStructure の RelatingStructure）にも実際になっている。部分だからといって行を消すと収容先が指せなくなる。したがって a を採る。ただし IFC4X3 では CompositionType 自体が非推奨扱いになっており、また『全体と部分を両方数えるのは二重計上』という読みも規格上あり得るため、一意には決まらない。全17ファイルで親サイト #20 が同じ構造を持ち、インフラ系のファイルでは子サイトが5〜7件ある。",
+      "moves": "IfcSite の行数（17ファイル合計）。a は全インスタンス、b は各ファイルの最上位サイトのみ。",
+      "count_a": 72,
+      "count_b": 17
+    },
+    {
+      "site": "IfcSpace に直接収容された要素を、その上の階（IfcBuildingStorey）の要素として数えるか",
+      "entities": [40, 43, 59, 68, 75, 89, 155, 160, 172, 176, 181, 182, 193, 203],
+      "reading_a": "要素の所属は IfcRelContainedInSpatialStructure の RelatingStructure がそのまま指すものだけ。キッチン等は IfcSpace 'living room' の要素であって、階 '00 groundfloor' の要素ではない。",
+      "reading_b": "IfcSpace は IfcRelAggregates で階に従属する空間なので、空間に収容された要素は階にも（推移的に）属する。階の要素一覧には空間経由の要素も含める。",
+      "chosen": "b",
+      "why": "IFC の空間構造は Project→Site→Building→Storey→Space の階層で、Space は Storey の細分である。『この要素は何階にあるか』という問いには階層をたどった一意の答えがあるはずで、直接の収容先だけを見ると空間に入れた要素だけ階から消えてしまう。よって b。ただし IfcBuildingStorey.ContainsElements という逆参照は直接の収容だけを返すので、a も規格上まったく正当。該当するのは Building-Architecture の2ファイル（各2要素）だけで、Hvac と Structural は空間を持たないため差が出ない。",
+      "moves": "'00 groundfloor'（IfcBuildingStorey）に属する要素の行数。この階は17ファイル中6ファイル（ifc4x3 と ifc4 の Building-Architecture / Building-Hvac / Building-Structural）に存在し、その合計。",
+      "count_a": 36,
+      "count_b": 40
+    },
+    {
+      "site": "集約の親要素（IfcRoof / IfcElementAssembly）自体を要素行に数えるか",
+      "entities": [173, 192, 196, 327, 334, 343, 353, 367, 382, 395, 397, 411, 425, 454, 524, 570, 751, 787, 789, 838, 866, 894, 1195, 1229, 1371, 1405, 1433, 1461],
+      "reading_a": "IfcRoof や IfcElementAssembly も IfcElement の具象インスタンスなので、それ自体が1行。子の IfcSlab / IfcBeam / IfcColumn も1行ずつ。親と部品の両方を数える。",
+      "reading_b": "集約の親は部品をまとめるための入れ物で、物理的な実体は部品側にある。数えるのは葉（それ以上分解されない要素）だけで、親は行にしない。そうしないと屋根とその屋根スラブを二重に数えることになる。",
+      "chosen": "a",
+      "why": "IfcRoof も IfcElementAssembly も抽象クラスではなく、GlobalId・型定義・分類・配置を自分で持ち、空間構造への収容関係も親のほうに付いている。規格上は独立した要素インスタンスなので a。ただし数量集計の文脈では『親と子で体積が重複する』ため葉だけを数えるのが正しく、どちらの読みも規格に反しない。該当する親は屋根が4件（ifc4x3/ifc4 の Building-Architecture と Building-Structural）、ifc4/Infra-Bridge の橋脚アセンブリが7件、ifc4/Infra-Landscaping の標識アセンブリが10件で、合計21件。",
+      "moves": "物理要素（空間要素と幾何を除く IfcElement 系オカレンス）の行数、17ファイル合計。a は全629行、b は集約の親21行を落とした行数。",
+      "count_a": 629,
+      "count_b": 608
+    },
+    {
+      "site": "収容関係を持たない子要素（集約の子・IfcRelAdheresToElement の表面地物）に空間の所属を与えるか",
+      "entities": [173, 178, 194, 195, 203, 211, 219, 334, 342, 343, 351, 359, 367, 382, 395, 425, 647, 658, 659, 667, 675, 683, 789, 800, 811, 812, 820, 828, 836, 838],
+      "reading_a": "IfcRelContainedInSpatialStructure を持たない要素は、自分を分解している親要素（IfcRelAggregates の親）や、自分が付着している母材（IfcRelAdheresToElement の RelatingElement）の空間所属を継承する。全要素が空間構造のどこかに属する。",
+      "reading_b": "空間への配属は IfcRelContainedInSpatialStructure だけが決める。集約の子や表面地物は自分の収容関係を持たないので、空間構造には配属されていない（空間別集計から漏れる）。",
+      "chosen": "a",
+      "why": "IFC では集約された要素群のうち空間構造に収容するのは最上位の1つだけ、と明記されており、部品は親の所属を継承すると読むのが規格の意図。よって a。ただし IfcRelAdheresToElement は空間関係ではなく要素間関係なので、これで所属が決まると書いた条文はなく、b も成立する。該当は屋根の部品20行（4ファイル）、ifc4/Infra-Bridge の橋脚部品17行、ifc4/Infra-Landscaping の標識部品20行、ifc4x3/Infra-Road の路面標示 IfcSurfaceFeature 20行の計77行。ifc4/Infra-Road では同じ路面標示が（IFC4 に IfcRelAdheresToElement が無いため）直接収容されており、同じ対象なのにスキーマ違いで扱いが変わる。",
+      "moves": "空間構造に配属される物理要素の行数（17ファイル合計、全629行のうち）。",
+      "count_a": 629,
+      "count_b": 552
+    },
+    {
+      "site": "IfcSpatialZone が IfcRelContainedInSpatialStructure の RelatedElements に入っている",
+      "entities": [30, 173, 174, 196, 201, 334, 335, 382, 385, 387, 399, 448, 464],
+      "reading_a": "RelatedElements に列挙されていても IfcSpatialZone は IfcSpatialElement であって物理要素ではない。建物直下の『要素』としては数えず、空間側として扱う。",
+      "reading_b": "IfcRelContainedInSpatialStructure の RelatedElements に載っているものはすべてその空間の要素行。IfcSpatialZone も含めて数える。",
+      "chosen": "a",
+      "why": "IfcSpatialZone は IfcSpatialElement の派生で、本来は IfcRelAggregates か IfcRelReferencedInSpatialStructure で結ぶもの。IFC4X3 では RelatedElements の型が IfcProduct に緩められており、IfcSpatialStructureElement を除外する WHERE 規則が働かないため、この書き方はスキーマ検証を通ってしまう。実体として空間を数える側に入れるのが妥当なので a。ただし『関係が列挙したものが要素』という素直な読みも規格上あり得る。該当は ifc4x3/Building-Architecture の #385 と ifc4/Building-Architecture の #448（いずれも 'house - gross volume'）の2行。",
+      "moves": "IfcBuilding を RelatingStructure とする IfcRelContainedInSpatialStructure の RelatedElements の行数（17ファイル合計）。建物直下の収容は Building-Architecture 2ファイル（各3エントリ）と Building-Structural 2ファイル（各1エントリ）の計8エントリ。",
+      "count_a": 6,
+      "count_b": 8
+    },
+    {
+      "site": "IfcUnitAssignment の面積・体積単位を独立に採るか、長さ単位から導くか",
+      "entities": [14, 15, 16, 17, 54, 55, 56, 57, 63, 64, 65, 66, 67, 68, 69, 70, 86, 87, 88, 89],
+      "reading_a": "IfcUnitAssignment は単位種別ごとに1つの単位を与えるものなので、LENGTHUNIT=ミリメートル、AREAUNIT=平方メートル、VOLUMEUNIT=立方メートルをそれぞれ独立に適用する。同じ数量セットの中で Depth はミリ、NetArea は平方メートル、NetVolume は立方メートルになる。",
+      "reading_b": "プロジェクトの長さ単位はミリメートルなので、そこから導かれる面積・体積も平方ミリ・立方ミリとして読む（長さ単位を1つ決めれば派生単位も決まるという読み）。",
+      "chosen": "a",
+      "why": "17ファイルすべてが #15 ミリメートル、#16 平方メートル、#17 立方メートルを明示的に与えており、明示された単位が優先される。実際に全ての数量三つ組が『NetArea(平方メートル) × Depth(ミリ→メートル換算) = NetVolume(立方メートル)』で一致するので、a でなければ算術が閉じない。しかし1つの数量セットの中で尺度が10の3乗ずつ食い違うため、長さ単位からスケールを正規化する実装は b を採り、体積で10の9乗倍ずれる。どちらも規格の文面からは導ける。",
+      "moves": "数量（IfcPhysicalSimpleQuantity）行のうちミリメートル系の単位で解釈される行数。数量行は17ファイル合計250行（ifc4x3 と ifc4 の Building-Architecture 各25、Building-Structural 各34、Infra-Bridge 各27、ifc4/Infra-Road 78）。a では長さの88行だけがミリ系で、面積・体積の162行はメートル系。b では250行すべてがミリ系。",
+      "count_a": 88,
+      "count_b": 250
+    },
+    {
+      "site": "17ファイルは1つのモデルか17個のモデルか（GlobalId による同定）",
+      "entities": [13, 20, 23, 49, 87, 118, 142, 296, 315, 336, 417, 436, 482, 501, 710, 737, 865],
+      "reading_a": "ファイルごとに独立したモデルとして数える。同じ GlobalId が別ファイルにあっても、それぞれ1行ずつ数える。IFCPROJECT は17行、'environment - site' は17行、煙突は Building-Architecture と Building-Hvac の両方に1行ずつ。",
+      "reading_b": "GlobalId は IFC が定める大域的同一性なので、同じ GlobalId は同じオブジェクト。17ファイルは1つのプロジェクトのアスペクトモデル（連合モデル）であり、重複を畳んで数える。IFCPROJECT は1行、'environment - site' も1行。",
+      "chosen": "a",
+      "why": "17ファイルはすべて IFCPROJECT の GlobalId が '2Ndyd$OSX7s9A04nc4lyye' で一致し、サイト・建物・階・原点プロキシ・煙突なども同じ GlobalId を共有しているので、連合モデルとして1件に畳む読み（b）は規格上まったく正当である。一方で、同じ GlobalId を持つのに中身が食い違う実体（例: IfcRelAssociatesMaterial '0sAYN8OJzFKu1rNoJBdSki' は Building-Architecture では壁4本と煙突に、Building-Hvac では煙突1つに掛かる）や、同じ関係なのに GlobalId が振り直されている IfcRelAggregates があり、畳むと情報が壊れる。よってファイル単位で数える a を採る。",
+      "moves": "IFCPROJECT の行数（17ファイル合計）。a はファイルごとに1行、b は GlobalId で同定して1行。",
+      "count_a": 17,
+      "count_b": 1
+    }
+  ]
+}

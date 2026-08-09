@@ -30,6 +30,10 @@ def _name(path: str, task_id: str) -> str:
 def render(task_id: str) -> int:
     rows = json.loads((ROOT / "out" / f"{task_id}.json").read_text(encoding="utf-8"))
     costs = costmod.load(task_id)
+    # 何で測ったか分からないコストは表に出さない。
+    # 欠測と未記録は別物で、'-' で流すと区別がつかなくなる。
+    if costs:
+        costmod.require_env(task_id)
     meta = costmod.meta(task_id)
     work = costmod.workload(task_id)
     units = work["tolerances"]

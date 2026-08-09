@@ -9,7 +9,6 @@
   one_bucket       全部の実体を1つの箇所にまとめて出す（雑な一括指摘）
   flood            実体をでっち上げて箇所を水増しする
   biggest_only     一番大きい箇所だけ挙げる
-  swapped_counts   count_a と count_b を逆に書く（どちらの読みか分かっていない）
 
 使い方: adversarial_ambiguity.py
 """
@@ -72,10 +71,10 @@ def biggest_only(ref):
     return s
 
 
+# swapped_counts は EVIL に入れない。規則が向きを決めていない以上、誤りではない。
 EVIL = [
     ("no_counts", no_counts, "Q9"),
     ("wrong_counts", wrong_counts, "Q9"),
-    ("swapped_counts", swapped_counts, "Q9"),
     ("one_bucket", one_bucket, "Q8"),
     ("flood", flood, "Q8"),
     ("biggest_only", biggest_only, "Q8"),

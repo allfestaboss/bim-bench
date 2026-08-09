@@ -1,0 +1,93 @@
+{
+  "task": "T004",
+  "sites": [
+    {
+      "site": "COMPLEX敷地を敷地として数えるか",
+      "entities": [20, 23, 21, 24],
+      "reading_a": "IfcSite は CompositionType に関係なく1件ずつ敷地の行にする。#20 'environment - site' (.COMPLEX.) も、その下の .PARTIAL. 敷地も、実体として存在する以上すべて並べる",
+      "reading_b": ".COMPLEX. の IfcSite は下位の .PARTIAL. 敷地を束ねるための集合体であって場所そのものではない。敷地の行としては .PARTIAL.（葉側）だけを並べ、.COMPLEX. は見出しとして畳む",
+      "chosen": "a",
+      "why": "17ファイルすべてで #20 (.COMPLEX.) は単なる入れ物ではなく、geo-reference の IfcBuildingElementProxy を IfcRelContainedInSpatialStructure で直接内包している（ifc4x3/Building-Architecture #441、Building-Hvac #142、Building-Landscaping #147、ifc4x3/Infra-Bridge #870、ifc4/Infra-Landscaping #1270 など）。b を採るとその要素の所属先が答案から消える。IFC は CompositionType を「集合体か否か」の情報として持つだけで、集合体を一覧から外せとは規定していない",
+      "moves": "IfcSite の行数（17ファイル合計）",
+      "count_a": 72,
+      "count_b": 55
+    },
+    {
+      "site": "道路・橋・鉄道を建物レベルの空間として数えるか",
+      "entities": [30, 36, 42, 137, 214, 227, 387, 397, 478, 489, 508, 554, 603, 685, 737, 756, 834, 922, 994, 1021, 1103, 1257],
+      "reading_a": "「建物レベルの空間」は IfcBuilding クラスの実体だけ。IFC4X3 の IfcRoad / IfcBridge / IfcRailway は建物ではないので、この行には立てない",
+      "reading_b": "IFC4X3 では IfcBuilding も IfcRoad / IfcBridge / IfcRailway も IfcFacility の下位型で、敷地の直下・パートの直上という同じ階層位置を占める。したがって施設レベルの空間として同じ行に並べる",
+      "chosen": "b",
+      "why": "同一 GlobalId の同じ物が ifc4 では IfcBuilding、ifc4x3 では IfcRoad/IfcBridge/IfcRailway になっている（'2MBfH6RyP3luv6spdwrCIJ' は ifc4/Infra-Road #30 = IFCBUILDING、ifc4x3/Infra-Road #30 = IFCROAD。'3vzNAxKB5AJA_Ehx4miINx' は ifc4/Infra-Bridge #36 = IFCBUILDING、ifc4x3/Infra-Bridge #36 = IFCBRIDGE。'144_CJ8b1C7xe6fkDXe2iD' は ifc4/Infra-Rail #42 = IFCBUILDING、ifc4x3 #42 = IFCRAILWAY）。a を採ると同じ物がスキーマ版によって現れたり消えたりする。ただし IFC4 に IfcFacility が無い以上、クラス名で厳密に揃える a も規格上は成り立つ。なお ifc4 側の写し取り方は一定ではなく、ifc4/Infra-Road では道路そのもの（5件）だけでなく .COMPLEX. の道路セグメント（#40,#332,#561,#691,#841,#1028 の6件）まで IfcBuilding にしているため、a の 35件には施設でないものが6件混ざる",
+      "moves": "敷地の直下に立つ建物レベル空間（IfcBuilding と IfcFacility 系）の行数（17ファイル合計）",
+      "count_a": 35,
+      "count_b": 48
+    },
+    {
+      "site": "型のPsetと実体のPsetが同名・別値",
+      "entities": [47, 49, 50, 52, 57, 800, 801, 855, 856, 961, 962, 963, 970, 980],
+      "reading_a": "IfcRelDefinesByType 経由で型から来る Pset は既定値であり、オカレンス側に同名プロパティがあればオカレンスが上書きする。同名は1行に畳み、値はオカレンス側（FireRating = REI30）を採る",
+      "reading_b": "型由来の仕様と実体由来の仕様は出所の違う別の記述なので、両方をそのまま行にする。FireRating は REI60（型）と REI30（実体）の2行が並ぶ",
+      "chosen": "a",
+      "why": "IfcSlabType（ifc4x3 #47 / ifc4 #50）の HasPropertySets にある Pset_SlabCommon #963（FireRating=REI60, SurfaceSpreadOfFlame=A2 s1 d0）と、同じスラブ（ifc4x3 #49 / ifc4 #52）に IfcRelDefinesByProperties で付く Pset_SlabCommon（ifc4x3 #800 / ifc4 #57、FireRating=REI30, AcousticRating=29dB Rw ほか）が、同名 Pset・同一対象・同名プロパティで衝突している。型プロパティは型共通の既定値、オカレンスプロパティは個体の値という位置づけなので個体を優先する。ただし IFC の規格本文は上書きの優先順位を機械可読な規則としては書いておらず、出所を残して両方並記する b も規格上あり得る。この2ファイル以外の15ファイルには型に付いた Pset が1件も無い（全タイプ HasPropertySets=$）ので、動くのはこの箇所だけである",
+      "moves": "スラブ #49 / #52 に効く性能仕様プロパティの行数（17ファイル合計）",
+      "count_a": 11,
+      "count_b": 13
+    },
+    {
+      "site": "IfcSpatialZoneが要素の一覧に入るか",
+      "entities": [335, 383, 385, 387, 446, 448],
+      "reading_a": "IfcSpatialZone は IfcSpatialElement であって IfcElement ではない。空間の側に置き、要素の行には立てない",
+      "reading_b": "IfcRelContainedInSpatialStructure の RelatedElements に列挙されているものはすべて「その空間に含まれる要素」として行にする",
+      "chosen": "a",
+      "why": "ifc4x3/Building-Architecture #385 と ifc4/Building-Architecture #448 の 'house - gross volume' は IfcSpatialZone だが、建物 #30 を RelatingStructure とする IfcRelContainedInSpatialStructure（ifc4x3 #335 / ifc4 #387）の RelatedElements に IfcRoof や sand bedding と並んで入っている。IFC4 の WHERE 規則が禁じているのは IfcSpatialStructureElement であって IfcSpatialZone はそれに当たらないため、ファイルとしては妥当に読める。しかし実体の型は空間なので要素としては数えない。IfcSpatialZone はこの2ファイルにしか存在しない",
+      "moves": "要素の一覧に立つ IfcSpatialZone の行数（17ファイル合計）",
+      "count_a": 0,
+      "count_b": 2
+    },
+    {
+      "site": "分解された屋根を親で数えるか部材で数えるか",
+      "entities": [173, 182, 192, 196, 209, 224, 334, 343, 353, 367, 382, 395, 411, 425],
+      "reading_a": "IfcRelAggregates で分解された要素は、親（IfcRoof）を1行にし、その構成部材は親に含まれるものとして行にしない",
+      "reading_b": "親も構成部材も独立した実体なので、どちらも要素の行にする",
+      "chosen": "b",
+      "why": "4つの IfcRoof（ifc4x3/Building-Architecture #334、ifc4/Building-Architecture #382、ifc4x3/Building-Structural #173、ifc4/Building-Structural #196）はいずれも Representation が $ で形状を持たず、Building-Structural では材料も付いていない。実体を持つのは構成部材の側（Architecture は屋根スラブ2枚ずつ、Structural は梁6本＋ビームシュー2個ずつ）で、数量 Qto_SlabBaseQuantities / Qto_BeamBaseQuantities と材料はそちらに付く。親だけを数えると数量が拾えない。ただし IFC は分解の親も要素として定義しているので、親だけを数える a も規格上あり得る。構成部材は IfcRelContainedInSpatialStructure を持たず、空間には親経由でしか繋がっていない点でも読みが割れる",
+      "moves": "IfcRoof とその構成部材に対応する要素の行数（17ファイル合計）",
+      "count_a": 4,
+      "count_b": 24
+    },
+    {
+      "site": "IfcZoneを空間として数えるか",
+      "entities": [71, 72, 75, 80, 81, 89, 182, 203],
+      "reading_a": "IfcZone は IfcGroup の下位型であって空間構造ではない。空間の行にはせず、室のまとまりを表す別の軸として扱う",
+      "reading_b": "IfcZone は室の集合として空間の広がりを表すので、IfcSpace と同じ空間の一覧に並べる",
+      "chosen": "a",
+      "why": "ifc4x3/Building-Architecture #71 と ifc4/Building-Architecture #80 の 'house - living space' は IfcZone で、IfcRelAssignsToGroup（#72 / #81）で IfcSpace 2件を集めているだけであり、ObjectPlacement も Representation も持たず、空間構造の階層（IfcRelAggregates）に一切参加していない。よって空間の行にはしない。ただし ifc4 側ではこのゾーンに Pset_ZoneCommon（#85）が付いており、室と同格の空間単位として扱う運用も規格上あり得る。IfcSpace / IfcZone はこの2ファイルにしか存在しない",
+      "moves": "空間（IfcSpace と IfcZone）の行数（17ファイル合計）",
+      "count_a": 4,
+      "count_b": 6
+    },
+    {
+      "site": "橋脚は空間か物体か",
+      "entities": [325, 327, 385, 397, 433, 454, 492, 524, 529, 570, 699, 726, 751, 787],
+      "reading_a": "ファイルに書かれたクラスのとおりに読む。ifc4x3/Infra-Bridge の橋脚7基は IfcBridgePart（PredefinedType=.PIER.）なので空間、ifc4/Infra-Bridge の同じ7基は IfcElementAssembly なので要素として数える",
+      "reading_b": "同じ GlobalId の同じ物は同じ扱いにする。橋脚は物理的な構造物なので、どちらの版でも要素として数え、空間には立てない",
+      "chosen": "b",
+      "why": "'0kTVfaOTj2pAN_WvUgOEdD' は ifc4x3/Infra-Bridge #325 で IFCBRIDGEPART(.PIER.)、ifc4/Infra-Bridge #327 で IFCELEMENTASSEMBLY として書かれており、同様の入れ替わりが7基（#325/#327, #385/#397, #433/#454, #492/#524, #529/#570, #699/#751, #726/#787）で起きている。橋脚の中身（pierstem の IfcColumn、foundation の IfcFooting、piercap の IfcBeam）は ifc4x3 では IfcRelContainedInSpatialStructure で橋脚に含有され、ifc4 では IfcRelAggregates で組立体にぶら下がる。IFC4X3 は IfcFacilityPart に PIER を用意しているので a も規格上あり得るが、a を採ると同一の物が版によって空間と要素を行き来し、空間の総数が変わってしまう",
+      "moves": "橋脚7基（2ファイル計14実体）のうち空間として数える行数（17ファイル合計）",
+      "count_a": 7,
+      "count_b": 0
+    },
+    {
+      "site": "空間に含まれない路面標示をどう数えるか",
+      "entities": [178, 194, 195, 203, 211, 219, 334, 342, 343, 351, 359, 367, 647, 658, 659, 667, 675, 683, 800, 811, 812, 820, 828, 836],
+      "reading_a": "IfcRelAdheresToElement で母材に付着している要素は、その母材が含まれる空間に属するものとして繰り上げ、空間別の要素一覧に立てる",
+      "reading_b": "空間への所属は IfcRelContainedInSpatialStructure だけが決める。付着関係しか持たない要素はどの空間にも属さないので、空間別の要素一覧には立てない",
+      "chosen": "a",
+      "why": "ifc4x3/Infra-Road の 20件の IfcSurfaceFeature（'road - line marking'）は IfcRelContainedInSpatialStructure に一度も現れず、IfcRelAdheresToElement（#194, #342, #658, #811）で表層の IfcCourse に付いているだけである。同じ 20件が ifc4/Infra-Road では IfcRelContainedInSpatialStructure（#209, #451, #866, #1053）で車道 storey に直接入っている。つまり同じ物が版によって「空間に属する／属さない」が入れ替わる。IFC4X3 は付着した表面フィーチャが母材の空間所属を継ぐとは明記していないので b も規格上あり得るが、b を採ると同じ路面標示が ifc4 側だけ数えられることになる",
+      "moves": "空間別の要素一覧に立つ IfcSurfaceFeature の行数のうち、含有関係を持たない ifc4x3/Infra-Road 分（17ファイル合計）",
+      "count_a": 20,
+      "count_b": 0
+    }
+  ]
+}
