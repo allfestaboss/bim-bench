@@ -7,8 +7,12 @@
 
   1. 順位が保たれるか   armC > armB が毎回成立するか。1回でも逆転したら結論が弱まる
   2. ばらつきの幅       最小〜最大。n が小さいときは範囲のほうが正直
-  3. 箇所ごとの発見率   **ここが一番効く。**「毎回落とす」のか「たまたま1回落とした」のかで
-                        結論の強さが変わる。腕ごと・箇所ごとに何回見つけたかを出す
+  3. 箇所ごとの対応    腕がその箇所として**実際に何を書いたか**を並べる。
+                        件数だけを出してはいけない。実体番号が交差しただけの
+                        **別の問い**を「見つけた」と数えてしまう。実際に数えていて、
+                        「両腕とも 2/3」という表を作って公開しかけた。
+                        正しくは6走とも IfcProject の箇所を挙げていない。
+                        **人が読んで判断できるよう、書かれた題名をそのまま出す。**
 
 答案は attempts/<TASK>/<腕>_r<N>.json という名前で置く。
 """
@@ -99,48 +103,61 @@ def main() -> int:
         else:
             print("      範囲が重なっている。順位は確定できない。")
 
-    # ---- 箇所ごとの発見率 ----
+    # ---- 箇所ごとに、腕が実際に何を書いたか ----
+    # **件数にしない。** 実体番号が交差しただけの別の問いを「見つけた」と数えるので、
+    # 数字にすると嘘になる。題名を並べて人が読む。
     print()
-    print("=== 箇所ごとに、何回見つけたか ===")
-    hdr = f"{'決まらない箇所':<26}"
-    for arm in arms:
-        hdr += f"{arm:>10}"
-    print(hdr)
-    print("-" * (30 + 10 * len(arms)))
+    print("=== 箇所ごとに、腕がそこへ当てた項目の題名 ===")
+    print("（実体番号が交差しただけの別の問いが並ぶ。数えずに読むこと）")
     for s in sites:
         rs = set(s["entities"])
-        row = f"{s['id']:<26}"
+        print()
+        print(f"  [{s['id']}]  参照が意図した問い: {s['reading_a'][:44]}")
         for arm in arms:
-            hit = 0
             for p in by_arm[arm]:
-                sub = json.loads(p.read_text(encoding="utf-8"))
-                found = any(rs & _ents(t) for t in (sub.get("sites") or []))
-                hit += 1 if found else 0
-            row += f"{f'{hit}/{len(by_arm[arm])}':>10}"
-        print(row)
+                sub = json.loads(p.read_text(encoding="utf-8")).get("sites") or []
+                hits = [str(t.get("site") or t.get("id") or "?")
+                        for t in sub if rs & _ents(t)]
+                tag = p.stem
+                print(f"      {tag:<10} " + (" / ".join(h[:52] for h in hits) or "（当てた項目なし）"))
 
     # ---- 影響の計算が当たったか ----
     print()
-    print("=== 影響の計算（count_a が実在する値 かつ 差が件数と一致）===")
+    print("=== 影響の計算が当たった箇所数 ===")
+    # **採点器と同じ判定をすること。** ここを独自基準で書いたせいで、
+    # 点数（Q9）と食い違う数字を出し、それを記事に載せてしまった。
+    #   採点器: count_a か count_b の**どちらか**が実在する集計値 / 最良被覆で対応
+    #   ここ  : count_a **のみ** / 最初に交差したものを採用   <- 誤り
+    # 0〜1/4 と出たが、採点器の基準では 1〜2/4。Q9 が最大 1/4 なら
+    # 合計 55.0 が上限で、実際に出ている 70.0 が説明できない。**算術で気づけた。**
     totals = set(ref.get("totals") or [])
     for arm in arms:
         ok_per_run = []
         for p in by_arm[arm]:
-            sub = json.loads(p.read_text(encoding="utf-8"))
+            sub = [t for t in (json.loads(p.read_text(encoding="utf-8")).get("sites") or [])
+                   if isinstance(t, dict)]
+            used: set[int] = set()
             good = 0
             for s in sites:
                 rs = set(s["entities"])
+                best, bc, bi = None, 0.0, -1
+                for i, t in enumerate(sub):
+                    if i in used:
+                        continue
+                    cov = len(rs & _ents(t)) / len(rs) if rs else 0.0
+                    if cov > bc:
+                        best, bc, bi = t, cov, i
+                if bi >= 0:
+                    used.add(bi)
+                if best is None or bc == 0.0:
+                    continue
+                try:
+                    a_, b_ = float(best.get("count_a")), float(best.get("count_b"))
+                except (TypeError, ValueError):
+                    continue
                 n = int(s.get("affected") or len(rs))
-                for t in (sub.get("sites") or []):
-                    if not (rs & _ents(t)):
-                        continue
-                    try:
-                        a_, b_ = float(t.get("count_a")), float(t.get("count_b"))
-                    except (TypeError, ValueError):
-                        continue
-                    if int(a_) in totals and abs(a_ - b_) == n:
-                        good += 1
-                    break
+                if ((int(a_) in totals) or (int(b_) in totals)) and abs(a_ - b_) == n:
+                    good += 1
             ok_per_run.append(good)
         print(f"  {arm:<8} {'  '.join(f'{g}/{len(sites)}' for g in ok_per_run)}")
 

@@ -9,6 +9,10 @@
   one_bucket       全部の実体を1つの箇所にまとめて出す（雑な一括指摘）
   flood            実体をでっち上げて箇所を水増しする
   biggest_only     一番大きい箇所だけ挙げる
+  void             **ファイルを一度も読まずに書いた答案。** corpus の実体番号を
+                   全部並べ、差だけ参照解に合わせる。これが通るなら、この採点器は
+                   読解を測っていない。実際に 100.0/100 を取っていた（方法論査読で発覚）。
+  void_random      同上だが数もデタラメ。Q8 だけで何点取れるかを見る。
 
 使い方: adversarial_ambiguity.py
 """
@@ -53,6 +57,31 @@ def swapped_counts(ref):
     return s
 
 
+def _all_ids(ref) -> list[int]:
+    ids = ref.get("real_ids") or []
+    return sorted(int(i) for i in ids) or list(range(1, 1489))
+
+
+def void(ref):
+    """corpus の実体を全部並べ、差だけ参照解に合わせる。**中身はゼロ。**
+
+    参照解の近傍を摂動するケースだけでは、この形は永久に検出されない。
+    敵対テストが参照解の周りしか探索していなかったのが、そもそもの穴だった。
+    """
+    ids = _all_ids(ref)
+    return {"task": "T004", "sites": [
+        {"entities": ids, "count_a": s["count_a"], "count_b": s["count_b"]}
+        for s in ref["sites"]]}
+
+
+def void_random(ref):
+    """同上だが数もデタラメ。Q8 単独でいくつ取れるかを見る。"""
+    ids = _all_ids(ref)
+    return {"task": "T004", "sites": [
+        {"entities": ids, "count_a": 100 + i, "count_b": 200 + i}
+        for i, _ in enumerate(ref["sites"])]}
+
+
 def one_bucket(ref):
     every = sorted({e for y in ref["sites"] for e in y["entities"]})
     return {"task": "T004", "sites": [{"entities": every, "count_a": 0, "count_b": 0}]}
@@ -73,6 +102,8 @@ def biggest_only(ref):
 
 # swapped_counts は EVIL に入れない。規則が向きを決めていない以上、誤りではない。
 EVIL = [
+    ("void", void, "Q8"),
+    ("void_random", void_random, "Q8"),
     ("no_counts", no_counts, "Q9"),
     ("wrong_counts", wrong_counts, "Q9"),
     ("one_bucket", one_bucket, "Q8"),
@@ -114,6 +145,9 @@ def main() -> int:
         r = score(name, fn(copy.deepcopy(ref)))
         lost = [c["level"] for c in r["checks"] if not c["ok"] and c["max"]]
         ok = r["score"] < r["max"] - 1e-9 and expect in lost
+        # 中身ゼロの答案は「満点でない」では足りない。**低くなければ意味がない。**
+        if name.startswith("void"):
+            ok = ok and r["score"] < 10.0
         print(f"[{'OK' if ok else 'NG'}] {name}: {r['score']:.1f}/100  "
               f"失点={sorted(set(lost)) or '無し'}  期待={expect}")
         failures += 0 if ok else 1

@@ -174,23 +174,41 @@ def grade_ambiguity(ref_doc: dict, sub_doc: dict, levels: list[str] | None = Non
     # 挙げる——どちらも「扱いが変わる実体を全部」という規則を満たす。
     # 粒度の流儀で減点すると、読解でなく書き方の癖を測ることになる。
     # 参照側の実体をどれだけ覆えたか（包含）で採る。
-    pairs: list[tuple[dict, dict | None, float]] = []
+    # 被覆率だけで採ると、**実体を全部並べた答案が満点になる。**
+    # 実際に corpus の全実体 1〜1488 を4箇所に並べ、差だけ合わせた無情報の答案が
+    # 100.0/100 を取った。ファイルを一度も読まなくても取れてしまう。
+    #
+    # そこで「絞り込めているか」を掛ける。参照側の実体数の SPREAD 倍までは
+    # 咎めない——粒度の流儀（要素だけ挙げる / 型や Pset まで挙げる）は
+    # 規則が許しているので、そこで減点すると読解でなく書き方を測ることになる。
+    # それを超えて広げた分だけ、線形に効き目が落ちる。
+    SPREAD = 5
+
+    def _focus(rs: frozenset, ts: frozenset) -> float:
+        if not ts:
+            return 0.0
+        return min(1.0, (len(rs) * SPREAD) / len(ts))
+
+    pairs: list[tuple[dict, dict | None, float, float]] = []
     used: set[int] = set()
     for r in ref_sites:
         rs = _ents(r)
-        best, best_c, best_i = None, 0.0, -1
+        best, best_s, best_i = None, 0.0, -1
         for i, t in enumerate(sub_sites):
             if i in used:
                 continue
-            cov = len(rs & _ents(t)) / len(rs) if rs else 0.0
-            if cov > best_c:
-                best, best_c, best_i = t, cov, i
+            ts = _ents(t)
+            cov = len(rs & ts) / len(rs) if rs else 0.0
+            sc = cov * _focus(rs, ts)
+            if sc > best_s:
+                best, best_s, best_i = t, sc, i
         if best_i >= 0:
             used.add(best_i)
-        pairs.append((r, best, best_c))
+        foc = _focus(rs, _ents(best)) if best is not None else 0.0
+        pairs.append((r, best, best_s, foc))
 
     if "Q8" in active:
-        recall = sum(j for _, _, j in pairs) / len(ref_sites) if ref_sites else 0.0
+        recall = sum(j for _, _, j, _f in pairs) / len(ref_sites) if ref_sites else 0.0
         # **参照解に無い箇所を挙げたことは咎めない。** こちらの4箇所は
         # 「2実装が実際に食い違う」に絞った下限であって、上限ではない。
         # 落とすのは実在しない実体を並べた箇所だけ。
@@ -199,7 +217,7 @@ def grade_ambiguity(ref_doc: dict, sub_doc: dict, levels: list[str] | None = Non
                  if real and _ents(t) and not (_ents(t) & real)]
         precision = 1.0 - len(bogus) / len(sub_sites) if sub_sites else 0.0
         f1 = (2 * recall * precision / (recall + precision)) if (recall + precision) else 0.0
-        miss = [r["id"] for r, _, j in pairs if j == 0.0]
+        miss = [r["id"] for r, _, j, _f in pairs if j == 0.0]
         matched = len(sub_sites) - len(bogus)
         checks.append({
             "level": "Q8", "name": LEVEL_NAME["Q8"],
@@ -212,9 +230,14 @@ def grade_ambiguity(ref_doc: dict, sub_doc: dict, levels: list[str] | None = Non
 
     if "Q9" in active:
         good, bad = 0.0, []
-        for r, t, j in pairs:
+        for r, t, j, foc in pairs:
             if t is None or j == 0.0:
                 bad.append(f"{r['id']}(気づいていない)")
+                continue
+            # 絞り込めていない箇所は、数が合っていても計算したことにしない。
+            # 実体を広く並べれば必ずどれかに当たるので、差の一致だけでは証拠にならない。
+            if foc < 0.5:
+                bad.append(f"{r['id']}(実体を広く並べすぎていて、どの箇所を指すか決まらない)")
                 continue
             # **何を数えるかは腕が選んでよい**（規則がそう書いてある）。
             # こちらが「深さ0の空間」を数え、腕が「空間」を数えるのは、どちらも正しい。

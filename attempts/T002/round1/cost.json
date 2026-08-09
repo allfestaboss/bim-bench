@@ -1,4 +1,11 @@
 {
+ "_env": {
+  "model": "claude-opus-5[1m]",
+  "sampling": "既定（temperature 未指定）",
+  "harness": "Claude Code / general-purpose subagent",
+  "run_date": "2026-08-09",
+  "source": "reconstructed"
+ },
  "_meta": {
   "round": 1,
   "note": "17ファイル・10,078行/13MB・1,107項目。IFC4 と IFC4.3 の両版。★armB は下請けエージェントをファイルごとに立てて読ませており、報告値461kトークンは統括分のみ。実コストはこれより大きい。 ★Q6(性能仕様)は腕が走った後に追加した水準。両腕とも訊かれておらず0点になっている。Q6を除けば両方100.0。次回の走行で清算する。"

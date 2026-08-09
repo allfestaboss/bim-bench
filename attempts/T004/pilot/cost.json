@@ -1,4 +1,11 @@
 {
+ "_env": {
+  "model": "claude-opus-5[1m]",
+  "sampling": "既定（temperature 未指定）",
+  "harness": "Claude Code / general-purpose subagent",
+  "run_date": "2026-08-09",
+  "source": "reconstructed"
+ },
  "_meta": {
   "round": 1,
   "note": "17ファイル。決まらない箇所4件（2実装が実際に食い違う箇所だけに絞った下限）。★armB の報告値は統括分のみ。下請け7体を立てており実コストはこれより大きい。★**この軸で初めて分離した。** armC 100.0 / armB 64.3。armB は project_as_spatial（IfcProject を空間に数えるか）に気づかず、adheres_container は17ファイル全体でなく Infra-Road 2ファイルだけを数えた。★採点器の限界: count_a が『実在する集計値か』は全コーパスを数えたかの代理指標で、小さな内訳の値と偶然一致する誤受理がありうる。swapped_counts（count_a と count_b を逆に書く）も85点までしか落ちない。両方とも実在する値なので framing 非依存の検査では原理的に捕まえきれない。"
