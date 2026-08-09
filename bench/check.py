@@ -11,6 +11,7 @@
   Q7 欠陥の指摘（種別と実体番号）                        25点
   Q8 規格が2通りに読める箇所への気づき（実体集合）        40点
   Q9 その選択で何件動くかの計算                          60点
+  Q10 名指しした数え方での行数（完全一致のみ）           100点
 
 **Q4 が最も重い。** 「どの要素がどの空間に載っているか」は、国交省の BIM/CIM 照査で
 人が Word のチェックシートを見ながら確認している当のものだからである。
@@ -40,7 +41,7 @@ REL_TOL = 1e-9
 ABS_FLOOR = 1e-12
 
 POINTS = {"Q1": 12.0, "Q2": 16.0, "Q3": 16.0, "Q4": 22.0, "Q5": 17.0, "Q6": 17.0,
-          "Q7": 25.0, "Q8": 40.0, "Q9": 60.0}
+          "Q7": 25.0, "Q8": 40.0, "Q9": 60.0, "Q10": 100.0}
 LEVEL_NAME = {
     "Q1": "空間の網羅",
     "Q2": "空間の親と深さ",
@@ -51,6 +52,7 @@ LEVEL_NAME = {
     "Q7": "欠陥の指摘",
     "Q8": "分かれ目への気づき",
     "Q9": "影響の計算",
+    "Q10": "数え上げ",
 }
 
 MISSING = object()  # 「答えていない」を None（＝所属なし）と区別するための番兵
@@ -148,6 +150,45 @@ def _ents(t) -> frozenset:
         except (TypeError, ValueError):
             pass
     return frozenset(out)
+
+
+def grade_counts(ref_doc: dict, sub_doc: dict, levels: list[str] | None = None) -> dict:
+    """数え上げ課題（T005）を採点する。
+
+    **対応づけが無い。** こちらが設問を名指ししているので、答案は id ごとの整数だけ。
+    T004 を壊した2つの失敗——別の問いへの吸着と、実体を並べた水増し——が
+    設計上起きない。
+
+    採点は**完全一致のみ**。惜しい答えに部分点を出さない。
+    228 を 227 と書くのは、17ファイルのどこかを数え損ねたということで、
+    「だいたい合っている」ではない。近い値に点を出すと、当てずっぽうが有利になる。
+    """
+    qs = ref_doc.get("questions") or []
+    ans = sub_doc.get("answers")
+    checks: list[dict] = []
+    fatal = None
+    if not isinstance(ans, dict):
+        fatal = "answers が無いか、辞書になっていない"
+        ans = {}
+
+    good, bad = 0, []
+    for q in qs:
+        got = num(ans.get(q["id"]))
+        want = float(q["answer"])
+        if got is not None and got == want:
+            good += 1
+        else:
+            bad.append(f"{q['id']} 期待{int(want)} 提出"
+                       + ("未回答" if got is None else str(int(got))))
+    score = (good / len(qs)) if qs else 0.0
+    checks.append({
+        "level": "Q10", "name": LEVEL_NAME["Q10"],
+        "ok": good == len(qs), "points": POINTS["Q10"] * score, "max": POINTS["Q10"],
+        "detail": f"{good}/{len(qs)}" + ("  " + " / ".join(bad[:6]) if bad else ""),
+    })
+    total = 0.0 if fatal else sum(c["points"] for c in checks)
+    return {"file": sub_doc.get("_file", "?"), "score": total, "max": 100.0,
+            "fatal": fatal, "checks": checks}
 
 
 def grade_ambiguity(ref_doc: dict, sub_doc: dict, levels: list[str] | None = None) -> dict:
@@ -499,7 +540,9 @@ def main() -> int:
             continue
         sub["_file"] = s
         # 「決まらない箇所」の課題は形が違うので採点器を分ける。
-        if "sites" in ref:
+        if "questions" in ref:
+            out.append(grade_counts(ref, sub, levels))
+        elif "sites" in ref:
             out.append(grade_ambiguity(ref, sub, levels))
         else:
             out.append(grade(ref, sub, levels))

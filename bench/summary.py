@@ -17,9 +17,9 @@ from pathlib import Path
 from . import cost as costmod
 
 ROOT = Path(__file__).resolve().parent.parent
-LEVELS = ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"]
+LEVELS = ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10"]
 LABEL = {"Q1": "空間網羅", "Q2": "親と深さ", "Q3": "要素網羅",
-         "Q4": "所属", "Q5": "数量", "Q6": "性能仕様", "Q7": "欠陥指摘", "Q8": "気づき", "Q9": "影響計算"}
+         "Q4": "所属", "Q5": "数量", "Q6": "性能仕様", "Q7": "欠陥指摘", "Q8": "気づき", "Q9": "影響計算", "Q10": "数え上げ"}
 
 
 def _name(path: str, task_id: str) -> str:
@@ -39,7 +39,8 @@ def render(task_id: str) -> int:
     units = work["tolerances"]
 
     if not work["files"] and units:   # 「決まらない箇所」の課題
-        head = f"== {task_id} ==  17ファイル / 決まらない箇所{units}"
+        head = (f"== {task_id} ==  17ファイル / "
+                + ("設問" if task_id == "T005" else "決まらない箇所") + str(units))
     else:
         head = (f"== {task_id} ==  {work['files']}ファイル / 空間{work['spatials']} 要素{units}"
                 f" 数量{work['quantities']} 性能仕様{work.get('properties', 0)}"

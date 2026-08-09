@@ -1,0 +1,13 @@
+{
+ "_env": {
+  "model": "claude-opus-5[1m]",
+  "sampling": "既定（temperature 未指定）",
+  "harness": "Claude Code / general-purpose subagent",
+  "run_date": "2026-08-10",
+  "source": "recorded"
+ },
+ "_meta": {
+  "round": "n=3",
+  "note": "**腕を走らせる前に課題文・参照解・採点器・敵対テストを凍結した。**T004 では答案を読んだあとに規則と採点器を書き換え、それが35.7点差を作っていた。今回はコミット後に走らせ、走行後は触らない。"
+ }
+}

@@ -109,6 +109,9 @@ def workload(task_id: str) -> dict[str, int]:
         return {"files": 0, "tolerances": 0, "spatials": 0,
                 "quantities": 0, "properties": 0, "anomalies": 0}
     ref = json.loads(ref_path.read_text(encoding="utf-8"))
+    if "questions" in ref:  # 数え上げ課題
+        return {"files": 0, "tolerances": len(ref["questions"]), "spatials": 0,
+                "quantities": 0, "properties": 0, "anomalies": 0}
     if "sites" in ref:  # 「決まらない箇所」の課題は形が違う
         return {"files": 0, "tolerances": len(ref["sites"]), "spatials": 0,
                 "quantities": 0, "properties": 0, "anomalies": 0}

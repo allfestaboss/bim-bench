@@ -16,7 +16,8 @@ mkdir -p out
 
 for T in "${TASKS[@]}"; do
   # T004 は「決まらない箇所」の課題。参照解の作り方が違う。
-  if [ "$T" = "T004" ]; then $PY -m bench.ambiguity >/dev/null
+  if [ "$T" = "T005" ]; then $PY -m bench.counts >/dev/null
+  elif [ "$T" = "T004" ]; then $PY -m bench.ambiguity >/dev/null
   else $PY -m bench.build_ref "$T" >/dev/null; fi
 done
 
@@ -35,6 +36,7 @@ fi
 for T in "${TASKS[@]}"; do
   ADV=checker/adversarial.py
   [ "$T" = "T004" ] && ADV=checker/adversarial_ambiguity.py
+  [ "$T" = "T005" ] && ADV=checker/adversarial_counts.py
   $PY "$ADV" "$T" > "out/${T}_adversarial.txt" || {
     echo "敵対テストに失敗。out/${T}_adversarial.txt を見ること。"; exit 1; }
   echo "敵対OK($T): $(grep -c '^\[OK' "out/${T}_adversarial.txt") ケース"
