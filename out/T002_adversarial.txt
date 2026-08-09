@@ -1,7 +1,7 @@
 [OK] 較正: 参照解 100.0/100
 [OK] benign_rounded: 100.0/100  ← 丸めは通るべき
 [OK] evil_malformed: 0.0/100  失格
-[OK] evil_drop_file: 83.4/100  失点=['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6']  期待=Q1
+[OK] evil_drop_file: 84.1/100  失点=['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6']  期待=Q1
 [OK] evil_invent_elements: 99.8/100  失点=['Q3']  期待=Q3
 [OK] evil_depth_naive: 85.2/100  失点=['Q2']  期待=Q2
 [OK] evil_zero_depth: 98.8/100  失点=['Q2']  期待=Q2

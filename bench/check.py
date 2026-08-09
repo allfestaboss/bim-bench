@@ -106,13 +106,27 @@ def _f1(hit: int, want: int, extra: int) -> float:
 
 
 def _files(doc: dict) -> dict[str, dict]:
+    """答案・参照解をファイル名で引けるようにする。
+
+    同じ基底名が複数のスキーマ版に存在する（ifc4/Building-Architecture.ifc と
+    ifc4x3/Building-Architecture.ifc）。基底名で引くと衝突するので相対パスで持つ。
+
+    ただし**衝突が無いなら基底名でも引けるようにする。** T001 は corpus が
+    ifc4x3 だけだった頃の課題で、当時はディレクトリ名を要求していなかった。
+    後から ifc4/ を足して参照解側の名前を変えたせいで、こちらの都合で
+    古い答案が全問0点になっていた。**腕の答案は当時の課題文に対して正しい。**
+    """
     out: dict[str, dict] = {}
+    base: dict[str, list[dict]] = {}
     for r in doc.get("results") or []:
-        # 同じ基底名が複数のスキーマ版に存在する（ifc4/Building-Architecture.ifc と
-        # ifc4x3/Building-Architecture.ifc）。基底名で引くと衝突するので相対パスで持つ。
         name = str(r.get("file", "")).strip().lstrip("./")
-        if name:
-            out[name] = r
+        if not name:
+            continue
+        out[name] = r
+        base.setdefault(name.rsplit("/", 1)[-1], []).append(r)
+    for b, rows in base.items():
+        if len(rows) == 1 and b not in out:
+            out[b] = rows[0]
     return out
 
 
@@ -250,7 +264,10 @@ def grade(ref_doc: dict, sub_doc: dict, levels: list[str] | None = None) -> dict
     checks: list[dict] = []
     fatal = None if sub_files else "results が無いか、file 名が付いていない"
 
-    missing_files = [f for f in ref_files if f not in sub_files]
+    def _pick(fname: str) -> dict | None:
+        return sub_files.get(fname) or sub_files.get(fname.rsplit("/", 1)[-1])
+
+    missing_files = [f for f in ref_files if _pick(f) is None]
     checks.append({
         "level": "Q0", "name": "対象ファイルが揃っている",
         "ok": not missing_files, "points": 0.0, "max": 0.0,
@@ -261,7 +278,10 @@ def grade(ref_doc: dict, sub_doc: dict, levels: list[str] | None = None) -> dict
     details: dict[str, list[str]] = {k: [] for k in active}
 
     for fname, ref_rec in ref_files.items():
-        sub_rec = sub_files.get(fname)
+        if "/" not in fname and fname.rsplit("/", 1)[-1] in ref_files and \
+                any("/" in k for k in ref_files):
+            continue  # 基底名の別名は二重に採点しない
+        sub_rec = _pick(fname)
         rs, ss = _index(ref_rec, "spatials"), _index(sub_rec, "spatials")
         re_, se = _index(ref_rec, "elements"), _index(sub_rec, "elements")
         rq, sq = _index(ref_rec, "quantities"), _index(sub_rec, "quantities")
