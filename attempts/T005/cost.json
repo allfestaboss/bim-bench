@@ -18,7 +18,8 @@
    "note": "下請けが完走した3ファイル分（ifc4x3 の Building-Hvac / Building-Structural / Building-Architecture）の棚卸しは統括に渡る前に消えている。再実行時はゼロから。"
   },
   "launch_order": "前回は6本同時で armB の下請けが先に上限を食い、全滅して答案ゼロだった。今回は armC 3本を先に完走させ、そのあと armB 3本を起動した。**課題文・参照解・採点器には触れていない**ので凍結は破っていないが、測定条件としてこの起動順を記録しておく。",
-  "task_defect": "性能仕様の2問（property_all / property_merged）で課題文が曖昧だった。IFCSPACE(10) / IFCBUILDING(3) / IFCZONE(3) に付いた16行を数えるかが決まっていない。**armC の3走すべてが独立にこれを申告**し、r1 は物理要素限定（308/306）、r2/r3 は非限定（324/322）を採った。参照解は非限定なので r1 が2問落ちた。**凍結中なので直さない。**次版で設問文を分ける。"
+  "task_defect": "性能仕様の2問（property_all / property_merged）で課題文が曖昧だった。IFCSPACE(10) / IFCBUILDING(3) / IFCZONE(3) に付いた16行を数えるかが決まっていない。**armC の3走すべてが独立にこれを申告**し、r1 は物理要素限定（308/306）、r2/r3 は非限定（324/322）を採った。参照解は非限定なので r1 が2問落ちた。**凍結中なので直さない。**次版で設問文を分ける。",
+  "armB_invalid": "**armB の結果は道具立ての比較として無効。**こちらのプロンプトは「ファイルは Read / Grep / Glob ツールで読むだけ」と書いたが、armB のセッションに Grep も Glob も登録されていなかった（下請けも独立に確認）。armC は Bash があるので grep を使える（r2/r3 は実際に `grep -c` で検算している）。結果 armB は17ファイル約250万トークンを Read だけでページングする課題を解かされた。IFC はテセレーション幾何が1行に詰まっており、1行で Read の上限25,000トークンを超える行が各ファイルにある。armB_r1 は12/17ファイルまで完走したが、全設問が17ファイル合計を訊いているため部分値を出さず空提出した（課題文の「当てずっぽうで埋めても期待値は上がらない」に従った）。**測っているのは数え上げ能力ではなく、こちらが用意し損ねたツールの有無である。**armB 自身の指摘: 'What defeated it was I/O cost, not counting ability … otherwise armB's result mostly measures \"can you page 2.5M tokens\"'。加えて下請けの上限（200体/セッション）にも当たっている。"
  },
  "armC": {
   "runs": [
@@ -54,5 +55,21 @@
    81.8,
    100.0
   ]
+ },
+ "armB": {
+  "runs": [
+   {
+    "run": "r1",
+    "score": 0.0,
+    "correct": "0/11",
+    "tokens": 370646,
+    "duration_ms": 2674777,
+    "tool_uses": 178,
+    "submitted": "{}（空提出）",
+    "note": "12/17ファイルは完走。部分値を出さず空提出。Grep 不在が原因"
+   }
+  ],
+  "subagent_tokens_known": 2300299,
+  "status": "r2/r3 走行中。**この課題の armB の点数は道具立ての比較には使えない**"
  }
 }
