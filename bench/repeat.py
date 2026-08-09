@@ -102,21 +102,21 @@ def main() -> int:
     # ---- 箇所ごとの発見率 ----
     print()
     print("=== 箇所ごとに、何回見つけたか ===")
-    hdr = f"{'決まらない箇所':<30}"
+    hdr = f"{'決まらない箇所':<26}"
     for arm in arms:
         hdr += f"{arm:>10}"
     print(hdr)
     print("-" * (30 + 10 * len(arms)))
     for s in sites:
         rs = set(s["entities"])
-        row = f"{s['id']:<30}"
+        row = f"{s['id']:<26}"
         for arm in arms:
             hit = 0
             for p in by_arm[arm]:
                 sub = json.loads(p.read_text(encoding="utf-8"))
                 found = any(rs & _ents(t) for t in (sub.get("sites") or []))
                 hit += 1 if found else 0
-            row += f"{hit}/{len(by_arm[arm]):>9}"
+            row += f"{f'{hit}/{len(by_arm[arm])}':>10}"
         print(row)
 
     # ---- 影響の計算が当たったか ----

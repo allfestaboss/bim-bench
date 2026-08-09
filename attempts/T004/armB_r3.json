@@ -1,0 +1,71 @@
+{
+  "task": "T004",
+  "sites": [
+    {
+      "site": "型のPsetと実体の同名Psetの衝突（Pset単位で置換か、プロパティ単位でマージか）",
+      "entities": [47, 48, 49, 50, 51, 52, 57, 58, 800, 801, 855, 856, 961, 962, 963, 970, 980],
+      "reading_a": "IfcRelDefinesByType で継承される型側の Pset と、IfcRelDefinesByProperties で実体に付く同名 Pset があるとき、実体側の Pset が型側の Pset を丸ごと置き換える（Pset 単位の上書き）。ifc4x3/Building-Architecture では型 #47 の Pset_SlabCommon(#963: FireRating=REI60, SurfaceSpreadOfFlame=A2 s1 d0) は完全に捨てられ、床スラブ #49 に効くのは #800 の4件（IsExternal, LoadBearing, FireRating=REI30, AcousticRating）だけになる。ifc4/Building-Architecture も同型で、床スラブ #52 に効くのは #57 の5件（Status を含む）だけ。SurfaceSpreadOfFlame はどちらの実体にも効かない。",
+      "reading_b": "上書きはプロパティ単位で起きる。同名プロパティである FireRating だけ実体値 REI30 が型値 REI60 を上書きし、型側にしか無い SurfaceSpreadOfFlame は継承されて実体にも効く。ifc4x3 の #49 は5件、ifc4 の #52 は6件になる。",
+      "chosen": "b",
+      "why": "IfcTypeObject の HasPropertySets は「その型のすべての実体が共有する既定値」であり、規格が上書きを述べているのは property value の水準である。Pset ごと捨てる読み方を採ると、実体が一言も触れていない型固有の性能値（SurfaceSpreadOfFlame=A2 s1 d0）が黙って消え、継承の目的が壊れる。ただし『同名 Pset は実体側で置換』と読んで実装している処理系も現実に存在し、規格文言はそこまで書き分けていないので、どちらも規格上あり得る。なおこの箇所は2つの読み方で FireRating の値までは変わらない（どちらも REI30）が、性能仕様の行数が変わる。",
+      "moves": "この2枚の床スラブ（ifc4x3/Building-Architecture の #49 と ifc4/Building-Architecture の #52）に有効なプロパティの行数、17ファイル合計",
+      "count_a": 9,
+      "count_b": 11
+    },
+    {
+      "site": "17ファイルは1シーンの分割モデルか、17個の独立モデルか（GlobalId 重複の扱い）",
+      "entities": [13, 20],
+      "reading_a": "17ファイルをそれぞれ独立したモデルとして読む。GlobalId が一致していてもファイルが違えば別の行として数える。IFCPROJECT #13（GlobalId 2Ndyd$OSX7s9A04nc4lyye）は17行、IFCSITE 'environment - site'（23sFQGRy90RxVbRHD9iSE2）も17行と数える。",
+      "reading_b": "17ファイルは同一プロジェクトのアスペクトモデル（分野別分割モデル）であり、GlobalId は IFC の定義上グローバルに一意なので、GlobalId が一致する実体は同一オブジェクト。GlobalId で一意化して数える。IFCPROJECT は1件、IFCSITE は9件になる。",
+      "chosen": "b",
+      "why": "全17ファイルの IfcProject が同一 GlobalId '2Ndyd$OSX7s9A04nc4lyye' を持ち、IfcMapConversion と IfcProjectedCRS（EPSG:32760）で同一の地図座標系に載り、'origin' プロキシの記述が明示的に The local position for coordination of aspect models と述べている。つまりこれらは1つの敷地を分野別に切ったモデル群であり、GlobalId 一致は同一実体を意味する。単純合算すると同じ敷地・同じ煙突・同じ地理参照点を何度も数えることになる。ただし IFC の交換単位はファイルであり、ファイル横断の同定を規格が要求しているわけではないので、独立に数える読み方も規格上あり得る。実際この読みの違いは同一 GlobalId でクラスまで食い違う（例: GlobalId 0mApyqgbP3kwWGcMHpBgdC の枕木が ifc4x3 では IfcTrackElement、ifc4 では IfcBuildingElementProxy）ため、無視できない。",
+      "moves": "IFCSITE の行数、17ファイル合計（内訳は ifc4x3 が 2,2,2,2,6,6,6,6 = 32、ifc4 が 2,2,2,2,6,8,6,6,6 = 40）。b は distinct GlobalId が environment / house / road parking / road river bridge / rail river bridge / road rail bridge / road / park / meadow の9種。",
+      "count_a": 72,
+      "count_b": 9
+    },
+    {
+      "site": "CompositionType が .COMPLEX. の空間を独立した空間として数えるか",
+      "entities": [20, 21, 23, 24],
+      "reading_a": "CompositionType にかかわらず IfcSite の実体を1件1行として数える。17ファイルすべてで #20 'environment - site' が .COMPLEX.、その下に IfcRelAggregates(#24) でぶら下がる敷地が .PARTIAL. だが、両方とも敷地として数える。",
+      "reading_b": "IfcElementCompositionEnum の定義どおり .COMPLEX. は同種の下位空間を束ねた集合体であり、それ自体が独立した敷地ではない。束ねている側は数えず、.PARTIAL./.ELEMENT. の側だけを数える（面積・体積を集計するときの二重計上を避ける読み方）。各ファイルの .COMPLEX. は #20 のちょうど1件なので、17件が落ちる。",
+      "chosen": "a",
+      "why": "IfcSite は空間構造の実体であり、#20 は IfcRelAggregates(#21) で IfcProject に直付けされたうえで自前の IfcLocalPlacement(#22) と RefElevation を持つ、消せない構造上の節点である。数えないと空間ツリーの根が欠ける。一方 IfcElementCompositionEnum は COMPLEX を明示的に a group or aggregation of similar elements と定義しており、集合体を実体として数えない読み方も規格上あり得る（数量集計ではむしろそちらが正しい）。",
+      "moves": "IFCSITE の行数、17ファイル合計。b は .COMPLEX. の敷地（各ファイル #20 の1件ずつ、計17件）を除いた数。",
+      "count_a": 72,
+      "count_b": 55
+    },
+    {
+      "site": "空間（IfcSpace）に内包された要素は、その空間を含む階にも属するか",
+      "entities": [40, 43, 59, 68, 75, 76, 89, 97, 155, 160, 172, 176, 181, 193],
+      "reading_a": "IfcRelContainedInSpatialStructure が張っているのは直接内包だけであり、階に属する要素は RelatingStructure が当の階である行だけを数える。ifc4x3/Building-Architecture の階 #40 なら #59 の7件、ifc4/Building-Architecture の階 #43 なら #68 の7件。空間 #75 / #89 に内包された家具とプロキシ（#155,#172 / #176,#193）は階の一覧には入らない。",
+      "reading_b": "空間構造は階層であり、空間 #75/#89 は IfcRelAggregates(#76 / #97) で階 #40/#43 に集約されている。したがって空間に内包された要素も、その空間を含む階に空間的に属する。階の一覧に下位空間の要素を繰り上げて数える。",
+      "chosen": "b",
+      "why": "IFC は1つの要素を1つの空間要素にしか内包させないと定めており、空間構造は根から葉まで一本の階層である。空間 #75 が階 #40 の一部である以上、そこに置かれたキッチン #155 は物理的にも数量的にも階 #40 の上にある。階ごとの面積・数量を出すときに直接内包だけを見ると、空間の中に入れられた要素が全部落ちる。ただし規格が定義しているのはあくまで直接内包の関係であり、繰り上げの可否を明文で述べてはいないので、直接内包だけを数える読み方も規格上あり得る。",
+      "moves": "建物階 '00 groundfloor'（GlobalId 1Ano2ZUxnEIvVQ_beukl8b、Building-Architecture / Building-Hvac / Building-Structural の ifc4x3・ifc4 計6ファイルに存在）に属する要素の行数、17ファイル合計。直接内包は 7+7+4+4+7+7=36。b はこれに Architecture 2ファイルの空間内要素 2+2 を加える。",
+      "count_a": 36,
+      "count_b": 40
+    },
+    {
+      "site": "IfcSpatialZone が IfcRelContainedInSpatialStructure の RelatedElements に入っている（空間か要素か）",
+      "entities": [30, 173, 174, 196, 201, 334, 335, 382, 383, 385, 387, 399, 446, 448, 464],
+      "reading_a": "IfcRelContainedInSpatialStructure.RelatedElements は IfcProduct の集合なので、そこに列挙されている以上 IfcSpatialZone も建物に内包される中身の1行として数える。ifc4x3/Building-Architecture の #335 は (#334 屋根, #385 スペーシャルゾーン, #399 盛土) の3行、ifc4/Building-Architecture の #387 は (#382, #448, #464) の3行と数える。",
+      "reading_b": "IfcSpatialZone は IfcSpatialElement であって IfcElement ではない。空間は空間として数えるべきもので、建物に内包される要素の一覧には入れない。#385 / #448 を除いて数える。",
+      "chosen": "b",
+      "why": "IfcSpatialZone 'house - gross volume' は延べ体積を表す仮想の領域で、材料も数量も持たず表示スタイルも virtual_spatial-zone である。これを要素として数えると、建物の要素表に実体のない体積が1行紛れ込み、同じ体積が屋根や壁と並んで二重に見える。ただし IFC4 / IFC4X3 とも RelatedElements の型は IfcProduct であって IfcElement ではないため、空間要素をここに置くこと自体はスキーマ上正当であり、列挙されたものを内包物として数える読み方も規格上あり得る。",
+      "moves": "建物 'Single-family house'（GlobalId 0c$N1CTon2BB2Sp89385G8）に直接内包される要素の行数、17ファイル合計。内訳は ifc4x3/Building-Architecture 3、ifc4/Building-Architecture 3、ifc4x3/Building-Structural 1、ifc4/Building-Structural 1。",
+      "count_a": 8,
+      "count_b": 6
+    },
+    {
+      "site": "IfcRelAdheresToElement でしか母材に結び付いていない表面フィーチャを、空間の要素として数えるか",
+      "entities": [178, 194, 195, 203, 211, 219, 342, 343, 351, 359, 367, 647, 658, 659, 667, 675, 683, 811, 812, 820, 828, 836],
+      "reading_a": "空間構造に属する要素は IfcRelContainedInSpatialStructure に列挙されているものだけ。ifc4x3/Infra-Road の線標示 IFCSURFACEFEATURE 20件は10本ある IfcRelContainedInSpatialStructure のどれにも現れず、IfcRelAdheresToElement（#194,#342,#658,#811）でアスファルト表層コースに付着しているだけなので、道路の要素一覧には載らない。ifc4/Infra-Road の20件は空間構造に内包されているので載る。",
+      "reading_b": "IfcRelAdheresToElement は母材要素に貼り付く従属要素を表す関係であり、母材が空間構造に内包されている以上、貼り付いている線標示もその空間に属する。ifc4x3 の20件も道路の要素一覧に載せる。",
+      "chosen": "b",
+      "why": "線標示は独立した IfcSurfaceFeature 実体として GlobalId・形状・材料（plastic_thermoplastic-road-marking-paint）を持ち、ifc4 側では同じ GlobalId の20件がそのまま空間構造に内包されている。同じ物が schema の版によって数えられたり数えられなかったりするのは、数え方の側の欠陥である。ただし IfcRelAdheresToElement は空間内包関係ではなく、規格上どの空間に属するかを一言も定めていないため、内包関係だけを見る読み方も規格上あり得る。",
+      "moves": "線標示 IFCSURFACEFEATURE を空間の要素一覧に載せる行数、17ファイル合計（ifc4x3/Infra-Road に20件、ifc4/Infra-Road に20件、他の15ファイルには0件）",
+      "count_a": 20,
+      "count_b": 40
+    }
+  ]
+}
