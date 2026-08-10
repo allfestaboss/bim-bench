@@ -1,35 +1,3 @@
-=== T005 課題文に答えが書いていないか ===
-[OK] spatial_all                      答=  228
-[OK] spatial_no_project               答=  211
-[OK] spatial_depth0                   答=   17
-[OK] spatial_depth0_aggregate_only    答=   19
-[OK] element_all                      答=  629
-[OK] element_direct_only              答=  552
-[OK] element_no_adheres               答=  609
-[OK] element_no_feature               答=  589
-[OK] property_all                     答=  324
-[OK] property_merged                  答=  322
-[OK] quantity_all                     答=  250
-
-漏れなし。
-
-=== T006 課題文に答えが書いていないか ===
-[OK] spatial_all                      答=  228
-[OK] spatial_no_project               答=  211
-[OK] spatial_depth0                   答=   17
-[OK] spatial_depth0_aggregate_only    答=   19
-[OK] element_all                      答=  629
-[OK] element_direct_only              答=  552
-[OK] element_no_adheres               答=  609
-[OK] element_no_feature               答=  589
-[NG] property_owner_physical_split    答=  308  **課題文に書いてある**
-[NG] property_owner_physical_merged   答=  306  **課題文に書いてある**
-[NG] property_owner_any_split         答=  324  **課題文に書いてある**
-[NG] property_owner_any_merged        答=  322  **課題文に書いてある**
-[OK] quantity_all                     答=  250
-
-既知の漏れ 4件を検出（この検査自身の較正）
-
 === T007 課題文に答えが書いていないか ===
 [OK] spatial_all                      答=  228
 [OK] spatial_no_project               答=  211
