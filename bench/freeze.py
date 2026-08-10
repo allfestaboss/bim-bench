@@ -52,6 +52,7 @@ SOFT_PATHS = [
     "bench/check.py",
     "bench/counts.py",
     "bench/probe.py",
+    "bench/leak.py",
     "bench/selfcheck.py",
     "checker/adversarial_counts.py",
 ]

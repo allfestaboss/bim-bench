@@ -41,7 +41,11 @@ fi
 if [ ${#COUNT_TASKS[@]} -gt 0 ]; then
   $PY -m bench.probe "${COUNT_TASKS[@]}" > out/_probe.txt || {
     echo "課題文の照合に失敗。out/_probe.txt を見ること。"; exit 1; }
-  echo "課題文OK: $(grep -c '^\[OK' out/_probe.txt) 設問"
+  echo "課題文OK(範囲): $(grep -c '^\[OK' out/_probe.txt) 設問"
+
+  $PY -m bench.leak "${COUNT_TASKS[@]}" > out/_leak.txt || {
+    echo "課題文に答えが書いてある。out/_leak.txt を見ること。"; exit 1; }
+  echo "課題文OK(漏れ): $(grep -c '^\[OK' out/_leak.txt) 設問"
 fi
 
 $PY -m bench.freeze "${TASKS[@]}" > out/_freeze.txt || {
