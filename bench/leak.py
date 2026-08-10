@@ -52,8 +52,12 @@ KNOWN_LEAKS = {"T006": {"property_owner_physical_split", "property_owner_physica
                         "property_owner_any_split", "property_owner_any_merged"}}
 
 
-def statement(task: dict) -> str:
-    """腕が読む文面だけを1本の文字列にする。"""
+def statement(task: dict, task_id: str = "") -> str:
+    """腕が読む文面を1本の文字列にする。
+
+    **課題文だけでは足りない。**腕はプロンプトも読む。T006 の漏れは note にあったが、
+    同じ数字をプロンプトに書いていれば同じことになる。腕が読むものは全部入れる。
+    """
     parts = []
     for k in FIELDS:
         v = task.get(k)
@@ -63,6 +67,9 @@ def statement(task: dict) -> str:
             for x in v:
                 parts.append(x if isinstance(x, str)
                              else " ".join(str(y) for y in x.values()))
+    prompt = ROOT / "arms" / f"{task_id}.md"
+    if task_id and prompt.exists():
+        parts.append(prompt.read_text(encoding="utf-8"))
     return "\n".join(parts)
 
 
@@ -82,7 +89,7 @@ def check(task_id: str) -> int:
     if "questions" not in ref:
         return 0
 
-    nums = bare_numbers(statement(task))
+    nums = bare_numbers(statement(task, task_id))
     leaked = [q["id"] for q in ref["questions"] if str(q["answer"]) in nums]
 
     print(f"=== {task_id} 課題文に答えが書いていないか ===")

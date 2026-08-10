@@ -1,0 +1,105 @@
+{
+ "task": "T007",
+ "from": "T002",
+ "note": "答えは全て参照解から計算した値。設問は T006 と一字一句同一で、違いは課題文の説明文から数値を全て外した点のみ。",
+ "questions": [
+  {
+   "id": "spatial_all",
+   "answer": 228,
+   "ask": "IFCPROJECT を含め、空間構造の実体を全て数えたときの行数",
+   "pins": {
+    "project_as_spatial": "include"
+   }
+  },
+  {
+   "id": "spatial_no_project",
+   "answer": 211,
+   "ask": "同上から IFCPROJECT を除いた行数",
+   "pins": {
+    "project_as_spatial": "exclude"
+   }
+  },
+  {
+   "id": "spatial_depth0",
+   "answer": 17,
+   "ask": "親を持たない空間（深さ0）の行数。包含関係で他の空間の下に置かれている空間は、置かれ先を親として扱う",
+   "pins": {
+    "zone_parent": "containment"
+   }
+  },
+  {
+   "id": "spatial_depth0_aggregate_only",
+   "answer": 19,
+   "ask": "同上だが、親は集約関係（IFCRELAGGREGATES）でのみ決まるとしたときの行数",
+   "pins": {
+    "zone_parent": "aggregate_only"
+   }
+  },
+  {
+   "id": "element_all",
+   "answer": 629,
+   "ask": "物理要素の行数。集約の親も部品も、付着している要素も、全て1行として数える",
+   "pins": {
+    "adheres_container": "count"
+   }
+  },
+  {
+   "id": "element_direct_only",
+   "answer": 552,
+   "ask": "同上のうち、IFCRELCONTAINEDINSPATIALSTRUCTURE で直接ある空間に載っているものだけを数えた行数",
+   "pins": {}
+  },
+  {
+   "id": "element_no_adheres",
+   "answer": 609,
+   "ask": "物理要素の行数から、付着関係（IFCRELADHERESTOELEMENT）でしか空間に繋がっていないものを除いた行数",
+   "pins": {
+    "adheres_container": "drop"
+   }
+  },
+  {
+   "id": "element_no_feature",
+   "answer": 589,
+   "ask": "物理要素の行数から IFCSURFACEFEATURE を除いた行数",
+   "pins": {}
+  },
+  {
+   "id": "property_owner_physical_split",
+   "answer": 308,
+   "pins": {
+    "property_owner": "physical"
+   },
+   "ask": "**物理要素に付いた**性能仕様の行数。直接付いたものと型経由で付いたものを別の行として数える"
+  },
+  {
+   "id": "property_owner_physical_merged",
+   "answer": 306,
+   "pins": {
+    "property_owner": "physical"
+   },
+   "ask": "**物理要素に付いた**性能仕様のうち、同じファイル・同じ要素・同じ Pset 名・同じ属性名のものを1行にまとめたときの行数"
+  },
+  {
+   "id": "property_owner_any_split",
+   "answer": 324,
+   "pins": {
+    "property_owner": "any"
+   },
+   "ask": "**所有者の種類を問わず**、全ての性能仕様の行数。直接付いたものと型経由で付いたものを別の行として数える"
+  },
+  {
+   "id": "property_owner_any_merged",
+   "answer": 322,
+   "pins": {
+    "property_owner": "any"
+   },
+   "ask": "**所有者の種類を問わず**、全ての性能仕様のうち、同じファイル・同じ要素・同じ Pset 名・同じ属性名のものを1行にまとめたときの行数"
+  },
+  {
+   "id": "quantity_all",
+   "answer": 250,
+   "pins": {},
+   "ask": "数量（IfcQuantity*）の行数。**所有者の種類を問わず**、17ファイル全体で数える"
+  }
+ ]
+}
