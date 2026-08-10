@@ -5,13 +5,42 @@ type: software
 title: "bim-bench: AIは BIM モデルの空間構造をどこまで読めるか"
 
 abstract: >-
-  A benchmark measuring how far large language models can read the spatial structure of a building from IFC: the site-building-storey-space hierarchy, which elements belong to which storey, and the quantities attached to them.
-  
-  IFC is a graph, not a drawing, so the questions have exact answers that a parser can confirm. The corpus is buildingSMART's own Sample-Test-Files, published under CC BY 4.0 and bundled here with attribution.
-  
-  Principal finding: accuracy and cost separate in opposite directions. Arm B (no code execution) reached 235/255 on element attribution at 372k tokens and 36 minutes; arm C (Python permitted) reached 255/255 at 99k tokens and 9 minutes — better on every axis at roughly a quarter of the cost. Arm C additionally declined to trust a quantity field it could not verify, and derived the volumes independently.
+  A benchmark measuring how far large language models can read IFC: the spatial hierarchy, which
+  elements belong to which space, the quantities and property sets attached to them, planted defects,
+  and — in the latest task — corpus-wide counts under precisely stated counting rules. Two arms differ
+  only in tooling: arm B may read files but not execute code; arm C may write its own parser but may
+  not use any IFC library. The corpus is buildingSMART's Sample-Test-Files (CC BY 4.0).
 
-  IFC に入っている空間構造・要素の所属・数量を読み取る能力を測る。コード実行を許した腕が、点数でもコストでも上回った。
+  v1.1.0 retracts the headline finding of v1.0.0. That version reported that the code-executing arm was
+  "better on every axis". Repeated measurement does not support it. Across five tasks the two arms reach
+  the same accuracy whenever the measurement itself holds up; what separates them is cost.
+
+  The retraction has a second, sharper part. Task T004 appeared to separate the arms by 35.7 points.
+  External review showed its grader awarded a perfect score to an answer written without opening a single
+  file, and that the grader and task text had both been rewritten after the answers were read — the
+  revision moved the pilot scores by more than the arm gap it was said to reveal. T004 is therefore
+  reported as a failed measurement, not as a result.
+
+  T005 rebuilds the task so those failure modes cannot recur: the counting questions are named by the
+  author rather than elicited, so no answer-to-reference matching is needed; no entity identifiers are
+  submitted, so padding cannot help; scoring is exact-match only; and an information-free baseline is a
+  standing adversarial case (it scores 1.6/100 against the reference solution's 100.0). Task, reference,
+  grader and adversarial suite were committed before the arms ran and were not touched afterwards, even
+  when the runs exposed a genuine ambiguity in two of the eleven questions.
+
+  Result on T005, three runs per arm: both arms reach 11/11. Every run that lost points lost the same
+  two questions, and every such run gave the same alternative answer — an interpretive fork in the
+  author's task text, which five of six runs flagged independently. Cost, by contrast, differs by at
+  least a factor of 19.6, and that figure is a lower bound because arm B's subagent usage is only
+  partially recoverable.
+
+  Known limitation: the two arms were not run under identical conditions. Arm B's session lacked the
+  read-only search tools its prompt promised, so it paged roughly 2.5M tokens with a plain file reader.
+  It still reached 11/11.
+
+  IFC の読解を測るベンチマーク。v1.0.0 の主要結論「コード実行を許した腕が全ての軸で上回った」を撤回する。
+  測定が成立している限り到達範囲では分離せず、分かれるのはコストだけだった。
+  35.7点差を示したとされた課題は、何も読まない答案に満点を出す採点器によるもので、失敗した測定として報告する。
 
 authors:
   - family-names: "Ohkubo"
@@ -19,12 +48,12 @@ authors:
     affiliation: "Allfesta Corp."
     orcid: "https://orcid.org/0009-0007-8300-0039"
 
-version: "1.0.0"
-date-released: "2026-08-08"
+version: "1.1.0"
+date-released: "2026-08-10"
 license: MIT
 
-# この版（v1.0.0）を指す DOI
-doi: "10.5281/zenodo.21847250"
+# この版（v1.1.0）を指す DOI。リリース後に Zenodo が発行した値へ差し替える。
+doi: "PENDING-v1.1.0"
 
 identifiers:
   - type: doi
@@ -32,12 +61,15 @@ identifiers:
     description: "Concept DOI — 常に最新版に解決する。版を問わず引用する場合はこちら。"
   - type: doi
     value: "10.5281/zenodo.21847250"
-    description: "Version DOI — v1.0.0 を指す。再現性を担保する場合はこちら。"
+    description: "Version DOI — v1.0.0。**主要結論を v1.1.0 で撤回済み。**引用しないこと。"
 url: "https://github.com/allfestaboss/bim-bench"
 repository-code: "https://github.com/allfestaboss/bim-bench"
 
 keywords:
   - LLM benchmark
+  - retraction
+  - benchmark validity
+  - null result
   - IFC
   - BIM
   - buildingSMART
