@@ -20,4 +20,8 @@
   [T002] ifc4x3/Building-Architecture.ifc       OK
   [T003] injected/A-Building-Architecture.ifc   OK
 
+=== 課題文と参照解の設問 ===
+  [T005] 設問11問 / 解答様式11欄 OK
+  [T006] 設問13問 / 解答様式13欄 OK
+
 較正: OK（手読みと一致）

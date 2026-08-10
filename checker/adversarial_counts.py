@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""数え上げ課題（T005）の採点器を試す。
+"""数え上げ課題（T005 / T006）の採点器を試す。
+
+    python3 checker/adversarial_counts.py T006
 
 T004 は「中身ゼロの答案が満点を取る」ことに公開直前まで気づかなかった。
 原因は、敵対テストの全ケースが**参照解を摂動して**作られていたこと。
@@ -23,8 +25,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-TASK = ROOT / "tasks" / "T005" / "task.json"
-REF = ROOT / "reference" / "T005.json"
+TASK_ID = sys.argv[1] if len(sys.argv) > 1 else "T005"
+TASK = ROOT / "tasks" / TASK_ID / "task.json"
+REF = ROOT / "reference" / f"{TASK_ID}.json"
 
 
 def score(name: str, payload) -> dict:
@@ -44,46 +47,48 @@ def main() -> int:
     full = {q["id"]: q["answer"] for q in qs}
     failures = 0
 
-    r = score("_calib_t005", {"task": "T005", "answers": full})
+    lo = TASK_ID.lower()
+    r = score(f"_calib_{lo}", {"task": TASK_ID, "answers": full})
     ok = abs(r["score"] - 100.0) < 1e-9
     print(f"[{'OK' if ok else 'NG'}] 較正: 参照解 {r['score']:.1f}/100")
     failures += 0 if ok else 1
 
-    broken = json.dumps({"task": "T005", "answers": full}, ensure_ascii=False)
-    r = score("evil_malformed_t005", broken.replace(",", "", 1))
+    broken = json.dumps({"task": TASK_ID, "answers": full}, ensure_ascii=False)
+    r = score(f"evil_malformed_{lo}", broken.replace(",", "", 1))
     ok = r["score"] < 100.0
     print(f"[{'OK' if ok else 'NG'}] malformed: {r['score']:.1f}  ← 満点になってはいけない")
     failures += 0 if ok else 1
 
     # **何も読まずに書ける答案は、10点未満でなければならない。**
+    biggest = max(q["answer"] for q in qs)
     voids = {
-        "void_zero": {i: 0 for i in ids},
-        "void_empty": {},
-        "void_mode": {i: 629 for i in ids},
-        "void_plausible": {i: 200 for i in ids},
+        f"void_zero_{lo}": {i: 0 for i in ids},
+        f"void_empty_{lo}": {},
+        f"void_mode_{lo}": {i: biggest for i in ids},
+        f"void_plausible_{lo}": {i: 200 for i in ids},
     }
     for name, ans in voids.items():
-        r = score(name, {"task": "T005", "answers": ans})
+        r = score(name, {"task": TASK_ID, "answers": ans})
         ok = r["score"] < 10.0
         print(f"[{'OK' if ok else 'NG'}] {name}: {r['score']:.1f}/100  ← 10点未満であるべき")
         failures += 0 if ok else 1
 
     near = dict(full)
     near[ids[0]] = full[ids[0]] + 1
-    r = score("near_miss", {"task": "T005", "answers": near})
+    r = score(f"near_miss_{lo}", {"task": TASK_ID, "answers": near})
     ok = r["score"] < 100.0
     print(f"[{'OK' if ok else 'NG'}] near_miss(1ずれ): {r['score']:.1f}/100  ← 満点は不可")
     failures += 0 if ok else 1
 
     half = {i: full[i] for i in ids[: len(ids) // 2]}
-    r = score("half", {"task": "T005", "answers": half})
+    r = score(f"half_{lo}", {"task": TASK_ID, "answers": half})
     ok = 0.0 < r["score"] < 100.0
     print(f"[{'OK' if ok else 'NG'}] half(半分だけ): {r['score']:.1f}/100  ← 部分点であるべき")
     failures += 0 if ok else 1
 
     total = 8
     print()
-    print(f"敵対テスト: {total - failures}/{total} 通過")
+    print(f"敵対テスト({TASK_ID}): {total - failures}/{total} 通過")
     return 1 if failures else 0
 
 

@@ -1,0 +1,16 @@
+{
+ "task": "T006",
+ "note": "腕を走らせる前に凍結した。硬の鍵が動いたら、答案の点数は測定ではなく改訂の産物である。",
+ "hard": {
+  "tasks/T006/task.json": "de22fafa990433d2511435dce146ee0a62d3e339143685d783c6e0b0cfc4fee4",
+  "reference/T006.json": "ae6fb388aeb8dfd5f6b543baa602f62782698c89fc6cb9792941978beb59c423",
+  "arms/T006.md": "cae614a92c5b73a72d9ad34e365d0084694339226482861282f93dccf30784ff"
+ },
+ "soft": {
+  "bench/check.py": "4610a31a761ef20d5b1147d62b5d7d5456e6cf0acb1ad9d72b85783090aa2448",
+  "bench/counts.py": "9e5747ddd5c85629a3afa8f2a312840b65c136e8db5c72a2ad22ff7cee9ebae3",
+  "bench/probe.py": "a1870d9e30b9c5b74324db5dfa2dd3b8543e52ff342d576a79652540a970d7a2",
+  "bench/selfcheck.py": "1d6104693673a5fae38e1e111869fe1dad09af86916ade2f05a39d67e52e7421",
+  "checker/adversarial_counts.py": "76b1e987464b5876d8082f12bf19b6327a9f1acf669153797ef2909159a5e29d"
+ }
+}

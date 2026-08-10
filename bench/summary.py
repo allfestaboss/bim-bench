@@ -38,9 +38,10 @@ def render(task_id: str) -> int:
     work = costmod.workload(task_id)
     units = work["tolerances"]
 
-    if not work["files"] and units:   # 「決まらない箇所」の課題
-        head = (f"== {task_id} ==  17ファイル / "
-                + ("設問" if task_id == "T005" else "決まらない箇所") + str(units))
+    if not work["files"] and units:   # 「決まらない箇所」または数え上げの課題
+        ref = json.loads((ROOT / "reference" / f"{task_id}.json").read_text(encoding="utf-8"))
+        kind = "設問" if "questions" in ref else "決まらない箇所"
+        head = f"== {task_id} ==  17ファイル / {kind}{units}"
     else:
         head = (f"== {task_id} ==  {work['files']}ファイル / 空間{work['spatials']} 要素{units}"
                 f" 数量{work['quantities']} 性能仕様{work.get('properties', 0)}"

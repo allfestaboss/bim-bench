@@ -134,6 +134,39 @@ def _example_provenance() -> bool:
     return good
 
 
+def _question_parity() -> bool:
+    """数え上げ課題で、課題文の設問と参照解の設問が**一字一句そろっているか**。
+
+    T005 の欠陥はここから入る種類のものだった。課題文は参照解の関数ではないので、
+    採点器・較正・敵対テストのどれもこの食い違いを見ていない。
+    id と文面と解答様式の3つを突き合わせて、ずれたら較正を落とす。
+    """
+    import json as _json
+    good = True
+    print()
+    print("=== 課題文と参照解の設問 ===")
+    for tdir in sorted((ROOT / "tasks").iterdir()):
+        tf, rf = tdir / "task.json", ROOT / "reference" / f"{tdir.name}.json"
+        if not tf.exists() or not rf.exists():
+            continue
+        task = _json.loads(tf.read_text(encoding="utf-8"))
+        ref = _json.loads(rf.read_text(encoding="utf-8"))
+        if "questions" not in task or "questions" not in ref:
+            continue
+        tq = [(q["id"], q["ask"]) for q in task["questions"]]
+        rq = [(q["id"], q["ask"]) for q in ref["questions"]]
+        fmt = list((task.get("answer_format", {}).get("answers") or {}).keys())
+        bad = []
+        if tq != rq:
+            bad.append("設問が参照解と一致しない")
+        if fmt != [i for i, _ in rq]:
+            bad.append("解答様式が全設問を並べていない")
+        print(f"  [{tdir.name}] 設問{len(tq)}問 / 解答様式{len(fmt)}欄 "
+              f"{'OK' if not bad else '<-- NG ' + ' / '.join(bad)}")
+        good = good and not bad
+    return good
+
+
 def main() -> int:
     ok = True
     print("=== 較正 ===")
@@ -181,6 +214,7 @@ def main() -> int:
     print(f"  {'最大の深さ':<16} 手={b['max_depth']:<26} 抽出={got_depth:<26} {'' if good else '<-- NG'}")
 
     ok = _example_provenance() and ok
+    ok = _question_parity() and ok
 
     print()
     print("較正:", "OK（手読みと一致）" if ok else "NG（不一致あり）")

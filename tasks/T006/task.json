@@ -1,0 +1,150 @@
+{
+ "id": "T006",
+ "title": "IFC を定められた数え方で数える — 17ファイル横断（T005 の課題文の欠陥を1件直したもの）",
+ "note": "**T005 の再出題である。**T005 は測定としては成立したが、性能仕様の2問に出題側の欠陥が1件あった。性能仕様が付く先は物理要素とは限らないのに、**どこまでを数えるかを課題文が決めていなかった。**物理要素に限れば 308/306、所有者を問わなければ 324/322 で、どちらも規則から導ける。T005 の6走中5走が独立にこれを申告している。**T005 は直していない。**答案を見てから課題文を書き換えるのは、T004 を撤回に追い込んだ失敗そのものだからである。欠陥は T005 に保存し、ここで設問を割る。T005 との差は性能仕様の2問を4問に割った点だけで、他の9問は文面も答えも同一である。**これは腕の優劣を測る課題ではない。**欠陥が課題文だけの問題だったなら両腕とも13問全てに到達するはずで、到達しなければこちらの診断が間違っていたことになる。**規格の解釈は問わない。**下の定義どおりに17ファイルを数え切れるかだけを問う。",
+ "files": [
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Building-Architecture.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Building-Hvac.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Building-Landscaping.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Building-Structural.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Infra-Bridge.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Infra-Plumbing.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Infra-Rail.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4x3/Infra-Road.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Building-Architecture.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Building-Hvac.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Building-Landscaping.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Building-Structural.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Bridge.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Landscaping.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Plumbing.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Rail.ifc"
+  },
+  {
+   "path": "corpus/buildingsmart/ifc4/Infra-Road.ifc"
+  }
+ ],
+ "asked": [
+  "下の各設問について、17ファイル全体での行数を整数で答えよ"
+ ],
+ "rules": [
+  "答えは17ファイルの合計。ファイルごとの内訳は要らない",
+  "**採点は完全一致のみ。** 惜しい値に部分点は無い。1でもずれたらその設問は0点",
+  "分からない設問は答えなくてよい（未回答は0点。**当てずっぽうで埋めても期待値は上がらない**）",
+  "空間構造の実体とは IFCPROJECT / IFCSITE / IFCBUILDING / IFCBUILDINGSTOREY / IFCSPACE / IFCSPATIALZONE および IFC4.3 のインフラ空間型（IFCBRIDGE, IFCBRIDGEPART, IFCROAD, IFCROADPART, IFCRAILWAY, IFCRAILWAYPART, IFCFACILITY, IFCFACILITYPART 等）を指す",
+  "物理要素とは IfcElement の下位型を指す。IFCZONE / IFCGROUP / IFCSYSTEM / IFCDISTRIBUTIONSYSTEM / IFC***TYPE / IFCANNOTATION / IFCGRID / IFCDISTRIBUTIONPORT は含めない。空間構造の実体も物理要素には数えない",
+  "要素の所属の経路は3通りある。(1) IFCRELCONTAINEDINSPATIALSTRUCTURE で直接、(2) IFCRELAGGREGATES で他の要素の部品になっており、その親が空間に載っている、(3) IFCRELADHERESTOELEMENT で他の要素に貼り付いており、その母体が空間に載っている",
+  "性能仕様は IFCPROPERTYSET の中の属性を指す。IFCPROPERTYSINGLEVALUE と IFCPROPERTYENUMERATEDVALUE の両方を数える。IFCELEMENTQUANTITY は含めない",
+  "性能仕様は要素に2通りで付く。直接は IFCRELDEFINESBYPROPERTIES、型経由は IFCRELDEFINESBYTYPE が指す型の HasPropertySets。同じ属性が両経路から付くことがある",
+  "**性能仕様が付く先は物理要素とは限らない。** 空間構造の実体や IFCZONE などにも付く。どこまでを数えるかは設問ごとに文面で指定する。指定の無い数え方は問わない",
+  "数量は IFCQUANTITYLENGTH / AREA / VOLUME / COUNT / WEIGHT / TIME を指す。IFCELEMENTQUANTITY は入れ物なので数えない",
+  "数量が付く先は所有者の種類を問わず全て数える",
+  "同じ基底名のファイルが2つのスキーマ版に存在する。**両方を別のファイルとして数える**"
+ ],
+ "grade_levels": [
+  "Q10"
+ ],
+ "questions": [
+  {
+   "id": "spatial_all",
+   "ask": "IFCPROJECT を含め、空間構造の実体を全て数えたときの行数"
+  },
+  {
+   "id": "spatial_no_project",
+   "ask": "同上から IFCPROJECT を除いた行数"
+  },
+  {
+   "id": "spatial_depth0",
+   "ask": "親を持たない空間（深さ0）の行数。包含関係で他の空間の下に置かれている空間は、置かれ先を親として扱う"
+  },
+  {
+   "id": "spatial_depth0_aggregate_only",
+   "ask": "同上だが、親は集約関係（IFCRELAGGREGATES）でのみ決まるとしたときの行数"
+  },
+  {
+   "id": "element_all",
+   "ask": "物理要素の行数。集約の親も部品も、付着している要素も、全て1行として数える"
+  },
+  {
+   "id": "element_direct_only",
+   "ask": "同上のうち、IFCRELCONTAINEDINSPATIALSTRUCTURE で直接ある空間に載っているものだけを数えた行数"
+  },
+  {
+   "id": "element_no_adheres",
+   "ask": "物理要素の行数から、付着関係（IFCRELADHERESTOELEMENT）でしか空間に繋がっていないものを除いた行数"
+  },
+  {
+   "id": "element_no_feature",
+   "ask": "物理要素の行数から IFCSURFACEFEATURE を除いた行数"
+  },
+  {
+   "id": "property_owner_physical_split",
+   "ask": "**物理要素に付いた**性能仕様の行数。直接付いたものと型経由で付いたものを別の行として数える"
+  },
+  {
+   "id": "property_owner_physical_merged",
+   "ask": "**物理要素に付いた**性能仕様のうち、同じファイル・同じ要素・同じ Pset 名・同じ属性名のものを1行にまとめたときの行数"
+  },
+  {
+   "id": "property_owner_any_split",
+   "ask": "**所有者の種類を問わず**、全ての性能仕様の行数。直接付いたものと型経由で付いたものを別の行として数える"
+  },
+  {
+   "id": "property_owner_any_merged",
+   "ask": "**所有者の種類を問わず**、全ての性能仕様のうち、同じファイル・同じ要素・同じ Pset 名・同じ属性名のものを1行にまとめたときの行数"
+  },
+  {
+   "id": "quantity_all",
+   "ask": "数量（IfcQuantity*）の行数。**所有者の種類を問わず**、17ファイル全体で数える"
+  }
+ ],
+ "answer_format": {
+  "task": "T006",
+  "answers": {
+   "spatial_all": 0,
+   "spatial_no_project": 0,
+   "spatial_depth0": 0,
+   "spatial_depth0_aggregate_only": 0,
+   "element_all": 0,
+   "element_direct_only": 0,
+   "element_no_adheres": 0,
+   "element_no_feature": 0,
+   "property_owner_physical_split": 0,
+   "property_owner_physical_merged": 0,
+   "property_owner_any_split": 0,
+   "property_owner_any_merged": 0,
+   "quantity_all": 0
+  }
+ }
+}
