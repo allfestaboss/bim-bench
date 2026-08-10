@@ -1,3 +1,19 @@
+=== T005 所有者の範囲による揺れ ===
+[NG] property_all                     答= 324  (any=324 / physical=308)  **動くのに文面が範囲を決めていない**
+[NG] property_merged                  答= 322  (any=322 / physical=306)  **動くのに文面が範囲を決めていない**
+[OK] quantity_all                     答= 250  (any=250 / physical=250)  不変（範囲を問わず同じ）
+
+既知の欠陥 2件を検出（この検査自身の較正）: property_all / property_merged
+
+=== T006 所有者の範囲による揺れ ===
+[OK] property_owner_physical_split    答= 308  (any=324 / physical=308)  動くが文面が範囲を名指ししている
+[OK] property_owner_physical_merged   答= 306  (any=322 / physical=306)  動くが文面が範囲を名指ししている
+[OK] property_owner_any_split         答= 324  (any=324 / physical=308)  動くが文面が範囲を名指ししている
+[OK] property_owner_any_merged        答= 322  (any=322 / physical=306)  動くが文面が範囲を名指ししている
+[OK] quantity_all                     答= 250  (any=250 / physical=250)  不変（範囲を問わず同じ）
+
+欠陥なし。範囲が動く設問は全て文面で名指ししている。
+
 === T007 所有者の範囲による揺れ ===
 [OK] property_owner_physical_split    答= 308  (any=324 / physical=308)  動くが文面が範囲を名指ししている
 [OK] property_owner_physical_merged   答= 306  (any=322 / physical=306)  動くが文面が範囲を名指ししている

@@ -1,0 +1,18 @@
+{
+  "task": "T007",
+  "answers": {
+    "spatial_all": 227,
+    "spatial_no_project": 210,
+    "spatial_depth0": 17,
+    "spatial_depth0_aggregate_only": 19,
+    "element_all": 628,
+    "element_direct_only": 551,
+    "element_no_adheres": 608,
+    "element_no_feature": 588,
+    "property_owner_physical_split": 308,
+    "property_owner_physical_merged": 306,
+    "property_owner_any_split": 324,
+    "property_owner_any_merged": 322,
+    "quantity_all": 250
+  }
+}
