@@ -53,15 +53,15 @@ date-released: "2026-08-12"
 license: MIT
 
 # この版（v1.1.0）を指す DOI
-doi: "10.5281/zenodo.21873260"
+doi: "10.5281/zenodo.21896730"
 
 identifiers:
   - type: doi
     value: "10.5281/zenodo.21847249"
     description: "Concept DOI — 常に最新版に解決する。版を問わず引用する場合はこちら。"
   - type: doi
-    value: "10.5281/zenodo.21873260"
-    description: "Version DOI — v1.1.0 を指す。再現性を担保する場合はこちら。"
+    value: "10.5281/zenodo.21896730"
+    description: "Version DOI — v1.2.1 を指す。再現性を担保する場合はこちら。"
   - type: doi
     value: "10.5281/zenodo.21847250"
     description: "Version DOI — v1.0.0。**主要結論を v1.1.0 で撤回済み。**引用しないこと。"
