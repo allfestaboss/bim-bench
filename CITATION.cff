@@ -48,8 +48,8 @@ authors:
     affiliation: "Allfesta Corp."
     orcid: "https://orcid.org/0009-0007-8300-0039"
 
-version: "1.2.0"
-date-released: "2026-08-10"
+version: "1.2.1"
+date-released: "2026-08-12"
 license: MIT
 
 # この版（v1.1.0）を指す DOI
