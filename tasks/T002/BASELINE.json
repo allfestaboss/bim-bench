@@ -1,0 +1,25 @@
+{
+ "task": "T002",
+ "kind": "**事後記録であって凍結ではない。**過去を保証しない。これから先の改変を検出できるようにするだけである",
+ "note": "答案が既にある状態で押した。**この記録は点数が測定であることを証明しない。**今後この課題が黙って書き換わることだけを防ぐ。",
+ "answers_at_record": [
+  "armB.json",
+  "armC.json"
+ ],
+ "hard": {
+  "tasks/T002/task.json": "56f05668abd5af4f89325457c85d8fd1db72bd0bcceb17673f8f6670b4ec4e9a",
+  "reference/T002.json": "15952f401a77d6e04197f15a6c90cda9878afa0a80161494f1e5a48e59e07094"
+ },
+ "soft": {
+  "bench/check.py": "4610a31a761ef20d5b1147d62b5d7d5456e6cf0acb1ad9d72b85783090aa2448",
+  "bench/counts.py": "f261e4b6e3ebf7b0adc5af7705bb84ef4cf4142acde2ca081fcbd827eead3a87",
+  "bench/probe.py": "a1870d9e30b9c5b74324db5dfa2dd3b8543e52ff342d576a79652540a970d7a2",
+  "bench/leak.py": "38147c177d448bd5e17efc5d04bd0ccdaa3b0286a853b10d5d6293a9be9599b7",
+  "bench/selfcheck.py": "1d6104693673a5fae38e1e111869fe1dad09af86916ade2f05a39d67e52e7421",
+  "checker/adversarial_counts.py": "76b1e987464b5876d8082f12bf19b6327a9f1acf669153797ef2909159a5e29d"
+ },
+ "missing_at_record": [
+  "arms/T002.md"
+ ],
+ "arms_prompt_recorded": false
+}
